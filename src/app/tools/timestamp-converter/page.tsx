@@ -1,134 +1,231 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Copy, Check, Clock } from "lucide-react";
+import { 
+  Clock, 
+  Copy, 
+  Check, 
+  Calendar, 
+  Timer, 
+  ArrowRightLeft, 
+  ArrowDown, 
+  ArrowUp,
+  RefreshCcw,
+  Globe,
+  Info
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function TimestampConverter() {
-  const [unixTimestamp, setUnixTimestamp] = useState("");
-  const [isoDate, setIsoDate] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [unixInput, setUnixInput] = useState("");
+  const [isoInput, setIsoInput] = useState("");
+  const [currentTime, setCurrentTime] = useState(Math.floor(Date.now() / 1000));
+  const [copied, setCopied] = useState<string | null>(null);
 
-  const convertToIso = () => {
-    const timestamp = parseInt(unixTimestamp);
-    if (isNaN(timestamp)) {
-      setIsoDate("Invalid timestamp");
-      return;
+  // Update current time every second
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(Math.floor(Date.now() / 1000));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleUnixChange = (val: string) => {
+    setUnixInput(val);
+    const ts = parseInt(val);
+    if (!isNaN(ts)) {
+      const date = new Date(ts * 1000);
+      setIsoInput(date.toISOString());
+    } else {
+      setIsoInput("");
     }
-    const date = new Date(timestamp * 1000);
-    setIsoDate(date.toISOString());
   };
 
-  const convertToUnix = () => {
-    const date = new Date(isoDate);
-    if (isNaN(date.getTime())) {
-      setUnixTimestamp("Invalid date");
-      return;
+  const handleIsoChange = (val: string) => {
+    setIsoInput(val);
+    const date = new Date(val);
+    if (!isNaN(date.getTime())) {
+      setUnixInput(Math.floor(date.getTime() / 1000).toString());
+    } else {
+      setUnixInput("");
     }
-    setUnixTimestamp(String(Math.floor(date.getTime() / 1000)));
   };
 
-  const getCurrentTimestamp = () => {
+  const setNow = () => {
     const now = Math.floor(Date.now() / 1000);
-    setUnixTimestamp(String(now));
-    convertToIso();
+    handleUnixChange(now.toString());
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copy = (val: string, id: string) => {
+    if (!val) return;
+    navigator.clipboard.writeText(val);
+    setCopied(id);
+    setTimeout(() => setCopied(null), 2000);
   };
+
+  const dateObj = !isNaN(parseInt(unixInput)) ? new Date(parseInt(unixInput) * 1000) : null;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Timestamp Converter</h1>
-        <p className="text-muted-foreground">Convert Unix timestamps to readable dates</p>
+    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
+          <Clock className="w-6 h-6" />
+        </div>
+        <div className="space-y-0.5">
+          <h1 className="text-2xl font-bold tracking-tight">Timestamp Converter</h1>
+          <p className="text-sm text-muted-foreground">
+            Convert between Unix timestamps and human-readable dates instantly.
+          </p>
+        </div>
       </div>
 
-      <div className="max-w-2xl space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Unix to ISO Date</CardTitle>
-            <CardDescription>Convert Unix timestamp to ISO 8601 format</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="unix">Unix Timestamp</Label>
-              <div className="flex gap-2 mt-2">
-                <Input
-                  id="unix"
-                  placeholder="e.g., 1715956800"
-                  value={unixTimestamp}
-                  onChange={(e) => setUnixTimestamp(e.target.value)}
-                />
-                <Button onClick={getCurrentTimestamp} variant="outline" size="icon">
-                  <Clock className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-            <Button onClick={convertToIso} className="w-full">
-              Convert to ISO Date
-            </Button>
-            {isoDate && (
-              <div>
-                <Label>ISO Date</Label>
-                <div className="flex gap-2 mt-2">
-                  <Input readOnly value={isoDate} />
-                  <Button
-                    onClick={() => copyToClipboard(isoDate)}
-                    variant="outline"
-                    size="icon"
-                  >
-                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                  </Button>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="lg:col-span-7 space-y-6">
+          {/* Real-time Ticker */}
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-primary/5 border-primary/10 rounded-3xl overflow-hidden">
+            <CardContent className="p-6 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
+                  <Timer className="w-5 h-5 animate-pulse" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-primary/70">Current Unix Timestamp</p>
+                  <p className="text-2xl font-mono font-bold tracking-tighter text-primary">{currentTime}</p>
                 </div>
               </div>
-            )}
-          </CardContent>
-        </Card>
+              <Button 
+                onClick={setNow}
+                className="rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 font-bold"
+              >
+                Use Current Time
+              </Button>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>ISO Date to Unix</CardTitle>
-            <CardDescription>Convert ISO 8601 date to Unix timestamp</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="iso">ISO Date</Label>
-              <Input
-                id="iso"
-                placeholder="e.g., 2024-05-17T10:00:00.000Z"
-                value={isoDate}
-                onChange={(e) => setIsoDate(e.target.value)}
-                className="mt-2"
-              />
-            </div>
-            <Button onClick={convertToUnix} className="w-full">
-              Convert to Unix Timestamp
-            </Button>
-            {unixTimestamp && (
-              <div>
-                <Label>Unix Timestamp</Label>
-                <div className="flex gap-2 mt-2">
-                  <Input readOnly value={unixTimestamp} />
-                  <Button
-                    onClick={() => copyToClipboard(unixTimestamp)}
-                    variant="outline"
-                    size="icon"
+          {/* Unified Converter */}
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+            <CardContent className="p-8 space-y-10">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Unix Timestamp</Label>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className={cn("h-7 text-[10px] font-bold gap-1.5", copied === 'unix' && "text-green-500")}
+                    onClick={() => copy(unixInput, 'unix')}
                   >
-                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    {copied === 'unix' ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    Copy
                   </Button>
                 </div>
+                <div className="relative">
+                  <Input 
+                    placeholder="Enter seconds since Epoch (e.g. 1715956800)"
+                    value={unixInput}
+                    onChange={(e) => handleUnixChange(e.target.value)}
+                    className="h-16 px-6 rounded-2xl bg-muted/30 border-transparent focus:border-primary/20 text-2xl font-mono"
+                  />
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-muted-foreground/40">SECONDS</div>
+                </div>
               </div>
-            )}
-          </CardContent>
-        </Card>
+
+              <div className="flex justify-center relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-border/40" />
+                </div>
+                <div className="relative w-10 h-10 rounded-full bg-muted border border-border/40 flex items-center justify-center text-muted-foreground z-10 shadow-sm">
+                  <ArrowRightLeft className="w-4 h-4 rotate-90" />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">ISO 8601 Date</Label>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className={cn("h-7 text-[10px] font-bold gap-1.5", copied === 'iso' && "text-green-500")}
+                    onClick={() => copy(isoInput, 'iso')}
+                  >
+                    {copied === 'iso' ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    Copy
+                  </Button>
+                </div>
+                <Input 
+                  placeholder="YYYY-MM-DDTHH:mm:ss.sssZ"
+                  value={isoInput}
+                  onChange={(e) => handleIsoChange(e.target.value)}
+                  className="h-16 px-6 rounded-2xl bg-muted/30 border-transparent focus:border-primary/20 text-xl font-mono"
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="lg:col-span-5 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-primary" />
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Date Components</span>
+            </div>
+            <CardContent className="p-6">
+              {dateObj ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-2xl bg-muted/20 border border-border/20">
+                      <p className="text-[10px] font-bold uppercase text-muted-foreground/60 mb-1">Local Time</p>
+                      <p className="text-sm font-bold truncate">{dateObj.toLocaleString()}</p>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-muted/20 border border-border/20">
+                      <p className="text-[10px] font-bold uppercase text-muted-foreground/60 mb-1">UTC Time</p>
+                      <p className="text-sm font-bold truncate">{dateObj.toUTCString()}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    {[
+                      { label: "Year", value: dateObj.getFullYear() },
+                      { label: "Month", value: dateObj.toLocaleString('default', { month: 'long' }) },
+                      { label: "Day", value: dateObj.getDate() },
+                      { label: "Weekday", value: dateObj.toLocaleString('default', { weekday: 'long' }) },
+                      { label: "Time", value: dateObj.toLocaleTimeString() },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-center justify-between p-3 rounded-xl hover:bg-muted/30 transition-colors">
+                        <span className="text-xs font-medium text-muted-foreground">{item.label}</span>
+                        <span className="text-sm font-bold font-mono">{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="py-12 flex flex-col items-center justify-center text-center space-y-3 opacity-20">
+                  <Calendar className="w-12 h-12" />
+                  <p className="text-sm font-medium">Waiting for valid input...</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <div className="bg-primary/5 rounded-[2rem] p-6 border border-primary/10 space-y-4">
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-primary" />
+              <h3 className="font-bold text-xs uppercase tracking-wider text-primary">Timezone Info</h3>
+            </div>
+            <p className="text-[10px] text-muted-foreground leading-relaxed">
+              Unix time (also known as Epoch time) is a system for describing a point in time. It is the number of seconds that have elapsed since 00:00:00 UTC, Thursday, 1 January 1970.
+            </p>
+            <div className="pt-2 flex items-center justify-between text-[10px] font-bold text-primary/70 border-t border-primary/10 mt-2">
+              <span>Your Timezone:</span>
+              <span>{Intl.DateTimeFormat().resolvedOptions().timeZone}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
