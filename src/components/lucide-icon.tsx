@@ -62,6 +62,9 @@ import {
   Layers,
   Table,
   PenTool,
+  Tv,
+  GripVertical,
+  LayoutGrid,
   LucideProps
 } from "lucide-react";
 
@@ -128,7 +131,10 @@ const icons = {
   Activity,
   Layers,
   Table,
-  PenTool
+  PenTool,
+  Tv,
+  GripVertical,
+  LayoutGrid
 };
 
 export type IconName = keyof typeof icons;
