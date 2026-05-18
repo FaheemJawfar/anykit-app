@@ -100,11 +100,11 @@ export default function RootLayout({
 
                 <div className="mt-20 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6">
                   <p className="text-sm text-muted-foreground">
-                    © {new Date().getFullYear()} AnyKit. All rights reserved. Built with precision.
+                    © 2026 AnyKit. All rights reserved. Built with precision.
                   </p>
                   <div className="flex items-center gap-8 text-sm text-muted-foreground font-medium">
                     <span className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                      <div className="w-2 h-2 rounded-full bg-green-500" />
                       All Systems Operational
                     </span>
                     <span>v1.0.0</span>

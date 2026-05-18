@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -16,9 +17,14 @@ import { LucideIcon } from "@/components/lucide-icon";
 import { Button } from "@/components/ui/button";
 
 export function Sidebar() {
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get("category");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 border-r border-border/40 bg-card/30 backdrop-blur-xl">
@@ -45,7 +51,7 @@ export function Sidebar() {
               href="/"
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all group",
-                !currentCategory && pathname === "/"
+                mounted && !currentCategory && pathname === "/"
                   ? "bg-primary/10 text-primary"
                   : "text-muted-foreground hover:bg-accent hover:text-foreground"
               )}
@@ -59,7 +65,7 @@ export function Sidebar() {
                 href={`/?category=${category.id}`}
                 className={cn(
                   "flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium transition-all group",
-                  currentCategory === category.id 
+                  mounted && currentCategory === category.id 
                     ? "bg-primary/10 text-primary" 
                     : "text-muted-foreground hover:bg-accent hover:text-foreground"
                 )}
@@ -69,14 +75,14 @@ export function Sidebar() {
                     name={category.icon} 
                     className={cn(
                       "w-4 h-4 transition-transform group-hover:scale-110",
-                      currentCategory === category.id ? "text-primary" : "text-muted-foreground"
+                      mounted && currentCategory === category.id ? "text-primary" : "text-muted-foreground"
                     )} 
                   />
                   {category.name}
                 </div>
                 <ChevronRight className={cn(
                   "w-3 h-3 transition-transform opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0",
-                  currentCategory === category.id ? "opacity-100 translate-x-0" : ""
+                  mounted && currentCategory === category.id ? "opacity-100 translate-x-0" : ""
                 )} />
               </Link>
             ))}

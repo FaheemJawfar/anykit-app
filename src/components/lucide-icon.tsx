@@ -59,6 +59,8 @@ import {
   Mic,
   FileJson,
   Activity,
+  Layers,
+  Table,
   LucideProps
 } from "lucide-react";
 
@@ -122,7 +124,9 @@ const icons = {
   BarChart3,
   Mic,
   FileJson,
-  Activity
+  Activity,
+  Layers,
+  Table
 };
 
 export type IconName = keyof typeof icons;
