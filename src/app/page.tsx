@@ -2,10 +2,10 @@
 
 import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Navigation } from "@/components/navigation";
 import { ToolCard } from "@/components/tool-card";
 import { Button } from "@/components/ui/button";
 import { tools, getToolsByCategory, searchTools, categories } from "@/lib/tools";
+import { LucideIcon } from "@/components/lucide-icon";
 
 function HomeContent() {
   const searchParams = useSearchParams();
@@ -43,39 +43,14 @@ function HomeContent() {
 
   return (
     <div className="min-h-screen bg-background">
-      <main className="container mx-auto px-4 pb-20">
-        <section className="py-12 md:py-24 space-y-8">
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-              </span>
-              Simple. Secure. Free.
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
-              Magical tools for <br />
-              <span className="bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">your everyday tasks.</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              From resizing images to generating secure passwords, AnyKit provides easy-to-use tools that just work. No accounts, no tracking—just productivity.
-            </p>
-          </div>
-
-          <Navigation
-            onSearch={setSearchQuery}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-          />
-        </section>
-
+      <main className="container mx-auto px-4 py-8 md:py-12">
         <div className="space-y-8">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold flex items-center gap-3">
               {selectedCategoryData ? (
                 <>
-                  <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-muted text-2xl">
-                    {selectedCategoryData.icon}
+                  <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary">
+                    <LucideIcon name={selectedCategoryData.icon} className="w-6 h-6" />
                   </span>
                   {selectedCategoryData.name}
                 </>
