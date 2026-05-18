@@ -65,6 +65,11 @@ import {
   Tv,
   GripVertical,
   LayoutGrid,
+  Terminal,
+  TrendingUp,
+  Gauge,
+  FileSignature,
+  Bug,
   LucideProps
 } from "lucide-react";
 
@@ -134,7 +139,12 @@ const icons = {
   PenTool,
   Tv,
   GripVertical,
-  LayoutGrid
+  LayoutGrid,
+  Terminal,
+  TrendingUp,
+  Gauge,
+  FileSignature,
+  Bug
 };
 
 export type IconName = keyof typeof icons;
