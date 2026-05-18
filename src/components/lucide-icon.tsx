@@ -48,6 +48,17 @@ import {
   FileCode,
   Camera,
   Smile,
+  Mail,
+  ShieldEllipsis,
+  Sigma,
+  GitBranch,
+  Eye,
+  Wifi,
+  Thermometer,
+  BarChart3,
+  Mic,
+  FileJson,
+  Activity,
   LucideProps
 } from "lucide-react";
 
@@ -100,7 +111,18 @@ const icons = {
   Minimize2,
   FileCode,
   Camera,
-  Smile
+  Smile,
+  Mail,
+  ShieldEllipsis,
+  Sigma,
+  GitBranch,
+  Eye,
+  Wifi,
+  Thermometer,
+  BarChart3,
+  Mic,
+  FileJson,
+  Activity
 };
 
 export type IconName = keyof typeof icons;
