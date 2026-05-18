@@ -32,8 +32,23 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <div className="flex-1">{children}</div>
-        <footer className="border-t py-6 text-center text-sm text-muted-foreground">
-          <p>Built with Next.js and shadcn/ui</p>
+        <footer className="border-t border-border/50 bg-muted/30">
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                  <span className="text-xl">🛠️</span>
+                </div>
+                <span className="font-semibold">AnyKit</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                A collection of handy online tools for everyone
+              </p>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <span>Built with Next.js and shadcn/ui</span>
+              </div>
+            </div>
+          </div>
         </footer>
       </body>
     </html>

@@ -105,7 +105,7 @@ export default function PasswordGenerator() {
                 <Checkbox
                   id="uppercase"
                   checked={includeUppercase}
-                  onCheckedChange={setIncludeUppercase}
+                  onCheckedChange={(checked) => setIncludeUppercase(checked === true)}
                 />
                 <Label htmlFor="uppercase">Include Uppercase (A-Z)</Label>
               </div>
@@ -113,7 +113,7 @@ export default function PasswordGenerator() {
                 <Checkbox
                   id="lowercase"
                   checked={includeLowercase}
-                  onCheckedChange={setIncludeLowercase}
+                  onCheckedChange={(checked) => setIncludeLowercase(checked === true)}
                 />
                 <Label htmlFor="lowercase">Include Lowercase (a-z)</Label>
               </div>
@@ -121,7 +121,7 @@ export default function PasswordGenerator() {
                 <Checkbox
                   id="numbers"
                   checked={includeNumbers}
-                  onCheckedChange={setIncludeNumbers}
+                  onCheckedChange={(checked) => setIncludeNumbers(checked === true)}
                 />
                 <Label htmlFor="numbers">Include Numbers (0-9)</Label>
               </div>
@@ -129,7 +129,7 @@ export default function PasswordGenerator() {
                 <Checkbox
                   id="symbols"
                   checked={includeSymbols}
-                  onCheckedChange={setIncludeSymbols}
+                  onCheckedChange={(checked) => setIncludeSymbols(checked === true)}
                 />
                 <Label htmlFor="symbols">Include Symbols (!@#$%^&*)</Label>
               </div>

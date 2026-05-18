@@ -17,13 +17,17 @@ export function Navigation({ onSearch, selectedCategory, onCategoryChange }: Nav
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+    <nav className="border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-              <span className="text-2xl">🛠️</span>
-              <span>AnyKit</span>
+            <Link href="/" className="flex items-center gap-2 font-bold text-xl hover:opacity-80 transition-opacity">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                <span className="text-xl">🛠️</span>
+              </div>
+              <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                AnyKit
+              </span>
             </Link>
             
             <div className="hidden md:flex items-center gap-1">
@@ -31,8 +35,9 @@ export function Navigation({ onSearch, selectedCategory, onCategoryChange }: Nav
                 variant={selectedCategory === null ? "default" : "ghost"}
                 size="sm"
                 onClick={() => onCategoryChange(null)}
+                className="font-medium"
               >
-                All Tools
+                All
               </Button>
               {categories.map((category) => (
                 <Button
@@ -40,8 +45,9 @@ export function Navigation({ onSearch, selectedCategory, onCategoryChange }: Nav
                   variant={selectedCategory === category.id ? "default" : "ghost"}
                   size="sm"
                   onClick={() => onCategoryChange(category.id)}
+                  className="font-medium"
                 >
-                  <span className="mr-1">{category.icon}</span>
+                  <span className="mr-1.5">{category.icon}</span>
                   {category.name}
                 </Button>
               ))}
@@ -53,7 +59,7 @@ export function Navigation({ onSearch, selectedCategory, onCategoryChange }: Nav
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search tools..."
-                className="pl-10 w-64"
+                className="pl-10 w-64 bg-muted/50 border-border/50 focus:bg-background transition-colors"
                 onChange={(e) => onSearch(e.target.value)}
               />
             </div>
@@ -70,19 +76,19 @@ export function Navigation({ onSearch, selectedCategory, onCategoryChange }: Nav
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-4">
+          <div className="md:hidden pb-4 border-t border-border/50 pt-4">
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search tools..."
-                className="pl-10"
+                className="pl-10 bg-muted/50 border-border/50 focus:bg-background transition-colors"
                 onChange={(e) => onSearch(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-1">
               <Button
                 variant={selectedCategory === null ? "default" : "ghost"}
-                className="justify-start"
+                className="justify-start font-medium"
                 onClick={() => {
                   onCategoryChange(null);
                   setIsMobileMenuOpen(false);
@@ -94,7 +100,7 @@ export function Navigation({ onSearch, selectedCategory, onCategoryChange }: Nav
                 <Button
                   key={category.id}
                   variant={selectedCategory === category.id ? "default" : "ghost"}
-                  className="justify-start"
+                  className="justify-start font-medium"
                   onClick={() => {
                     onCategoryChange(category.id);
                     setIsMobileMenuOpen(false);
