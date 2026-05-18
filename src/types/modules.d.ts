@@ -4,3 +4,4 @@ declare module 'json-diff';
 declare module 'figlet/importable-fonts/*.js';
 declare module 'generate-json-schema';
 declare module 'cron-parser';
+declare module 'colorthief';

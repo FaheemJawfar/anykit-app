@@ -61,6 +61,7 @@ import {
   Activity,
   Layers,
   Table,
+  PenTool,
   LucideProps
 } from "lucide-react";
 
@@ -126,7 +127,8 @@ const icons = {
   FileJson,
   Activity,
   Layers,
-  Table
+  Table,
+  PenTool
 };
 
 export type IconName = keyof typeof icons;
