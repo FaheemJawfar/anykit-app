@@ -16,7 +16,9 @@ import {
   Globe,
   Lock,
   Server,
-  Activity
+  Activity,
+  Shield,
+  ArrowRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Address4 } from "ip-address";
@@ -35,7 +37,7 @@ export default function SubnetCalculator() {
       
       const startAddress = address.startAddress();
       const endAddress = address.endAddress();
-      const numHosts = address.numAddresses();
+      const numHosts = (address as any).numAddresses();
       
       setResults({
         network: startAddress.address,
