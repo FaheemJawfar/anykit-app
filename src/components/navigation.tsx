@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { categories } from "@/lib/tools";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Search, Menu, X } from "lucide-react";
 
@@ -14,106 +15,47 @@ interface NavigationProps {
 }
 
 export function Navigation({ onSearch, selectedCategory, onCategoryChange }: NavigationProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   return (
-    <nav className="border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                <span className="text-xl">🛠️</span>
-              </div>
-              <span className="bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-                AnyKit
-              </span>
-            </Link>
-            
-            <div className="hidden md:flex items-center gap-1">
-              <Button
-                variant={selectedCategory === null ? "default" : "ghost"}
-                size="sm"
-                onClick={() => onCategoryChange(null)}
-                className="font-medium"
-              >
-                All
-              </Button>
-              {categories.map((category) => (
-                <Button
-                  key={category.id}
-                  variant={selectedCategory === category.id ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => onCategoryChange(category.id)}
-                  className="font-medium"
-                >
-                  <span className="mr-1.5">{category.icon}</span>
-                  {category.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <div className="relative hidden sm:block">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search tools..."
-                className="pl-10 w-64 bg-muted/50 border-border/50 focus:bg-background transition-colors"
-                onChange={(e) => onSearch(e.target.value)}
-              />
-            </div>
-
+    <div className="py-8 space-y-8">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 p-1.5 bg-muted/50 rounded-2xl border border-border/50">
+          <Button
+            variant={selectedCategory === null ? "default" : "ghost"}
+            size="sm"
+            onClick={() => onCategoryChange(null)}
+            className={cn(
+              "rounded-xl font-medium px-4",
+              selectedCategory === null ? "shadow-md shadow-primary/10" : "text-muted-foreground"
+            )}
+          >
+            All Tools
+          </Button>
+          {categories.map((category) => (
             <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              key={category.id}
+              variant={selectedCategory === category.id ? "default" : "ghost"}
+              size="sm"
+              onClick={() => onCategoryChange(category.id)}
+              className={cn(
+                "rounded-xl font-medium px-4",
+                selectedCategory === category.id ? "shadow-md shadow-primary/10" : "text-muted-foreground"
+              )}
             >
-              {isMobileMenuOpen ? <X /> : <Menu />}
+              <span className="mr-2">{category.icon}</span>
+              {category.name}
             </Button>
-          </div>
+          ))}
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-border/50 pt-4">
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search tools..."
-                className="pl-10 bg-muted/50 border-border/50 focus:bg-background transition-colors"
-                onChange={(e) => onSearch(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <Button
-                variant={selectedCategory === null ? "default" : "ghost"}
-                className="justify-start font-medium"
-                onClick={() => {
-                  onCategoryChange(null);
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                All Tools
-              </Button>
-              {categories.map((category) => (
-                <Button
-                  key={category.id}
-                  variant={selectedCategory === category.id ? "default" : "ghost"}
-                  className="justify-start font-medium"
-                  onClick={() => {
-                    onCategoryChange(category.id);
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  <span className="mr-2">{category.icon}</span>
-                  {category.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="relative w-full md:w-72 lg:w-96 group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+          <Input
+            placeholder="Search through 100+ tools..."
+            className="pl-11 pr-4 h-12 bg-muted/30 border-border/50 rounded-2xl focus:bg-background focus:ring-4 focus:ring-primary/5 transition-all"
+            onChange={(e) => onSearch(e.target.value)}
+          />
+        </div>
       </div>
-    </nav>
+    </div>
   );
 }

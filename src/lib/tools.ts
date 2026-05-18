@@ -6,6 +6,7 @@ export interface Tool {
   icon: string;
   path: string;
   tags?: string[];
+  isNew?: boolean;
 }
 
 export interface Category {
@@ -201,6 +202,7 @@ export const tools: Tool[] = [
     icon: '📱',
     path: '/tools/qr-generator',
     tags: ['qr', 'generate', 'code'],
+    isNew: true,
   },
   {
     id: 'image-resize',
@@ -210,6 +212,7 @@ export const tools: Tool[] = [
     icon: '🖼️',
     path: '/tools/image-resize',
     tags: ['image', 'resize', 'edit'],
+    isNew: true,
   },
 ];
 
