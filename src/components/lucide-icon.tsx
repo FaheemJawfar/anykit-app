@@ -70,6 +70,9 @@ import {
   Gauge,
   FileSignature,
   Bug,
+  Barcode,
+  Pipette,
+  SlidersHorizontal,
   LucideProps
 } from "lucide-react";
 
@@ -144,7 +147,10 @@ const icons = {
   TrendingUp,
   Gauge,
   FileSignature,
-  Bug
+  Bug,
+  Barcode,
+  Pipette,
+  SlidersHorizontal
 };
 
 export type IconName = keyof typeof icons;
