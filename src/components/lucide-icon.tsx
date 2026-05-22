@@ -88,7 +88,13 @@ import {
   Binary,
   Unlock,
   History,
-  Box
+  Box,
+  Zap,
+  Crop,
+  Stamp,
+  Contrast,
+  Heading,
+  Info
 } from "lucide-react";
 
 const icons = {
@@ -176,11 +182,17 @@ const icons = {
   FilePlus,
   Globe,
   FileImage,
+  Zap,
+  Crop,
+  Stamp,
+  Contrast,
+  Heading,
   Play,
   Binary,
   Unlock,
   History,
-  Box
+  Box,
+  Info
 };
 
 export type IconName = keyof typeof icons;
