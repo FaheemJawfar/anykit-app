@@ -18,6 +18,12 @@ export interface Category {
 
 export const categories: Category[] = [
   {
+    id: 'pdf',
+    name: 'PDF Tools',
+    description: 'Create, edit, and manage PDF documents',
+    icon: 'FileText',
+  },
+  {
     id: 'developer',
     name: 'Developer Tools',
     description: 'Tools for developers and programmers',
@@ -68,6 +74,88 @@ export const categories: Category[] = [
 ];
 
 export const tools: Tool[] = [
+  // PDF Tools
+  {
+    id: 'merge-pdf',
+    name: 'Merge PDF',
+    description: 'Combine multiple PDFs into one file',
+    category: 'pdf',
+    icon: 'GitMerge',
+    path: '/tools/merge-pdf',
+    tags: ['pdf', 'merge', 'combine', 'document'],
+    isNew: true,
+  },
+  {
+    id: 'split-pdf',
+    name: 'Split PDF',
+    description: 'Extract a range of pages into a new PDF',
+    category: 'pdf',
+    icon: 'Scissors',
+    path: '/tools/split-pdf',
+    tags: ['pdf', 'split', 'extract', 'pages'],
+    isNew: true,
+  },
+  {
+    id: 'rotate-pdf',
+    name: 'Rotate PDF',
+    description: 'Rotate all pages in 90-degree increments',
+    category: 'pdf',
+    icon: 'RotateCw',
+    path: '/tools/rotate-pdf',
+    tags: ['pdf', 'rotate', 'orientation', 'pages'],
+    isNew: true,
+  },
+  {
+    id: 'delete-pages',
+    name: 'Delete Pages',
+    description: 'Remove specific pages from your PDF',
+    category: 'pdf',
+    icon: 'Trash2',
+    path: '/tools/delete-pages',
+    tags: ['pdf', 'delete', 'remove', 'pages'],
+    isNew: true,
+  },
+  {
+    id: 'extract-pages',
+    name: 'Extract Pages',
+    description: 'Save a selection of pages as a new file',
+    category: 'pdf',
+    icon: 'Files',
+    path: '/tools/extract-pages',
+    tags: ['pdf', 'extract', 'pages', 'save'],
+    isNew: true,
+  },
+  {
+    id: 'jpg-to-pdf',
+    name: 'Images to PDF',
+    description: 'Convert JPG and PNG images to PDF',
+    category: 'pdf',
+    icon: 'ImagePlus',
+    path: '/tools/jpg-to-pdf',
+    tags: ['pdf', 'image', 'jpg', 'png', 'convert'],
+    isNew: true,
+  },
+  {
+    id: 'organize-pdf',
+    name: 'Organize PDF',
+    description: 'Reorder, duplicate, and preview pages',
+    category: 'pdf',
+    icon: 'ArrowUpDown',
+    path: '/tools/organize-pdf',
+    tags: ['pdf', 'organize', 'reorder', 'duplicate'],
+    isNew: true,
+  },
+  {
+    id: 'add-blank-page',
+    name: 'Add Blank Page',
+    description: 'Insert empty pages anywhere in your PDF',
+    category: 'pdf',
+    icon: 'FilePlus',
+    path: '/tools/add-blank-page',
+    tags: ['pdf', 'blank', 'page', 'insert'],
+    isNew: true,
+  },
+
   // Developer Tools
   {
     id: 'modern-color',

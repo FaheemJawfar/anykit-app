@@ -73,7 +73,22 @@ import {
   Barcode,
   Pipette,
   SlidersHorizontal,
-  LucideProps
+  LucideProps,
+  GitMerge,
+  Scissors,
+  RotateCw,
+  Trash2,
+  Files,
+  ImagePlus,
+  ArrowUpDown,
+  FilePlus,
+  Globe,
+  FileImage,
+  Play,
+  Binary,
+  Unlock,
+  History,
+  Box
 } from "lucide-react";
 
 const icons = {
@@ -150,7 +165,22 @@ const icons = {
   Bug,
   Barcode,
   Pipette,
-  SlidersHorizontal
+  SlidersHorizontal,
+  GitMerge,
+  Scissors,
+  RotateCw,
+  Trash2,
+  Files,
+  ImagePlus,
+  ArrowUpDown,
+  FilePlus,
+  Globe,
+  FileImage,
+  Play,
+  Binary,
+  Unlock,
+  History,
+  Box
 };
 
 export type IconName = keyof typeof icons;
