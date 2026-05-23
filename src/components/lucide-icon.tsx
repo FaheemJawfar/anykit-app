@@ -94,7 +94,12 @@ import {
   Stamp,
   Contrast,
   Heading,
-  Info
+  Info,
+  FileMinus,
+  ScanLine,
+  Eraser,
+  Bookmark,
+  List
 } from "lucide-react";
 
 const icons = {
@@ -192,7 +197,12 @@ const icons = {
   Unlock,
   History,
   Box,
-  Info
+  Info,
+  FileMinus,
+  ScanLine,
+  Eraser,
+  Bookmark,
+  List
 };
 
 export type IconName = keyof typeof icons;
