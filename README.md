@@ -158,6 +158,8 @@ We welcome contributions from the community!
 - Icons by [Lucide](https://lucide.dev)
 - UI patterns inspired by [shadcn/ui](https://ui.shadcn.com)
 - PDF processing powered by [pdf-lib](https://pdf-lib.js.org) and [PDF.js](https://mozilla.github.io/pdf.js/)
+- Developer tools inspired by [it-tools.tech](https://it-tools.tech)
+- PDF tools inspired by [bentopdf.com](https://bentopdf.com)
 
 ## License
 
