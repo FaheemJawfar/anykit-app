@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Wrench, Globe, Mail } from "lucide-react";
 import { ThemeProvider } from "@/components/theme-provider";
+import { StatCounter } from "@statcounter/nextjs";
 
 const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
 
@@ -114,16 +115,7 @@ export default function RootLayout({
             </footer>
           </div>
         </ThemeProvider>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              var sc_project=13248196;
-              var sc_invisible=1;
-              var sc_security="282a098d";
-            `,
-          }}
-        />
-        <script async src="https://www.statcounter.com/counter/counter.js" />
+        <StatCounter project_id={13248196} security_code="282a098d" />
       </body>
     </html>
   );
