@@ -114,6 +114,16 @@ export default function RootLayout({
             </footer>
           </div>
         </ThemeProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              var sc_project=13248196;
+              var sc_invisible=1;
+              var sc_security="282a098d";
+            `,
+          }}
+        />
+        <script async src="https://www.statcounter.com/counter/counter.js" />
       </body>
     </html>
   );
