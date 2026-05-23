@@ -9,19 +9,16 @@ import {
   LayoutGrid, 
   ChevronRight,
   Shield,
-  FileText,
-  Mail
+  FileText
 } from "lucide-react";
 import { categories, tools } from "@/lib/tools";
 import { LucideIcon } from "@/components/lucide-icon";
-import { Button } from "@/components/ui/button";
 
 export function Sidebar() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get("category");
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -110,9 +107,21 @@ export function Sidebar() {
         <div className="p-4 rounded-2xl bg-primary/5 space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wider text-primary/70">Support AnyKit App</p>
           <p className="text-xs text-muted-foreground leading-relaxed">Help us keep the tools free and fast for everyone.</p>
-          <Button size="sm" className="w-full rounded-xl text-xs bg-primary hover:bg-primary/90">
-            Buy me a coffee
-          </Button>
+          <a
+            href="https://www.buymeacoffee.com/faheemj"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center w-full gap-2 h-10 px-4 rounded-xl font-semibold text-sm transition-transform active:scale-95"
+            style={{
+              backgroundColor: "#FFDD00",
+              color: "#000000",
+              outline: "1px solid #000000",
+              fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
+            }}
+          >
+            <span>♥️</span>
+            <span>Support My Work</span>
+          </a>
         </div>
       </div>
     </aside>

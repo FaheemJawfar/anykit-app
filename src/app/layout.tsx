@@ -56,8 +56,8 @@ export default function RootLayout({
             
             <footer className="bg-background border-t border-border mt-auto">
               <div className="container mx-auto px-4 md:px-6 py-12 md:py-20">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-                  <div className="col-span-1 md:col-span-2 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                  <div className="space-y-6">
                     <Link href="/" className="flex items-center gap-2 group">
                       <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 overflow-hidden">
                         <Wrench className="w-5 h-5 relative z-10 transition-transform group-hover:rotate-12" />

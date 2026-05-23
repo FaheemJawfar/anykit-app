@@ -3,6 +3,7 @@
 > A comprehensive, privacy-first collection of 160+ high-performance web utilities. Built with modern web standards and designed to run entirely in your browser.
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-FaheemJawfar%2Fanykit--app-181717?logo=github)](https://github.com/FaheemJawfar/anykit-app)
 [![Next.js](https://img.shields.io/badge/Built%20with-Next.js%2016-black?logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?logo=typescript)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-06B6D4?logo=tailwindcss)](https://tailwindcss.com)
