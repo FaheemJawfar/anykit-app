@@ -7,7 +7,7 @@ import { Sidebar } from "@/components/sidebar";
 import { Suspense } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Wrench, Globe, Mail } from "lucide-react";
+import { Globe, Mail } from "lucide-react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { StatCounter } from "@statcounter/nextjs";
 
@@ -59,9 +59,8 @@ export default function RootLayout({
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                   <div className="space-y-6">
                     <Link href="/" className="flex items-center gap-2 group">
-                      <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 overflow-hidden">
-                        <Wrench className="w-5 h-5 relative z-10 transition-transform group-hover:rotate-12" />
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
+                      <div className="relative flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                        <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10" />
                       </div>
                       <span className="font-bold text-2xl tracking-tight">AnyKit App</span>
                     </Link>

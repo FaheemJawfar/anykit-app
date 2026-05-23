@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { 
-  Wrench, 
-  LayoutGrid, 
+import {
+  LayoutGrid,
   ChevronRight,
   Shield,
   FileText
@@ -27,9 +26,8 @@ export function Sidebar() {
     <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 border-r border-border/40 bg-card/30 backdrop-blur-xl">
       <div className="p-6">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 overflow-hidden">
-            <Wrench className="w-5 h-5 relative z-10 transition-transform group-hover:rotate-12" />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+            <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10 transition-transform group-hover:scale-105" />
           </div>
           <div className="flex flex-col">
             <span className="font-bold text-xl leading-none tracking-tight">AnyKit App</span>

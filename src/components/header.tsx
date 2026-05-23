@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import {
   Menu,
   Search,
-  Wrench,
   LayoutGrid,
   Sun,
   Moon,
@@ -159,8 +158,8 @@ export function Header() {
               href="/"
               className="flex items-center gap-2 group transition-opacity hover:opacity-90"
             >
-              <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground shadow-lg shadow-primary/20 overflow-hidden">
-                <Wrench className="w-4 h-4 relative z-10 transition-transform group-hover:rotate-12" />
+              <div className="relative flex items-center justify-center w-8 h-8 rounded-lg overflow-hidden shadow-lg shadow-primary/20">
+                <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10" />
               </div>
               <span className="font-bold text-lg tracking-tight">AnyKit App</span>
             </Link>
