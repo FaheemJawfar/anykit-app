@@ -24,7 +24,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function StringObfuscator() {
-  const [input, setInput] = useState("AnyKit Secret Data 2026");
+  const [input, setInput] = useState("AnyKit App Secret Data 2026");
   const [output, setOutput] = useState("");
   const [config, setConfig] = useState({
     keepFirst: 4,

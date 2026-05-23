@@ -28,7 +28,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function HTMLEditor() {
-  const [html, setHtml] = useState("<h1>Welcome to AnyKit Editor</h1><p>Start typing here to create beautiful HTML content.</p>");
+  const [html, setHtml] = useState("<h1>Welcome to AnyKit App Editor</h1><p>Start typing here to create beautiful HTML content.</p>");
   const [mode, setMode] = useState<"edit" | "code">("edit");
   const [copied, setCopied] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);

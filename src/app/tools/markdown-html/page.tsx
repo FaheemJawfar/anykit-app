@@ -21,7 +21,7 @@ import { marked } from "marked";
 import DOMPurify from "dompurify";
 
 export default function MarkdownToHTML() {
-  const [input, setInput] = useState("# Welcome to AnyKit\n\nThis is a **professional** Markdown to HTML converter.\n\n### Features:\n- Live Preview\n- XSS Sanitization\n- Code Highlighting support\n\n```javascript\nconsole.log('Hello World');\n```");
+  const [input, setInput] = useState("# Welcome to AnyKit App\n\nThis is a **professional** Markdown to HTML converter.\n\n### Features:\n- Live Preview\n- XSS Sanitization\n- Code Highlighting support\n\n```javascript\nconsole.log('Hello World');\n```");
   const [html, setHtml] = useState("");
   const [previewMode, setPreviewMode] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);

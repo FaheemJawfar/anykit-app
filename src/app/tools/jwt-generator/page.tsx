@@ -25,7 +25,7 @@ import { cn } from "@/lib/utils";
 import { SignJWT } from "jose";
 
 export default function JWTGenerator() {
-  const [payload, setPayload] = useState('{\n  "sub": "1234567890",\n  "name": "AnyKit User",\n  "admin": true,\n  "iat": 1516239022\n}');
+  const [payload, setPayload] = useState('{\n  "sub": "1234567890",\n  "name": "AnyKit App User",\n  "admin": true,\n  "iat": 1516239022\n}');
   const [secret, setSecret] = useState("your-256-bit-secret");
   const [showSecret, setShowSecret] = useState(false);
   const [token, setToken] = useState("");

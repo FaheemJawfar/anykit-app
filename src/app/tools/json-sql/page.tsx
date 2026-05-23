@@ -20,7 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function JSONToSQL() {
-  const [input, setInput] = useState('[\n  {\n    "id": 1,\n    "name": "Faheem",\n    "email": "faheem@example.com"\n  },\n  {\n    "id": 2,\n    "name": "AnyKit",\n    "email": "tools@anykit.com"\n  }\n]');
+  const [input, setInput] = useState('[\n  {\n    "id": 1,\n    "name": "Faheem",\n    "email": "faheem@example.com"\n  },\n  {\n    "id": 2,\n    "name": "AnyKit App",\n    "email": "tools@anykit.com"\n  }\n]');
   const [tableName, setTableName] = useState("users");
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);

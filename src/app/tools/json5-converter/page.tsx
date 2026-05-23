@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 import JSON5 from "json5";
 
 export default function JSON5Converter() {
-  const [input, setInput] = useState("// JSON5 allows comments!\n{\n  name: 'AnyKit',\n  /* unquoted keys and single quotes too */\n  version: 1.0,\n  tags: [\n    'developer',\n    'tools',\n  ], // trailing commas are fine!\n}");
+  const [input, setInput] = useState("// JSON5 allows comments!\n{\n  name: 'AnyKit App',\n  /* unquoted keys and single quotes too */\n  version: 1.0,\n  tags: [\n    'developer',\n    'tools',\n  ], // trailing commas are fine!\n}");
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);

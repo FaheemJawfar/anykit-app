@@ -44,7 +44,7 @@ Object.entries(fonts).forEach(([name, data]) => {
 });
 
 export default function ASCIITextDrawer() {
-  const [input, setInput] = useState("AnyKit");
+  const [input, setInput] = useState("AnyKit App");
   const [font, setFont] = useState<string>("Standard");
   const [output, setOutput] = useState("");
   const [copied, setCopied] = useState(false);

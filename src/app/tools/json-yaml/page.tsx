@@ -107,7 +107,7 @@ export default function JSONYAMLConverter() {
           </div>
           <CardContent className="p-0 flex-1 relative">
             <Textarea
-              placeholder={mode === "json-to-yaml" ? 'Paste JSON here... e.g. {"name": "AnyKit"}' : 'Paste YAML here... e.g. name: AnyKit'}
+              placeholder={mode === "json-to-yaml" ? 'Paste JSON here... e.g. {"name": "AnyKit App"}' : 'Paste YAML here... e.g. name: AnyKit App'}
               value={input}
               onChange={(e) => process(e.target.value, mode)}
               className="w-full h-full min-h-[400px] p-8 bg-transparent border-none focus-visible:ring-0 resize-none font-mono text-sm leading-relaxed"

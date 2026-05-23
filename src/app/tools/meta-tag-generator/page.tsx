@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 
 export default function MetaTagGenerator() {
   const [tags, setTags] = useState({
-    title: "AnyKit - The Ultimate Utility Suite",
+    title: "AnyKit App - The Ultimate Utility Suite",
     description: "All the professional tools you need in one sleek application. Fast, secure, and entirely client-side.",
     url: "https://anykit.com",
     image: "https://anykit.com/og-image.png",

@@ -140,7 +140,7 @@ export default function PDFSignatureChecker() {
               <h3 className="font-bold text-xs uppercase tracking-wider text-primary">Privacy Note</h3>
             </div>
             <p className="text-[11px] text-muted-foreground leading-relaxed italic">
-              All PDF parsing happens in your browser's local memory. Your documents are never transmitted to AnyKit's infrastructure.
+              All PDF parsing happens in your browser's local memory. Your documents are never transmitted to AnyKit App's infrastructure.
             </p>
           </div>
         </div>

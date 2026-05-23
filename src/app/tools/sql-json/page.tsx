@@ -19,7 +19,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function SQLToJSON() {
-  const [input, setInput] = useState("INSERT INTO users (id, name, email) VALUES\n(1, 'Faheem', 'faheem@example.com'),\n(2, 'AnyKit', 'tools@anykit.com');");
+  const [input, setInput] = useState("INSERT INTO users (id, name, email) VALUES\n(1, 'Faheem', 'faheem@example.com'),\n(2, 'AnyKit App', 'tools@anykit.com');");
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);

@@ -94,7 +94,7 @@ export default function JSONMinifier() {
             </div>
             <CardContent className="p-0 flex-1 relative">
               <Textarea
-                placeholder='Paste your JSON here... e.g. { "name": "AnyKit", "type": "Utility" }'
+                placeholder='Paste your JSON here... e.g. { "name": "AnyKit App", "type": "Utility" }'
                 value={input}
                 onChange={(e) => minify(e.target.value)}
                 className="w-full h-full min-h-[300px] p-8 bg-transparent border-none focus-visible:ring-0 resize-none font-mono text-sm leading-relaxed"

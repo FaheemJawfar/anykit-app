@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import generateSchema from "generate-json-schema";
 
 export default function JSONSchemaGenerator() {
-  const [input, setInput] = useState('{\n  "id": 1,\n  "name": "AnyKit User",\n  "active": true,\n  "tags": ["developer", "utility"],\n  "profile": {\n    "bio": "Coding is life",\n    "followers": 1500\n  }\n}');
+  const [input, setInput] = useState('{\n  "id": 1,\n  "name": "AnyKit App User",\n  "active": true,\n  "tags": ["developer", "utility"],\n  "profile": {\n    "bio": "Coding is life",\n    "followers": 1500\n  }\n}');
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);

@@ -35,7 +35,7 @@ export function Sidebar() {
             <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold text-xl leading-none tracking-tight">AnyKit</span>
+            <span className="font-bold text-xl leading-none tracking-tight">AnyKit App</span>
             <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold">Tools for Everyone</span>
           </div>
         </Link>
@@ -108,7 +108,7 @@ export function Sidebar() {
 
       <div className="p-4 border-t border-border/40">
         <div className="p-4 rounded-2xl bg-primary/5 space-y-3">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-primary/70">Support AnyKit</p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-primary/70">Support AnyKit App</p>
           <p className="text-xs text-muted-foreground leading-relaxed">Help us keep the tools free and fast for everyone.</p>
           <Button size="sm" className="w-full rounded-xl text-xs bg-primary hover:bg-primary/90">
             Buy me a coffee

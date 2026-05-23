@@ -81,7 +81,7 @@ export default function SlugifyString() {
           </div>
           <CardContent className="p-0 flex-1 relative">
             <Textarea
-              placeholder="Enter your title or text here... e.g. How to use AnyKit for FREE!"
+              placeholder="Enter your title or text here... e.g. How to use AnyKit App for FREE!"
               value={input}
               onChange={(e) => slugify(e.target.value)}
               className="w-full h-full min-h-[300px] p-8 bg-transparent border-none focus-visible:ring-0 resize-none font-sans text-lg leading-relaxed"

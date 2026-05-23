@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 import TurndownService from "turndown";
 
 export default function HTMLToMarkdown() {
-  const [input, setInput] = useState("<h1>Welcome to AnyKit</h1>\n<p>This is <strong>bold</strong> and this is <em>italic</em>.</p>\n<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>");
+  const [input, setInput] = useState("<h1>Welcome to AnyKit App</h1>\n<p>This is <strong>bold</strong> and this is <em>italic</em>.</p>\n<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>");
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);

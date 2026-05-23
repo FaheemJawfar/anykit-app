@@ -21,7 +21,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function TextUnicodeConverter() {
-  const [input, setInput] = useState("AnyKit 🚀");
+  const [input, setInput] = useState("AnyKit App 🚀");
   const [copied, setCopied] = useState<string | null>(null);
 
   const formats = {

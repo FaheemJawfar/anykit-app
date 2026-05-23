@@ -195,7 +195,7 @@ export default function GradientStudio() {
               <div className="text-white text-center drop-shadow-2xl animate-in zoom-in-95 duration-500">
                 <Palette className="w-20 h-20 mx-auto mb-6 opacity-80" />
                 <h3 className="text-4xl font-black tracking-tighter">Gradient Mesh</h3>
-                <p className="text-sm font-bold opacity-60 uppercase tracking-widest mt-2">AnyKit Visual Lab</p>
+                <p className="text-sm font-bold opacity-60 uppercase tracking-widest mt-2">AnyKit App Visual Lab</p>
               </div>
             </CardContent>
           </Card>

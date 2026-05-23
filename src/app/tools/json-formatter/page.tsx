@@ -54,7 +54,7 @@ export default function JsonFormatter() {
 
   const loadExample = () => {
     const example = {
-      name: "AnyKit",
+      name: "AnyKit App",
       version: "1.0.0",
       features: ["Security", "Fast", "Private"],
       metadata: {
@@ -101,7 +101,7 @@ export default function JsonFormatter() {
                 <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/20" />
               </div>
               <div className="h-4 w-px bg-border/60 mx-1" />
-              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">AnyKit Editor</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">AnyKit App Editor</span>
             </div>
             <div className="flex items-center gap-2">
               {error ? (

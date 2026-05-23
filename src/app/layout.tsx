@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AnyKit - Professional Utility Tools",
+  title: "AnyKit App - Professional Utility Tools",
   description: "A comprehensive collection of magical tools for your everyday tasks.",
 };
 
@@ -62,7 +62,7 @@ export default function RootLayout({
                         <Wrench className="w-5 h-5 relative z-10 transition-transform group-hover:rotate-12" />
                         <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
                       </div>
-                      <span className="font-bold text-2xl tracking-tight">AnyKit</span>
+                      <span className="font-bold text-2xl tracking-tight">AnyKit App</span>
                     </Link>
                     <p className="text-muted-foreground text-lg max-w-sm leading-relaxed">
                       The simplest collection of high-performance online tools. Designed to help you get things done, faster and easier.
@@ -100,7 +100,7 @@ export default function RootLayout({
 
                 <div className="mt-20 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6">
                   <p className="text-sm text-muted-foreground">
-                    © 2026 AnyKit. All rights reserved. Built with precision.
+                    © 2026 AnyKit App. All rights reserved. Built with precision.
                   </p>
                   <div className="flex items-center gap-8 text-sm text-muted-foreground font-medium">
                     <span className="flex items-center gap-2">

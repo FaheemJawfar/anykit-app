@@ -1,4 +1,4 @@
-# AnyKit
+# AnyKit App
 
 > A comprehensive, privacy-first collection of 160+ high-performance web utilities. Built with modern web standards and designed to run entirely in your browser.
 
@@ -9,7 +9,7 @@
 
 ## Features
 
-AnyKit provides **160+ utilities** across **9 categories**, all running client-side:
+AnyKit App provides **160+ utilities** across **9 categories**, all running client-side:
 
 - **PDF Tools** — Merge, split, rotate, compress, sign, watermark, crop, extract text, edit bookmarks, add page numbers, remove blank pages, apply scanner effects, adjust colors, and more.
 - **Developer Tools** — JSON formatters, validators, and converters; YAML/TOML/XML tools; GraphQL utilities; SQL prettifiers; cURL converters; JWT generators & parsers; regex testers; cron utilities; and cheat sheets.
@@ -167,7 +167,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Support
 
-If you find AnyKit useful, please consider:
+If you find AnyKit App useful, please consider:
 
 - **Starring** the repository on GitHub
 - **Reporting** bugs or suggesting features via [Issues](https://github.com/FaheemJawfar/anykit-app/issues)

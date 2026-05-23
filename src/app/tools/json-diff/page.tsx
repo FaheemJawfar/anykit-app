@@ -20,8 +20,8 @@ import { cn } from "@/lib/utils";
 import jsonDiff from "json-diff";
 
 export default function JSONDiff() {
-  const [leftJson, setLeftJson] = useState('{\n  "name": "AnyKit",\n  "version": "1.0",\n  "active": true,\n  "tags": ["utility", "web"]\n}');
-  const [rightJson, setRightJson] = useState('{\n  "name": "AnyKit",\n  "version": "1.1",\n  "active": false,\n  "tags": ["utility", "web", "new"]\n}');
+  const [leftJson, setLeftJson] = useState('{\n  "name": "AnyKit App",\n  "version": "1.0",\n  "active": true,\n  "tags": ["utility", "web"]\n}');
+  const [rightJson, setRightJson] = useState('{\n  "name": "AnyKit App",\n  "version": "1.1",\n  "active": false,\n  "tags": ["utility", "web", "new"]\n}');
   const [diffResult, setDiffResult] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);

@@ -57,7 +57,7 @@ const LogItem = ({ data, level = "info" }: { data: any, level?: string }) => {
 };
 
 export default function JSConsoleLogger() {
-  const [input, setInput] = useState('{\n  "status": 200,\n  "message": "User fetched successfully",\n  "data": {\n    "id": "USR_99",\n    "name": "AnyKit Explorer"\n  }\n}');
+  const [input, setInput] = useState('{\n  "status": 200,\n  "message": "User fetched successfully",\n  "data": {\n    "id": "USR_99",\n    "name": "AnyKit App Explorer"\n  }\n}');
   const [logs, setLogs] = useState<any[]>([]);
   const [copied, setCopied] = useState(false);
 
@@ -143,7 +143,7 @@ export default function JSConsoleLogger() {
             <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
                 <Terminal className="w-4 h-4 text-primary" />
-                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground font-mono">AnyKit Debug Console</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground font-mono">AnyKit App Debug Console</span>
               </div>
               <div className="flex gap-2">
                 <Button variant="ghost" size="sm" onClick={copyLogs} disabled={logs.length === 0} className="h-8 rounded-xl font-bold text-[10px] uppercase">

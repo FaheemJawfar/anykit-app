@@ -147,7 +147,7 @@ export function Header() {
               <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground shadow-lg shadow-primary/20 overflow-hidden">
                 <Wrench className="w-4 h-4 relative z-10 transition-transform group-hover:rotate-12" />
               </div>
-              <span className="font-bold text-lg tracking-tight">AnyKit</span>
+              <span className="font-bold text-lg tracking-tight">AnyKit App</span>
             </Link>
           </div>
 

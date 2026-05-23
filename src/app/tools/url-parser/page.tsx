@@ -32,7 +32,7 @@ interface URLParts {
 }
 
 export default function URLParser() {
-  const [input, setInput] = useState("https://example.com:8080/path/to/resource?id=123&name=AnyKit#section-1");
+  const [input, setInput] = useState("https://example.com:8080/path/to/resource?id=123&name=AnyKit App#section-1");
   const [parts, setParts] = useState<URLParts | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);

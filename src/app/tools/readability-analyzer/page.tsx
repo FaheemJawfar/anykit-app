@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 import readability from "text-readability";
 
 export default function ReadabilityAnalyzer() {
-  const [input, setInput] = useState("AnyKit provides a comprehensive collection of tools for developers and creators. It is designed to be fast, secure, and entirely client-side, ensuring your data never leaves your browser.");
+  const [input, setInput] = useState("AnyKit App provides a comprehensive collection of tools for developers and creators. It is designed to be fast, secure, and entirely client-side, ensuring your data never leaves your browser.");
   const [copied, setCopied] = useState(false);
 
   const stats = useMemo(() => {

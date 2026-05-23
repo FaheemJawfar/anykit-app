@@ -81,7 +81,7 @@ const JsonTreeNode = ({ label, value, depth = 0 }: { label?: string; value: any;
 };
 
 export default function JSONViewer() {
-  const [input, setInput] = useState('{\n  "name": "AnyKit",\n  "version": "1.0.0",\n  "description": "Professional tool suite",\n  "features": [\n    "Fast",\n    "Secure",\n    "Client-side"\n  ],\n  "author": {\n    "name": "Faheem",\n    "active": true\n  }\n}');
+  const [input, setInput] = useState('{\n  "name": "AnyKit App",\n  "version": "1.0.0",\n  "description": "Professional tool suite",\n  "features": [\n    "Fast",\n    "Secure",\n    "Client-side"\n  ],\n  "author": {\n    "name": "Faheem",\n    "active": true\n  }\n}');
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
