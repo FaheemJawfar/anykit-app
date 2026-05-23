@@ -1,36 +1,176 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AnyKit
+
+> A comprehensive, privacy-first collection of 160+ high-performance web utilities. Built with modern web standards and designed to run entirely in your browser.
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Built%20with-Next.js%2016-black?logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?logo=typescript)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-06B6D4?logo=tailwindcss)](https://tailwindcss.com)
+
+## Features
+
+AnyKit provides **160+ utilities** across **9 categories**, all running client-side:
+
+- **PDF Tools** — Merge, split, rotate, compress, sign, watermark, crop, extract text, edit bookmarks, add page numbers, remove blank pages, apply scanner effects, adjust colors, and more.
+- **Developer Tools** — JSON formatters, validators, and converters; YAML/TOML/XML tools; GraphQL utilities; SQL prettifiers; cURL converters; JWT generators & parsers; regex testers; cron utilities; and cheat sheets.
+- **Text Tools** — Case converters, diff checkers, word counters, Markdown table generators, string obfuscators, text statistics, and Unicode/Binary converters.
+- **Converters** — Unit converters, temperature converters, integer base converters, IPv4 converters, text-to-Unicode, and JSON/XML/YAML/TOML interchanges.
+- **Math** — Calculators, math evaluators, percentage calculators, ETA calculators, stopwatches, and timestamp converters.
+- **Image Tools** — SVG optimizers, SVG-to-JSX converters, SVG path visualizers, color palette extractors, Lottie previewers, gradient studios, box shadow studios, glassmorphism generators, contrast checkers, color blindness simulators, and placeholder generators.
+- **Color Tools** — Modern color converters (HEX, RGB, HSL, OKLCH, LAB, LCH), color blindness simulators, contrast checkers, and palette extractors.
+- **Generators** — QR codes, barcodes, WiFi QR codes, UUIDs, ULIDs, tokens, passwords, Lorem Ipsum, meta tags, OG tags, numeronyms, and more.
+- **Security** — AES encryption, Bcrypt hashing, HMAC generation, hash generators, JWT tools, SSL decoders, OTP/TOTP generators, BIP39 mnemonic generators, password strength checkers, and safelink decoders.
+
+### Key Design Principles
+
+- **Privacy First** — All processing happens in the browser. No data is sent to any server.
+- **Keyboard-Friendly** — Global search with `Cmd+K` / `Ctrl+K`, arrow key navigation, and quick tool access.
+- **Accessible** — Built with accessibility in mind using Radix UI primitives and semantic HTML.
+- **Dark & Light Mode** — Seamless theme switching with `next-themes`.
+- **Responsive** — Fully responsive layout with a collapsible sidebar on desktop and mobile.
+- **Fast** — Optimized with Next.js App Router, lazy loading, and efficient client-side rendering.
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| [Next.js 16](https://nextjs.org) | React framework with App Router |
+| [React 19](https://react.dev) | UI library |
+| [TypeScript](https://www.typescriptlang.org) | Type safety |
+| [Tailwind CSS v4](https://tailwindcss.com) | Utility-first styling |
+| [Radix UI](https://www.radix-ui.com) | Accessible UI primitives |
+| [Lucide React](https://lucide.dev) | Icon system |
+| [pdf-lib](https://pdf-lib.js.org) | PDF creation and manipulation |
+| [pdfjs-dist](https://mozilla.github.io/pdf.js/) | PDF rendering and text extraction |
+| [shadcn/ui](https://ui.shadcn.com) | Component patterns |
+| [cmdk](https://cmdk.paco.me) | Command palette |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20 or later
+- npm, yarn, pnpm, or bun
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/FaheemJawfar/anykit-app.git
+cd anykit-app
+
+# Install dependencies
+npm install
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+anykit-app/
+├── src/
+│   ├── app/
+│   │   ├── tools/           # Individual tool pages
+│   │   ├── layout.tsx       # Root layout with sidebar, header, footer
+│   │   ├── page.tsx         # Home page with tool grid
+│   │   └── globals.css      # Global styles
+│   ├── components/
+│   │   ├── ui/              # shadcn/ui components
+│   │   ├── header.tsx       # Top navigation header
+│   │   ├── sidebar.tsx      # Category sidebar
+│   │   └── tool-card.tsx    # Tool grid cards
+│   ├── lib/
+│   │   ├── tools.ts         # Tool registry (categories & metadata)
+│   │   └── utils.ts         # Utility functions
+│   └── types/
+│       └── modules.d.ts     # Type declarations
+├── public/                  # Static assets
+├── LICENSE                  # MIT License
+├── next.config.ts           # Next.js configuration
+├── package.json
+├── tsconfig.json
+└── README.md
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+We welcome contributions from the community!
 
-## Deploy on Vercel
+### How to Contribute
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Fork** the repository and clone your fork.
+2. **Create a branch** for your feature or fix:
+   ```bash
+   git checkout -b feature/my-new-tool
+   ```
+3. **Make your changes** and ensure the app builds successfully:
+   ```bash
+   npm run build
+   ```
+4. **Commit** with clear, descriptive messages:
+   ```bash
+   git commit -m "feat: add JSON diff visualizer tool"
+   ```
+5. **Push** to your fork and open a **Pull Request**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Adding a New Tool
+
+1. Create a new folder under `src/app/tools/` using kebab-case naming.
+2. Add your tool's page component as `page.tsx`.
+3. Register the tool in `src/lib/tools.ts` with:
+   - `id`, `name`, `description`
+   - `category` (must match an existing category id)
+   - `icon` (a valid Lucide icon name)
+   - `path` (matching your folder name)
+   - `tags` for searchability
+4. Ensure the tool works in **both** light and dark modes.
+5. Keep all processing **client-side** unless there's a strong reason otherwise.
+
+### Code Style
+
+- Follow the existing TypeScript and React patterns.
+- Use Tailwind CSS utilities for styling.
+- Keep components focused and reusable.
+- Prefer server components where possible; use client components only for interactivity.
+
+## Roadmap
+
+- [ ] Add more PDF tools (OCR, redaction, form filling)
+- [ ] Introduce batch/queue processing for file-based tools
+- [ ] Add user preferences and recent tool history (localStorage)
+- [ ] Internationalization (i18n) support
+- [ ] PWA support for offline usage
+- [ ] Plugin system for community tools
+
+## Acknowledgments
+
+- Built with [Next.js](https://nextjs.org) by Vercel
+- Icons by [Lucide](https://lucide.dev)
+- UI patterns inspired by [shadcn/ui](https://ui.shadcn.com)
+- PDF processing powered by [pdf-lib](https://pdf-lib.js.org) and [PDF.js](https://mozilla.github.io/pdf.js/)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Support
+
+If you find AnyKit useful, please consider:
+
+- **Starring** the repository on GitHub
+- **Reporting** bugs or suggesting features via [Issues](https://github.com/FaheemJawfar/anykit-app/issues)
+- **Sharing** the project with others
+
+---
+
+Made with precision by [Faheem Jawfar](https://github.com/FaheemJawfar).
