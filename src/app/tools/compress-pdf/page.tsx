@@ -3,11 +3,24 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { Zap, FileUp, FileText, RefreshCw, AlertCircle } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
+import * as pdfjs from "pdfjs-dist";
+
+pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.mjs";
+
+const PRESETS = {
+  light: { scale: 2.0, quality: 0.85 },
+  balanced: { scale: 1.5, quality: 0.65 },
+  aggressive: { scale: 1.2, quality: 0.45 },
+  extreme: { scale: 1.0, quality: 0.25 },
+};
 
 export default function CompressPDF() {
   const [file, setFile] = useState<File | null>(null);
+  const [mode, setMode] = useState<"structure" | "rasterize">("structure");
+  const [level, setLevel] = useState<keyof typeof PRESETS>("balanced");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<{ before: number; after: number } | null>(null);
@@ -33,16 +46,55 @@ export default function CompressPDF() {
 
     try {
       const buffer = await file.arrayBuffer();
-      const doc = await PDFDocument.load(buffer);
+      let bytes: Uint8Array;
 
-      doc.setTitle("");
-      doc.setAuthor("");
-      doc.setSubject("");
-      doc.setKeywords([]);
-      doc.setCreator("");
-      doc.setProducer("");
+      if (mode === "structure") {
+        const doc = await PDFDocument.load(buffer);
+        doc.setTitle("");
+        doc.setAuthor("");
+        doc.setSubject("");
+        doc.setKeywords([]);
+        doc.setCreator("");
+        doc.setProducer("");
+        bytes = await doc.save({ useObjectStreams: true, addDefaultPage: false });
+      } else {
+        const settings = PRESETS[level];
+        const pdfJsDoc = await pdfjs.getDocument({ data: buffer }).promise;
+        const newPdfDoc = await PDFDocument.create();
 
-      const bytes = await doc.save({ useObjectStreams: true, addDefaultPage: false });
+        for (let i = 1; i <= pdfJsDoc.numPages; i++) {
+          const page = await pdfJsDoc.getPage(i);
+          const viewport = page.getViewport({ scale: settings.scale });
+
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
+          if (!context) throw new Error("Failed to create canvas context");
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          await page.render({ canvasContext: context, viewport }).promise;
+
+          const jpegBlob = await new Promise<Blob>((resolve, reject) =>
+            canvas.toBlob(
+              (blob) => (blob ? resolve(blob) : reject(new Error("Failed to create JPEG"))),
+              "image/jpeg",
+              settings.quality
+            )
+          );
+
+          const jpegBytes = await jpegBlob.arrayBuffer();
+          const jpegImage = await newPdfDoc.embedJpg(jpegBytes);
+          const newPage = newPdfDoc.addPage([viewport.width, viewport.height]);
+          newPage.drawImage(jpegImage, {
+            x: 0,
+            y: 0,
+            width: viewport.width,
+            height: viewport.height,
+          });
+        }
+
+        bytes = await newPdfDoc.save();
+      }
 
       const blob = new Blob([bytes.slice()], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
@@ -121,10 +173,64 @@ export default function CompressPDF() {
               <Zap className="w-5 h-5 text-primary" />
               <h3 className="font-bold">Compression</h3>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Removes metadata, empty objects, and saves with object stream compression.
-              Results vary depending on the PDF structure.
-            </p>
+
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Mode</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setMode("structure")}
+                  className={`p-2 rounded-xl text-xs font-medium transition-all ${
+                    mode === "structure"
+                      ? "bg-primary text-white"
+                      : "bg-muted hover:bg-muted/80"
+                  }`}
+                >
+                  Structure
+                </button>
+                <button
+                  onClick={() => setMode("rasterize")}
+                  className={`p-2 rounded-xl text-xs font-medium transition-all ${
+                    mode === "rasterize"
+                      ? "bg-primary text-white"
+                      : "bg-muted hover:bg-muted/80"
+                  }`}
+                >
+                  Rasterize
+                </button>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {mode === "structure"
+                  ? "Removes metadata and optimizes structure. Keeps text selectable. Best for text-based PDFs."
+                  : "Renders pages to JPEG. Best for scanned or image-heavy PDFs."}
+              </p>
+            </div>
+
+            {mode === "rasterize" && (
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Quality</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  {(["light", "balanced", "aggressive", "extreme"] as const).map((l) => (
+                    <button
+                      key={l}
+                      onClick={() => setLevel(l)}
+                      className={`p-2 rounded-xl text-xs font-medium transition-all ${
+                        level === l
+                          ? "bg-primary text-white"
+                          : "bg-muted hover:bg-muted/80"
+                      }`}
+                    >
+                      {l.charAt(0).toUpperCase() + l.slice(1)}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {level === "light" && "Scale 2x, Quality 85% — Minimal loss"}
+                  {level === "balanced" && "Scale 1.5x, Quality 65% — Good balance"}
+                  {level === "aggressive" && "Scale 1.2x, Quality 45% — Smaller file"}
+                  {level === "extreme" && "Scale 1x, Quality 25% — Maximum compression"}
+                </p>
+              </div>
+            )}
 
             {result && (
               <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 space-y-2">
