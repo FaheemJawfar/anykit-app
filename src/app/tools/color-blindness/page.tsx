@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -43,18 +45,7 @@ export default function ColorBlindnessSimulator() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Eye className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Color Blindness Simulator</h1>
-          <p className="text-sm text-muted-foreground">
-            Simulate how your images or colors appear to users with different types of color blindness.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="color-blindness">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Sidebar Controls */}
@@ -159,6 +150,6 @@ export default function ColorBlindnessSimulator() {
           </Card>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

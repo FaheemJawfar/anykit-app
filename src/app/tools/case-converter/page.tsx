@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -85,18 +87,7 @@ export default function CaseConverter() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Type className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Case Converter</h1>
-          <p className="text-sm text-muted-foreground">
-            Instantly transform text between different letter cases and formats.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="case-converter">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-12 space-y-6">
@@ -194,7 +185,7 @@ export default function CaseConverter() {
           </div>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }
 

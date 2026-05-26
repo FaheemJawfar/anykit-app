@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -72,18 +74,7 @@ export default function UrlEncoder() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <LinkIcon className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">URL Encoder/Decoder</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert URLs and parameters safely between formats.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="url-encoder">
 
       <div className="space-y-6">
         <div className="flex items-center justify-center gap-4">
@@ -206,7 +197,7 @@ export default function UrlEncoder() {
           </div>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }
 

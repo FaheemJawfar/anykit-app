@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -73,18 +75,7 @@ export default function HMACGenerator() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Fingerprint className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">HMAC Generator</h1>
-          <p className="text-sm text-muted-foreground">
-            Generate Hash-based Message Authentication Codes with various algorithms.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="hmac-generator">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Configuration Panel */}
@@ -210,6 +201,6 @@ export default function HMACGenerator() {
           </Card>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

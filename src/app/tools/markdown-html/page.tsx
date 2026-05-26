@@ -19,6 +19,7 @@ import {
 import { cn } from "@/lib/utils";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
+import { ToolLayout } from "@/components/tool-layout";
 
 export default function MarkdownToHTML() {
   const [input, setInput] = useState("# Welcome to AnyKit App\n\nThis is a **professional** Markdown to HTML converter.\n\n### Features:\n- Live Preview\n- XSS Sanitization\n- Code Highlighting support\n\n```javascript\nconsole.log('Hello World');\n```");
@@ -44,33 +45,24 @@ export default function MarkdownToHTML() {
   };
 
   return (
-    <div className={cn(
-      "max-w-6xl mx-auto px-4 py-6 space-y-8 transition-all duration-300",
-      isFullscreen && "max-w-none fixed inset-0 bg-background z-50 p-8 overflow-auto"
-    )}>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-            <FileText className="w-6 h-6" />
-          </div>
-          <div className="space-y-0.5">
-            <h1 className="text-2xl font-bold tracking-tight">Markdown to HTML</h1>
-            <p className="text-sm text-muted-foreground">
-              Write markdown and get sanitized HTML with live preview.
-            </p>
-          </div>
+    <ToolLayout toolId="markdown-html">
+      <div className={cn(
+        "space-y-8 transition-all duration-300 relative",
+        isFullscreen && "fixed inset-0 bg-background z-50 p-8 overflow-auto"
+      )}>
+        {/* Fullscreen Button Toggle */}
+        <div className="flex justify-end">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsFullscreen(!isFullscreen)}
+            className="rounded-xl h-12 w-12 text-muted-foreground hover:text-primary"
+          >
+            {isFullscreen ? <Minimize2 className="w-6 h-6" /> : <Maximize2 className="w-6 h-6" />}
+          </Button>
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsFullscreen(!isFullscreen)}
-          className="rounded-xl h-12 w-12 text-muted-foreground hover:text-primary"
-        >
-          {isFullscreen ? <Minimize2 className="w-6 h-6" /> : <Maximize2 className="w-6 h-6" />}
-        </Button>
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[calc(100vh-250px)] min-h-[500px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[calc(100vh-250px)] min-h-[500px]">
         {/* Editor Panel */}
         <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden flex flex-col">
           <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center justify-between shrink-0">
@@ -155,6 +147,7 @@ export default function MarkdownToHTML() {
           </p>
         </div>
       )}
-    </div>
+      </div>
+    </ToolLayout>
   );
 }

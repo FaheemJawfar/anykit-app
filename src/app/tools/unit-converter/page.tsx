@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -126,18 +128,7 @@ export default function UnitConverter() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Ruler className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Unit Converter</h1>
-          <p className="text-sm text-muted-foreground">
-            Switch between different units for length, weight, temperature, and more.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="unit-converter">
 
       <div className="flex flex-wrap gap-3 p-1.5 bg-muted/50 rounded-2xl border border-border/50 w-fit">
         {(Object.entries(conversions) as [keyof typeof conversions, any][]).map(([key, data]) => (
@@ -269,7 +260,7 @@ export default function UnitConverter() {
           </Card>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }
 

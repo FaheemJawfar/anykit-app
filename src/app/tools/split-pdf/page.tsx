@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -96,18 +98,7 @@ export default function SplitPDF() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 space-y-8 text-foreground">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Scissors className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Split PDF</h1>
-          <p className="text-sm text-muted-foreground">
-            Extract a range of pages into a new PDF file.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="split-pdf">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-5 space-y-6">
@@ -259,6 +250,6 @@ export default function SplitPDF() {
           )}
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

@@ -16,6 +16,7 @@ import {
   MousePointer2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ToolLayout } from "@/components/tool-layout";
 
 export default function KeycodeInfo() {
   const [event, setEvent] = useState<any>(null);
@@ -70,19 +71,7 @@ export default function KeycodeInfo() {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Keyboard className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Keycode Information</h1>
-          <p className="text-sm text-muted-foreground">
-            Press any key on your keyboard to get its event data and keycodes.
-          </p>
-        </div>
-      </div>
-
+    <ToolLayout toolId="keycode-info">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Detection Area */}
         <div className="lg:col-span-12">
@@ -160,6 +149,6 @@ export default function KeycodeInfo() {
           </p>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

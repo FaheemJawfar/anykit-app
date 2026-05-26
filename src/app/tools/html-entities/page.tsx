@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -69,18 +71,7 @@ export default function HTMLEntities() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Code className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">HTML Entities</h1>
-          <p className="text-sm text-muted-foreground">
-            Encode and decode HTML entities to prevent XSS or display special characters.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="html-entities">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
         {/* Input Panel */}
@@ -194,6 +185,6 @@ export default function HTMLEntities() {
           </div>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

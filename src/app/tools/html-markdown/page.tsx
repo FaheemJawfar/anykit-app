@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -55,18 +57,7 @@ export default function HTMLToMarkdown() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8 text-foreground">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <FileText className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">HTML to Markdown</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert standard HTML code into clean, readable Markdown syntax.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="html-markdown">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-[calc(100vh-300px)] min-h-[500px]">
         {/* Input Panel */}
@@ -119,6 +110,6 @@ export default function HTMLToMarkdown() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

@@ -1,46 +1,73 @@
+"use client";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tool } from "@/lib/tools";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { LucideIcon } from "@/components/lucide-icon";
+import { usePersistentTools } from "@/hooks/use-persistent-tools";
+import { Button } from "@/components/ui/button";
 
 interface ToolCardProps {
   tool: Tool;
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
+  const { isFavorite, toggleFavorite, mounted } = usePersistentTools();
+  const activeFavorite = mounted && isFavorite(tool.id);
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(tool.id);
+  };
+
   return (
-    <Link href={tool.path} className="block group">
-      <Card className="h-full transition-all duration-300 border-border/40 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 bg-card/40 backdrop-blur-sm overflow-hidden rounded-xl">
-        <CardHeader className="p-4">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/5 text-primary shadow-inner group-hover:bg-primary/10 transition-colors shrink-0">
-              <LucideIcon name={tool.icon} className="w-5 h-5" />
-              <div className="absolute inset-0 rounded-lg border border-primary/10 group-hover:border-primary/20 transition-colors" />
-            </div>
-            <div className="min-w-0">
-              <CardTitle className="text-sm font-bold group-hover:text-primary transition-colors truncate">
-                {tool.name}
-              </CardTitle>
-              <div className="flex items-center gap-2 mt-0.5">
-                <Badge variant="secondary" className="px-1.5 py-0 text-[9px] uppercase tracking-wider font-bold bg-muted/50 text-muted-foreground border-transparent">
-                  {tool.category}
-                </Badge>
-                {tool.isNew && (
-                  <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                )}
+    <Link href={tool.path} className="block group active:scale-[0.99] transition-transform">
+      <Card className="h-full relative transition-all duration-300 border border-border/20 dark:border-border/10 hover:border-primary/30 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 bg-card/40 backdrop-blur-md overflow-hidden rounded-2xl">
+        <CardHeader className="p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-primary/5 text-primary shadow-inner group-hover:bg-primary/10 transition-colors shrink-0">
+                <LucideIcon name={tool.icon} className="w-5.5 h-5.5 transition-transform group-hover:scale-110" />
+                <div className="absolute inset-0 rounded-xl border border-primary/10 group-hover:border-primary/20 transition-colors" />
+              </div>
+              <div className="min-w-0">
+                <CardTitle className="text-sm font-bold tracking-tight text-foreground/90 group-hover:text-primary transition-colors truncate">
+                  {tool.name}
+                </CardTitle>
+                <div className="flex items-center gap-2 mt-1">
+                  <Badge variant="secondary" className="px-1.5 py-0.5 text-[8px] uppercase tracking-wider font-extrabold bg-muted/60 text-muted-foreground border-transparent rounded-md">
+                    {tool.category}
+                  </Badge>
+                  {tool.isNew && (
+                    <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                  )}
+                </div>
               </div>
             </div>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleFavoriteClick}
+              className={`w-8 h-8 rounded-lg text-muted-foreground hover:text-amber-500 hover:bg-amber-500/10 transition-all shrink-0 ${
+                activeFavorite ? "opacity-100 text-amber-500" : "opacity-0 group-hover:opacity-100"
+              }`}
+              aria-label={activeFavorite ? "Remove from favorites" : "Add to favorites"}
+            >
+              <Star className={`w-4 h-4 ${activeFavorite ? "fill-amber-400 text-amber-400" : "text-muted-foreground"}`} />
+            </Button>
           </div>
-          <CardDescription className="text-xs leading-relaxed line-clamp-2 text-muted-foreground/80">
+          <CardDescription className="text-xs leading-relaxed line-clamp-2 text-muted-foreground/80 font-medium">
             {tool.description}
           </CardDescription>
         </CardHeader>
         
-        <div className="px-4 py-2 border-t border-border/40 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity bg-primary/[0.02]">
-          <span className="text-[10px] font-bold uppercase tracking-tight text-primary">Open Tool</span>
-          <ArrowRight className="w-3 h-3 text-primary" />
+        <div className="px-5 py-2.5 border-t border-border/10 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 bg-primary/[0.01]">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-primary">Open Utility</span>
+          <ArrowRight className="w-3.5 h-3.5 text-primary transform -translate-x-1 group-hover:translate-x-0 transition-transform" />
         </div>
       </Card>
     </Link>

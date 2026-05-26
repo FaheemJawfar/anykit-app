@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -69,18 +71,7 @@ export default function JSONTOMLConverter() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <FileTerminal className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">JSON ↔ TOML Converter</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert data between JSON and TOML formats instantly.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="json-toml">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
         {/* Input Panel */}
@@ -169,6 +160,6 @@ export default function JSONTOMLConverter() {
           <strong>TOML</strong> (Tom's Obvious, Minimal Language) is a configuration file format that's easy to read due to obvious semantics. It's designed to map unambiguously to a hash table. It's often used in Rust, Python (poetry), and other modern tools.
         </p>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

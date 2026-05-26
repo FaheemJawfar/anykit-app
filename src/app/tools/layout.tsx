@@ -9,7 +9,7 @@ export default function ToolsLayout({
 }) {
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 pt-3 pb-0">
         <Link href="/">
           <Button variant="ghost" size="sm">
             <ArrowLeft className="w-4 h-4 mr-2" />

@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -69,18 +71,7 @@ export default function TextBinaryConverter() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Binary className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Text ↔ Binary Converter</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert plain text to its binary representation (0s and 1s) and back.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="text-binary">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-full">
         {/* Input Panel */}
@@ -155,6 +146,6 @@ export default function TextBinaryConverter() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

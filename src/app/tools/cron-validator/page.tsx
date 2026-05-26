@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,7 +21,7 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import * as cronParser from "cron-parser";
+import { CronExpressionParser } from "cron-parser";
 import cronstrue from "cronstrue";
 
 export default function CronValidator() {
@@ -43,10 +45,10 @@ export default function CronValidator() {
       setDescription(cronstrue.toString(exp));
 
       // 2. Parse and get next 5 dates
-      const interval = (cronParser as any).parseExpression(exp);
+      const cronExpr = CronExpressionParser.parse(exp);
       const dates = [];
       for (let i = 0; i < 5; i++) {
-        dates.push(interval.next().toString());
+        dates.push(cronExpr.next().toISOString());
       }
       setNextDates(dates);
     } catch (e: any) {
@@ -61,18 +63,7 @@ export default function CronValidator() {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <ShieldCheck className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Cron Validator</h1>
-          <p className="text-sm text-muted-foreground">
-            Verify and test the validity of your cron expressions with human-readable descriptions.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="cron-validator">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Validator Side */}
@@ -172,6 +163,6 @@ export default function CronValidator() {
           </Card>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

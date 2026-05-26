@@ -8,16 +8,23 @@ import {
   LayoutGrid,
   ChevronRight,
   Shield,
-  FileText
+  FileText,
+  Star,
+  Clock,
+  Trash2
 } from "lucide-react";
 import { categories, tools } from "@/lib/tools";
 import { LucideIcon } from "@/components/lucide-icon";
+import { usePersistentTools } from "@/hooks/use-persistent-tools";
 
 export function Sidebar() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get("category");
+
+  const { favoriteTools, recentTools, clearRecents } = usePersistentTools();
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -37,6 +44,69 @@ export function Sidebar() {
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-2 space-y-8 custom-scrollbar">
+        {/* Favorites Section (Dynamic) */}
+        {mounted && favoriteTools.length > 0 && (
+          <div>
+            <div className="px-3 mb-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-amber-500 font-bold">
+              <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+              Favorites
+            </div>
+            <nav className="space-y-1">
+              {favoriteTools.map((tool) => (
+                <Link
+                  key={tool.id}
+                  href={tool.path}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-1.5 rounded-xl text-xs font-medium transition-all group",
+                    pathname === tool.path
+                      ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  )}
+                >
+                  <LucideIcon name={tool.icon} className="w-3.5 h-3.5" />
+                  <span className="truncate flex-1">{tool.name}</span>
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
+
+        {/* Recents Section (Dynamic) */}
+        {mounted && recentTools.length > 0 && (
+          <div>
+            <div className="px-3 mb-2 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">
+              <span className="flex items-center gap-2">
+                <Clock className="w-3 h-3" />
+                Recents
+              </span>
+              <button
+                onClick={clearRecents}
+                className="hover:text-destructive transition-colors p-0.5 rounded"
+                title="Clear recent history"
+              >
+                <Trash2 className="w-3 h-3" />
+              </button>
+            </div>
+            <nav className="space-y-1">
+              {recentTools.map((tool) => (
+                <Link
+                  key={tool.id}
+                  href={tool.path}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-1.5 rounded-xl text-xs font-medium transition-all group",
+                    pathname === tool.path
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  )}
+                >
+                  <LucideIcon name={tool.icon} className="w-3.5 h-3.5" />
+                  <span className="truncate flex-1">{tool.name}</span>
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
+
         <div>
           <div className="px-3 mb-2 text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">
             Categories

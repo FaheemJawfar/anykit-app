@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -70,18 +72,7 @@ export default function TimestampConverter() {
   const dateObj = !isNaN(parseInt(unixInput)) ? new Date(parseInt(unixInput) * 1000) : null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Clock className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Timestamp Converter</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert between Unix timestamps and human-readable dates instantly.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="timestamp-converter">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-7 space-y-6">
@@ -225,7 +216,7 @@ export default function TimestampConverter() {
           </div>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }
 

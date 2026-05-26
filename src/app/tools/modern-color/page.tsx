@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -63,18 +65,7 @@ export default function ModernColorConverter() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8 text-foreground">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Pipette className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Modern Color Converter</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert between HEX, RGB, HSL, OKLCH, LAB, and LCH color spaces.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="modern-color">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Preview Side */}
@@ -261,6 +252,6 @@ export default function ModernColorConverter() {
           </Card>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

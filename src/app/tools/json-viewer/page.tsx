@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -115,18 +117,7 @@ export default function JSONViewer() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <FileJson className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Interactive JSON Viewer</h1>
-          <p className="text-sm text-muted-foreground">
-            Explore large JSON data structures with an interactive, collapsible tree view.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="json-viewer">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-[calc(100vh-250px)] min-h-[600px]">
         {/* Editor Side */}
@@ -198,6 +189,6 @@ export default function JSONViewer() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

@@ -18,6 +18,7 @@ import {
   MapPin
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ToolLayout } from "@/components/tool-layout";
 import { parsePhoneNumber, type PhoneNumber, isValidPhoneNumber } from "libphonenumber-js";
 
 export default function PhoneParser() {
@@ -86,19 +87,7 @@ export default function PhoneParser() {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Phone className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Phone Parser & Formatter</h1>
-          <p className="text-sm text-muted-foreground">
-            Parse, validate, and format phone numbers for international and national standards.
-          </p>
-        </div>
-      </div>
-
+    <ToolLayout toolId="phone-parser">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Editor Side */}
         <div className="lg:col-span-5 space-y-6">
@@ -207,6 +196,6 @@ export default function PhoneParser() {
           )}
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

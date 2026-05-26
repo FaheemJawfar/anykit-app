@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -71,18 +73,7 @@ export default function Base64Encoder() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Lock className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Base64 Encoder/Decoder</h1>
-          <p className="text-sm text-muted-foreground">
-            Securely transform your data into Base64 format or back.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="base64-encoder">
 
       <div className="space-y-6">
         <div className="flex items-center justify-center gap-4">
@@ -205,7 +196,7 @@ export default function Base64Encoder() {
           </div>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }
 

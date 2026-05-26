@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -84,18 +86,7 @@ export default function GitMemo() {
   })).filter(cat => cat.items.length > 0);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <GitBranch className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Git Cheat Sheet</h1>
-          <p className="text-sm text-muted-foreground">
-            A professional reference for the most common and useful Git commands.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="git-memo">
 
       <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
         <div className="relative w-full md:w-96">
@@ -178,6 +169,6 @@ export default function GitMemo() {
           </p>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

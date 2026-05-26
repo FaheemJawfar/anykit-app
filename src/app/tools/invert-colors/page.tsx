@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -85,18 +87,7 @@ export default function InvertColors() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 space-y-8 text-foreground">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Contrast className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Invert Colors</h1>
-          <p className="text-sm text-muted-foreground">
-            Create a dark mode version of your PDF by inverting all colors.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="invert-colors">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
@@ -199,6 +190,6 @@ export default function InvertColors() {
           </div>
         </div>
       )}
-    </div>
+    </ToolLayout>
   );
 }

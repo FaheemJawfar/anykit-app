@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -62,18 +64,7 @@ export default function YAMLViewer() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Eye className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">YAML Viewer & Formatter</h1>
-          <p className="text-sm text-muted-foreground">
-            Format, beautify, and sort your YAML data for better readability.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="yaml-viewer">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Input and Settings */}
@@ -176,6 +167,6 @@ export default function YAMLViewer() {
           </Card>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

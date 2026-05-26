@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -95,18 +97,7 @@ export default function GraphQLToJSON() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8 text-foreground">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Code2 className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">GraphQL to JSON</h1>
-          <p className="text-sm text-muted-foreground">
-            Generate a mock JSON response structure from any GraphQL query or mutation.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="gql-json">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-[calc(100vh-300px)] min-h-[500px]">
         {/* Input Panel */}
@@ -181,6 +172,6 @@ export default function GraphQLToJSON() {
           This tool parses your GraphQL query AST (Abstract Syntax Tree) to visualize the data structure it expects. It's perfect for frontend developers who want to quickly generate mock data for UI components before the backend is ready.
         </p>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -87,18 +89,7 @@ export default function JSONCSVConverter() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <FileSpreadsheet className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">JSON ↔ CSV Converter</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert data between JSON arrays and CSV formats instantly.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="json-csv">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
         {/* Input Panel */}
@@ -201,6 +192,6 @@ export default function JSONCSVConverter() {
           <strong>CSV to JSON:</strong> The first row is treated as the header row. Each subsequent row is converted into a JSON object.
         </p>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

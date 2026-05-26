@@ -19,11 +19,22 @@ import { MagnifyingGlassIcon, CheckIcon } from "@phosphor-icons/react"
 
 function Command({
   className,
+  filter,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive>) {
+  const strictFilter = filter || ((value: string, search: string) => {
+    const s = search.toLowerCase().trim();
+    const v = value.toLowerCase().trim();
+    if (v.includes(s)) return 1;
+    const terms = s.split(/\s+/);
+    if (terms.every(term => v.includes(term))) return 1;
+    return 0;
+  });
+
   return (
     <CommandPrimitive
       data-slot="command"
+      filter={strictFilter}
       className={cn(
         "flex size-full flex-col overflow-hidden rounded-none bg-popover text-popover-foreground",
         className
@@ -54,12 +65,14 @@ function CommandDialog({
       </DialogHeader>
       <DialogContent
         className={cn(
-          "top-1/3 translate-y-0 overflow-hidden rounded-none p-0",
+          "top-1/3 translate-y-0 overflow-hidden rounded-none p-0 sm:max-w-2xl",
           className
         )}
         showCloseButton={showCloseButton}
       >
-        {children}
+        <Command className="[&_[data-slot=command-input-wrapper]]:border-b [&_[data-slot=command-input-wrapper]_input]:h-12 [&_[data-slot=command-item]]:px-3 [&_[data-slot=command-item]]:py-2">
+          {children}
+        </Command>
       </DialogContent>
     </Dialog>
   )

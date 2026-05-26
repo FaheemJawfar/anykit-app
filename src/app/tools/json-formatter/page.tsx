@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -78,18 +80,7 @@ export default function JsonFormatter() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <FileJson className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">JSON Formatter</h1>
-          <p className="text-sm text-muted-foreground">
-            Beautify, minify, and validate your JSON data.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="json-formatter">
 
       <div className="space-y-6">
         <Card className="border-border/40 shadow-2xl shadow-primary/5 bg-card/50 backdrop-blur-sm rounded-[2rem] overflow-hidden">
@@ -232,7 +223,7 @@ export default function JsonFormatter() {
           <p className="text-xs text-muted-foreground leading-relaxed">All processing is done 100% locally in your browser. Data never leaves your machine.</p>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }
 

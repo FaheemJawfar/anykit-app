@@ -20,6 +20,7 @@ import {
   Code
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ToolLayout } from "@/components/tool-layout";
 
 export default function IPv4AddressConverter() {
   const [ip, setIp] = useState("192.168.1.1");
@@ -102,19 +103,7 @@ export default function IPv4AddressConverter() {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Network className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">IPv4 Address Converter</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert an IPv4 address into various representations like Integer, Binary, Hex, and IPv6.
-          </p>
-        </div>
-      </div>
-
+    <ToolLayout toolId="ipv4-address-converter">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Input Side */}
         <div className="lg:col-span-5 space-y-6">
@@ -186,6 +175,6 @@ export default function IPv4AddressConverter() {
           )}
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

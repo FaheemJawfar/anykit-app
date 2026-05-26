@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -121,18 +123,7 @@ export default function Calculator() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <CalcIcon className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Calculator</h1>
-          <p className="text-sm text-muted-foreground">
-            Simple and powerful calculator for your basic math needs.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="calculator">
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         <div className="md:col-span-7 flex justify-center">
@@ -212,7 +203,7 @@ export default function Calculator() {
           </div>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }
 

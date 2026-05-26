@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -107,18 +109,7 @@ export default function MergePDF() {
   const totalPages = files.reduce((sum, f) => sum + (f.pageCount || 0), 0);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 space-y-8 text-foreground">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <GitMerge className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">Merge PDF</h1>
-          <p className="text-sm text-muted-foreground">
-            Combine multiple PDFs into one file. Drag to reorder.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="merge-pdf">
 
       <div className="space-y-6">
         {/* Upload Zone */}
@@ -260,6 +251,6 @@ export default function MergePDF() {
           </p>
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

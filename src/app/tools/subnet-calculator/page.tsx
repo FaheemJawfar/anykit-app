@@ -21,6 +21,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ToolLayout } from "@/components/tool-layout";
 import { Address4 } from "ip-address";
 
 export default function SubnetCalculator() {
@@ -89,19 +90,7 @@ export default function SubnetCalculator() {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Network className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">IPv4 Subnet Calculator</h1>
-          <p className="text-sm text-muted-foreground">
-            Plan your network by calculating CIDR, masks, and usable host ranges.
-          </p>
-        </div>
-      </div>
-
+    <ToolLayout toolId="subnet-calculator">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Input Panel */}
         <div className="lg:col-span-4 space-y-6">
@@ -217,6 +206,6 @@ export default function SubnetCalculator() {
           )}
         </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

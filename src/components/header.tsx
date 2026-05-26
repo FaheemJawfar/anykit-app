@@ -10,14 +10,13 @@ import {
   LayoutGrid,
   Sun,
   Moon,
-  ArrowRight,
-  Command,
   Star
 } from "lucide-react";
-import { categories, searchTools, Tool } from "@/lib/tools";
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { categories } from "@/lib/tools";
+import { useState, useEffect } from "react";
 import { LucideIcon } from "@/components/lucide-icon";
 import { useTheme } from "next-themes";
+import { CMD_PALETTE_EVENT } from "@/components/command-palette";
 
 export function Header() {
   const pathname = usePathname();
@@ -25,74 +24,8 @@ export function Header() {
   const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [stars, setStars] = useState<number | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(-1);
   const [mounted, setMounted] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const searchResults = useMemo(() => {
-    if (!searchQuery.trim()) return [];
-    return searchTools(searchQuery).slice(0, 6);
-  }, [searchQuery]);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/?search=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery("");
-      setIsDropdownOpen(false);
-      setIsMobileMenuOpen(false);
-    }
-  };
-
-  const handleSelectTool = useCallback((tool: Tool) => {
-    router.push(tool.path);
-    setSearchQuery("");
-    setIsDropdownOpen(false);
-    setActiveIndex(-1);
-  }, [router]);
-
-  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!isDropdownOpen) {
-      if (e.key === "ArrowDown" && searchResults.length > 0) {
-        setIsDropdownOpen(true);
-        setActiveIndex(0);
-        e.preventDefault();
-      }
-      return;
-    }
-
-    switch (e.key) {
-      case "ArrowDown":
-        setActiveIndex(prev => (prev + 1) % (searchResults.length + 1));
-        e.preventDefault();
-        break;
-      case "ArrowUp":
-        setActiveIndex(prev => (prev - 1 + searchResults.length + 1) % (searchResults.length + 1));
-        e.preventDefault();
-        break;
-      case "Enter":
-        if (activeIndex === -1) {
-          handleSearch(e);
-        } else if (activeIndex < searchResults.length) {
-          handleSelectTool(searchResults[activeIndex]);
-        } else {
-          router.push(`/?search=${encodeURIComponent(searchQuery)}`);
-          setSearchQuery("");
-          setIsDropdownOpen(false);
-        }
-        e.preventDefault();
-        break;
-      case "Escape":
-        setIsDropdownOpen(false);
-        setActiveIndex(-1);
-        inputRef.current?.blur();
-        break;
-    }
-  }, [isDropdownOpen, searchResults, activeIndex, handleSelectTool, handleSearch, router, searchQuery]);
 
   useEffect(() => {
     setMounted(true);
@@ -116,30 +49,12 @@ export function Header() {
       });
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-        setActiveIndex(-1);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-    document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
-  }, []);
-
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  const handleOpenCommandPalette = () => {
+    window.dispatchEvent(new CustomEvent(CMD_PALETTE_EVENT));
   };
 
   return (
@@ -166,96 +81,16 @@ export function Header() {
           </div>
 
           <div className="flex-1 flex items-center justify-center lg:justify-start">
-            <div ref={searchRef} className="relative w-full max-w-xl group">
-              <form onSubmit={handleSearch} className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors pointer-events-none" />
-                <input
-                  ref={inputRef}
-                  type="text"
-                  placeholder="Search through 100+ tools..."
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setIsDropdownOpen(e.target.value.trim().length > 0);
-                    setActiveIndex(-1);
-                  }}
-                  onFocus={() => {
-                    if (searchQuery.trim()) setIsDropdownOpen(true);
-                  }}
-                  onKeyDown={handleKeyDown}
-                  className="w-full pl-11 pr-4 py-2.5 bg-muted/50 border border-transparent rounded-2xl text-sm focus:outline-none focus:ring-4 focus:ring-primary/5 focus:bg-background focus:border-border transition-all"
-                />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-1.5 py-1 rounded bg-muted border border-border text-[10px] font-bold text-muted-foreground">
-                  <span className="text-xs">⌘</span> K
-                </div>
-              </form>
-
-              {isDropdownOpen && searchQuery.trim() && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-border rounded-2xl shadow-xl shadow-black/5 overflow-hidden z-50">
-                  {searchResults.length > 0 ? (
-                    <div className="py-2">
-                      <div className="px-4 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                        Tools
-                      </div>
-                      {searchResults.map((tool, index) => (
-                        <button
-                          key={tool.id}
-                          onClick={() => handleSelectTool(tool)}
-                          className={cn(
-                            "w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors",
-                            activeIndex === index
-                              ? "bg-accent"
-                              : "hover:bg-accent/50"
-                          )}
-                        >
-                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary shrink-0">
-                            <LucideIcon name={tool.icon} className="w-4 h-4" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-sm font-medium truncate">
-                              {tool.name}
-                            </div>
-                            <div className="text-xs text-muted-foreground truncate">
-                              {tool.description}
-                            </div>
-                          </div>
-                          <ArrowRight className={cn(
-                            "w-4 h-4 text-muted-foreground shrink-0",
-                            activeIndex === index ? "opacity-100" : "opacity-0"
-                          )} />
-                        </button>
-                      ))}
-                      <div className="border-t border-border mt-1 pt-1">
-                        <button
-                          onClick={() => {
-                            router.push(`/?search=${encodeURIComponent(searchQuery)}`);
-                            setSearchQuery("");
-                            setIsDropdownOpen(false);
-                          }}
-                          className={cn(
-                            "w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors",
-                            activeIndex === searchResults.length
-                              ? "bg-accent"
-                              : "hover:bg-accent/50"
-                          )}
-                        >
-                          <Search className="w-4 h-4 text-muted-foreground" />
-                          <span className="flex-1">View all results for "{searchQuery}"</span>
-                          <ArrowRight className={cn(
-                            "w-4 h-4 text-muted-foreground shrink-0",
-                            activeIndex === searchResults.length ? "opacity-100" : "opacity-0"
-                          )} />
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="px-4 py-6 text-center text-sm text-muted-foreground">
-                      No tools found matching "{searchQuery}"
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+            <button
+              onClick={handleOpenCommandPalette}
+              className="relative w-full max-w-xl group flex items-center text-left pl-11 pr-4 py-2.5 bg-muted/40 hover:bg-muted/70 border border-border/20 hover:border-border/60 rounded-2xl text-sm text-muted-foreground/80 transition-all focus:outline-none focus:ring-4 focus:ring-primary/5 cursor-pointer"
+            >
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors pointer-events-none" />
+              <span>Search through 100+ tools... (⌘K)</span>
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-1.5 py-1 rounded bg-muted border border-border text-[10px] font-bold text-muted-foreground">
+                <span className="text-xs">⌘</span> K
+              </div>
+            </button>
           </div>
 
           <div className="flex items-center gap-3">
@@ -268,7 +103,7 @@ export function Header() {
               {mounted && (theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />)}
               {!mounted && <div className="w-4 h-4" />}
             </Button>
-            <Button variant="outline" size="icon" className="rounded-xl hidden sm:flex border-border/50">
+            <Button variant="outline" size="icon" className="rounded-xl hidden sm:flex border-border/50" onClick={handleOpenCommandPalette}>
               <LayoutGrid className="w-4 h-4" />
             </Button>
             <a

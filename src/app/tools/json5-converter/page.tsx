@@ -1,5 +1,7 @@
 "use client";
 
+import { ToolLayout } from "@/components/tool-layout";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -56,18 +58,7 @@ export default function JSON5Converter() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-8 text-foreground">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
-          <Braces className="w-6 h-6" />
-        </div>
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-bold tracking-tight">JSON5 to JSON</h1>
-          <p className="text-sm text-muted-foreground">
-            Convert the human-friendly JSON5 format into standard, strict JSON.
-          </p>
-        </div>
-      </div>
+    <ToolLayout toolId="json5-converter">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-[calc(100vh-300px)] min-h-[500px]">
         {/* Input Panel */}
@@ -142,6 +133,6 @@ export default function JSON5Converter() {
           JSON5 is an extension to JSON that allows for things like single-line and multi-line comments, single quotes, unquoted object keys, and trailing commas. It's essentially the format used for config files in the JavaScript ecosystem.
         </p>
       </div>
-    </div>
+    </ToolLayout>
   );
 }
