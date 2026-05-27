@@ -26,9 +26,62 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://anykit.app";
+
 export const metadata: Metadata = {
-  title: "AnyKit App - Professional Utility Tools",
-  description: "A comprehensive collection of magical tools for your everyday tasks.",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "AnyKit App - 100+ Free Online Developer & Utility Tools",
+    template: "%s | AnyKit App",
+  },
+  description:
+    "Free collection of 100+ online tools for developers, designers, and everyday tasks. JSON formatter, PDF tools, Base64 encoder, color converter, regex tester, and more. No sign-up required.",
+  keywords: [
+    "online tools",
+    "developer tools",
+    "free tools",
+    "JSON formatter",
+    "Base64 encoder",
+    "PDF tools",
+    "color converter",
+    "regex tester",
+    "UUID generator",
+    "utility tools",
+    "web tools",
+    "coding tools",
+  ],
+  authors: [{ name: "AnyKit App" }],
+  creator: "AnyKit App",
+  publisher: "AnyKit App",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "AnyKit App",
+    title: "AnyKit App - 100+ Free Online Developer & Utility Tools",
+    description:
+      "Free collection of 100+ online tools for developers, designers, and everyday tasks. No sign-up required.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AnyKit App - 100+ Free Online Developer & Utility Tools",
+    description:
+      "Free collection of 100+ online tools for developers, designers, and everyday tasks. No sign-up required.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
