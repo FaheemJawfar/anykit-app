@@ -4,9 +4,13 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-FaheemJawfar%2Fanykit--app-181717?logo=github)](https://github.com/FaheemJawfar/anykit-app)
+[![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/faheemj)
 [![Next.js](https://img.shields.io/badge/Built%20with-Next.js%2016-black?logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?logo=typescript)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-06B6D4?logo=tailwindcss)](https://tailwindcss.com)
+
+> Built and maintained solo by [@FaheemJawfar](https://github.com/FaheemJawfar).
+> If AnyKit saves you time, [buy me a coffee ☕](https://ko-fi.com/faheemj/?amount=5) — it keeps the project free, ad-free, and actively developed.
 
 ## Features
 
@@ -168,11 +172,14 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Support
 
-If you find AnyKit App useful, please consider:
+AnyKit App is **free, ad-free, and 100% client-side**, built solo on nights and weekends. If it saves you time, here's how to keep it going:
 
-- **Starring** the repository on GitHub
-- **Reporting** bugs or suggesting features via [Issues](https://github.com/FaheemJawfar/anykit-app/issues)
-- **Sharing** the project with others
+- ☕ **[Buy me a coffee on Ko-fi](https://ko-fi.com/faheemj/?amount=5)** — directly funds servers and new tools
+- ⭐ **Star the repo** on GitHub — biggest free signal of support
+- 🐛 **Report bugs or suggest tools** via [Issues](https://github.com/FaheemJawfar/anykit-app/issues)
+- 📣 **Share** the project with anyone who'd find it useful
+
+Every coffee buys a weekend to ship something new instead of taking client work — thank you.
 
 ---
 

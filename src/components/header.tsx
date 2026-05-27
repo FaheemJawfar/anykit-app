@@ -10,13 +10,15 @@ import {
   LayoutGrid,
   Sun,
   Moon,
-  Star
+  Star,
+  Heart
 } from "lucide-react";
 import { categories } from "@/lib/tools";
 import { useState, useEffect } from "react";
 import { LucideIcon } from "@/components/lucide-icon";
 import { useTheme } from "next-themes";
 import { CMD_PALETTE_EVENT } from "@/components/command-palette";
+import { KOFI_PRESET_URL } from "@/lib/support";
 
 export function Header() {
   const pathname = usePathname();
@@ -106,6 +108,17 @@ export function Header() {
             <Button variant="outline" size="icon" className="rounded-xl hidden sm:flex border-border/50" onClick={handleOpenCommandPalette}>
               <LayoutGrid className="w-4 h-4" />
             </Button>
+            <a
+              href={KOFI_PRESET_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl h-10 px-3 bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 ring-1 ring-amber-500/20 transition-colors font-semibold text-sm"
+              aria-label="Support AnyKit on Ko-fi"
+              title="Support AnyKit"
+            >
+              <Heart className="w-4 h-4 fill-current" />
+              <span className="hidden md:inline">Sponsor</span>
+            </a>
             <a
               href="https://github.com/FaheemJawfar/anykit-app"
               target="_blank"

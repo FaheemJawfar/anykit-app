@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/sidebar";
 import { CommandPalette } from "@/components/command-palette";
+import { SupportPrompt } from "@/components/support-prompt";
 import { ToastProvider } from "@/hooks/use-toast";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -59,7 +60,8 @@ export default function RootLayout({
             </Suspense>
             
             <CommandPalette />
-            
+            <SupportPrompt />
+
             <div className="flex-1 flex flex-col min-h-screen relative">
               <Header />
               <main className="flex-1">{children}</main>

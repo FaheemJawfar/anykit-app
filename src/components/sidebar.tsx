@@ -11,11 +11,14 @@ import {
   FileText,
   Star,
   Clock,
-  Trash2
+  Trash2,
+  Coffee,
+  Heart
 } from "lucide-react";
 import { categories, tools } from "@/lib/tools";
 import { LucideIcon } from "@/components/lucide-icon";
 import { usePersistentTools } from "@/hooks/use-persistent-tools";
+import { KOFI_PRESET_URL, KOFI_URL, SUPPORT_CONFIG } from "@/lib/support";
 
 export function Sidebar() {
   const [mounted, setMounted] = useState(false);
@@ -172,23 +175,35 @@ export function Sidebar() {
       </div>
 
       <div className="p-4 border-t border-border/40">
-        <div className="p-4 rounded-2xl bg-primary/5 space-y-3">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-primary/70">Support AnyKit App</p>
-          <p className="text-xs text-muted-foreground leading-relaxed">Help us keep the tools free and fast for everyone.</p>
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-rose-500/10 ring-1 ring-amber-500/10 space-y-3">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-amber-500/15">
+              <Heart className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+            </div>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+              Support AnyKit
+            </p>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Built solo by <span className="font-semibold text-foreground">{SUPPORT_CONFIG.authorName}</span>.
+            No ads, no tracking, all in your browser. A coffee keeps it free.
+          </p>
           <a
-            href="https://www.buymeacoffee.com/faheemj"
+            href={KOFI_PRESET_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-full gap-2 h-10 px-4 rounded-xl font-semibold text-sm transition-transform active:scale-95"
-            style={{
-              backgroundColor: "#FFDD00",
-              color: "#000000",
-              outline: "1px solid #000000",
-              fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
-            }}
+            className="inline-flex items-center justify-center w-full gap-2 h-10 px-4 rounded-xl font-semibold text-sm bg-[#FF5E5B] text-white hover:bg-[#ff4744] transition-colors active:scale-[0.98] shadow-sm"
           >
-            <span>♥️</span>
-            <span>Support My Work</span>
+            <Coffee className="w-4 h-4" />
+            <span>Buy me a coffee — ${SUPPORT_CONFIG.presetAmount}</span>
+          </a>
+          <a
+            href={KOFI_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Choose another amount →
           </a>
         </div>
       </div>
