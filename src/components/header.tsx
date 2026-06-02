@@ -14,12 +14,14 @@ import {
 } from "lucide-react";
 import { categories } from "@/lib/tools";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { LucideIcon } from "@/components/lucide-icon";
 import { useTheme } from "next-themes";
 import { CMD_PALETTE_EVENT } from "@/components/command-palette";
 import { KOFI_PRESET_URL } from "@/lib/support";
 
 export function Header() {
+  const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -68,10 +70,14 @@ export function Header() {
           <div className="flex items-center gap-4 lg:hidden shrink-0">
             <Link
               href="/"
-              className="flex items-center gap-2 group transition-opacity hover:opacity-90"
+              className="flex items-center gap-2 group transition-opacity hover:opacity-90 cursor-pointer"
+              onClick={(event) => {
+                event.preventDefault();
+                router.push("/");
+              }}
             >
               <div className="relative flex items-center justify-center w-8 h-8 rounded-lg overflow-hidden shadow-[0_8px_20px_-10px_color-mix(in_oklch,var(--primary)_40%,transparent)] ring-1 ring-primary/15">
-                <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10" />
+                <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10 pointer-events-none" draggable="false" />
               </div>
               <span className="font-bold text-lg tracking-tight">AnyKit App</span>
             </Link>

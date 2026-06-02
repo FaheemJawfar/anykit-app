@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   LayoutGrid,
@@ -20,6 +20,7 @@ import { usePersistentTools } from "@/hooks/use-persistent-tools";
 import { KOFI_PRESET_URL, KOFI_URL, SUPPORT_CONFIG } from "@/lib/support";
 
 export function Sidebar() {
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get("category");
@@ -44,9 +45,16 @@ export function Sidebar() {
   return (
     <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 border-r border-border/35 bg-sidebar/75 backdrop-blur-2xl shadow-[inset_-1px_0_0_color-mix(in_oklch,var(--border)_40%,transparent)]">
       <div className="p-6 border-b border-border/40">
-        <Link href="/" className="flex items-center gap-2 group">
+        <Link
+          href="/"
+          className="flex items-center gap-2 group cursor-pointer"
+          onClick={(event) => {
+            event.preventDefault();
+            router.push("/");
+          }}
+        >
           <div className="relative flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden shadow-[0_14px_26px_-18px_color-mix(in_oklch,var(--primary)_70%,transparent)] ring-1 ring-primary/20">
-            <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10 transition-transform group-hover:scale-105" />
+            <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10 transition-transform group-hover:scale-105 pointer-events-none" draggable="false" />
           </div>
           <div className="flex flex-col">
             <span className="font-bold text-xl leading-none tracking-tight">AnyKit App</span>
