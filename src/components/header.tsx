@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,16 +20,12 @@ import { CMD_PALETTE_EVENT } from "@/components/command-palette";
 import { KOFI_PRESET_URL } from "@/lib/support";
 
 export function Header() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [stars, setStars] = useState<number | null>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
@@ -52,7 +47,7 @@ export function Header() {
   }, []);
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   const handleOpenCommandPalette = () => {
@@ -64,55 +59,56 @@ export function Header() {
       className={cn(
         "sticky top-0 z-50 transition-all duration-300 border-b",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-border/50 py-3"
-          : "bg-background border-transparent py-4"
+          ? "bg-background/75 backdrop-blur-2xl border-border/40 py-2.5 shadow-[0_14px_32px_-24px_rgba(0,0,0,0.55)]"
+          : "bg-background/50 border-transparent py-4"
       )}
     >
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4 lg:hidden">
+        <div className="flex items-center gap-3 justify-between">
+          <div className="flex items-center gap-4 lg:hidden shrink-0">
             <Link
               href="/"
               className="flex items-center gap-2 group transition-opacity hover:opacity-90"
             >
-              <div className="relative flex items-center justify-center w-8 h-8 rounded-lg overflow-hidden shadow-lg shadow-primary/20">
+              <div className="relative flex items-center justify-center w-8 h-8 rounded-lg overflow-hidden shadow-[0_8px_20px_-10px_color-mix(in_oklch,var(--primary)_40%,transparent)] ring-1 ring-primary/15">
                 <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10" />
               </div>
               <span className="font-bold text-lg tracking-tight">AnyKit App</span>
             </Link>
           </div>
 
-          <div className="flex-1 flex items-center justify-center lg:justify-start">
+          <div className="flex-1 flex items-center justify-center lg:justify-start min-w-0">
             <button
               onClick={handleOpenCommandPalette}
-              className="relative w-full max-w-xl group flex items-center text-left pl-11 pr-4 py-2.5 bg-muted/40 hover:bg-muted/70 border border-border/20 hover:border-border/60 rounded-2xl text-sm text-muted-foreground/80 transition-all focus:outline-none focus:ring-4 focus:ring-primary/5 cursor-pointer"
+              className="relative w-full max-w-2xl group flex items-center text-left pl-11 pr-4 h-11 bg-card/65 hover:bg-card/85 border border-border/45 hover:border-primary/30 rounded-2xl text-sm text-muted-foreground/85 transition-all focus:outline-none focus:ring-4 focus:ring-primary/10 cursor-pointer overflow-hidden"
             >
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors pointer-events-none" />
-              <span>Search through 100+ tools... (⌘K)</span>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-1.5 py-1 rounded bg-muted border border-border text-[10px] font-bold text-muted-foreground">
+              <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-primary/12 to-transparent pointer-events-none" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary transition-colors pointer-events-none" />
+              <span className="truncate">Search tools, categories, tags... (⌘K)</span>
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-muted/70 border border-border/60 text-[10px] font-bold text-muted-foreground">
                 <span className="text-xs">⌘</span> K
               </div>
             </button>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 shrink-0">
             <Button
               variant="outline"
               size="icon"
-              className="rounded-xl border-border/50"
+              className="rounded-xl border-border/50 bg-card/45 hover:bg-card"
               onClick={toggleTheme}
             >
-              {mounted && (theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />)}
-              {!mounted && <div className="w-4 h-4" />}
+              <Sun className="hidden dark:block w-4 h-4" />
+              <Moon className="block dark:hidden w-4 h-4" />
             </Button>
-            <Button variant="outline" size="icon" className="rounded-xl hidden sm:flex border-border/50" onClick={handleOpenCommandPalette}>
+            <Button variant="outline" size="icon" className="rounded-xl hidden sm:flex border-border/50 bg-card/45 hover:bg-card" onClick={handleOpenCommandPalette}>
               <LayoutGrid className="w-4 h-4" />
             </Button>
             <a
               href={KOFI_PRESET_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl h-10 px-3 bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 ring-1 ring-amber-500/20 transition-colors font-semibold text-sm"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl h-10 px-3.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 ring-1 ring-amber-500/25 transition-colors font-semibold text-sm"
               aria-label="Support AnyKit on Ko-fi"
               title="Support AnyKit"
             >
@@ -123,7 +119,7 @@ export function Header() {
               href="https://github.com/FaheemJawfar/anykit-app"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-foreground text-background hover:bg-foreground/90 h-10 px-4 transition-colors font-medium"
+              className="inline-flex items-center gap-2 rounded-xl bg-foreground text-background hover:bg-foreground/90 h-10 px-3.5 md:px-4 transition-colors font-medium shadow-[0_10px_26px_-16px_rgba(0,0,0,0.75)]"
               aria-label="GitHub Repository"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -151,26 +147,26 @@ export function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border p-4 animate-in slide-in-from-top duration-300">
-          <nav className="flex flex-col gap-2">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/50 p-4 animate-in slide-in-from-top duration-300 shadow-[0_18px_42px_-30px_rgba(0,0,0,0.7)]">
+          <nav className="flex flex-col gap-2.5">
             <Link
               href="/"
-              className="px-4 py-3 rounded-xl text-base font-medium hover:bg-accent transition-colors"
+              className="px-4 py-3 rounded-xl text-base font-semibold bg-card/60 border border-border/40 hover:bg-accent transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               All Tools
             </Link>
-            <div className="h-px bg-border my-2" />
-            <div className="grid grid-cols-2 gap-2">
+            <div className="h-px bg-border/60 my-2" />
+            <div className="grid grid-cols-2 gap-2.5">
               {categories.map((category) => (
                 <Link
                   key={category.id}
                   href={`/?category=${category.id}`}
-                  className="flex items-center gap-2 p-3 rounded-xl hover:bg-accent transition-colors border border-border/50"
+                  className="flex items-center gap-2.5 p-3 rounded-xl hover:bg-accent transition-colors border border-border/50 bg-card/45"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <LucideIcon name={category.icon} className="w-4 h-4" />
-                  <span className="text-sm font-medium">{category.name}</span>
+                  <span className="text-sm font-semibold leading-tight">{category.name}</span>
                 </Link>
               ))}
             </div>

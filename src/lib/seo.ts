@@ -93,25 +93,6 @@ export function generateToolJsonLd(toolId: string) {
   };
 }
 
-export function generateHomeJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "AnyKit App",
-    url: BASE_URL,
-    description:
-      "Free collection of 100+ online tools for developers, designers, and everyday tasks.",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${BASE_URL}/?search={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-  };
-}
-
 export function generateCategoryJsonLd(categoryId: string) {
   const category = categories.find((c) => c.id === categoryId);
   if (!category) return null;

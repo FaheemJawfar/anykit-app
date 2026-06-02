@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { getToolById, categories } from "@/lib/tools";
 import { LucideIcon } from "@/components/lucide-icon";
 import { usePersistentTools } from "@/hooks/use-persistent-tools";
@@ -17,7 +17,6 @@ interface ToolLayoutProps {
 
 export function ToolLayout({ toolId, children }: ToolLayoutProps) {
   const router = useRouter();
-  const pathname = usePathname();
   const { isFavorite, toggleFavorite, addRecent, mounted } = usePersistentTools();
   const { toast } = useToast();
   const [shareCopied, setShareCopied] = useState(false);
@@ -78,7 +77,7 @@ export function ToolLayout({ toolId, children }: ToolLayoutProps) {
   return (
     <div className="max-w-7xl mx-auto px-4 pt-2 pb-6 md:pt-3 md:pb-10 space-y-8 text-foreground">
       {/* Dynamic Breadcrumbs */}
-      <nav className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/80 overflow-x-auto whitespace-nowrap">
+      <nav className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/80 overflow-x-auto whitespace-nowrap bg-card/45 border border-border/45 rounded-xl px-3 py-2 w-fit max-w-full">
         <Link href="/" className="hover:text-primary transition-colors">
           Home
         </Link>
@@ -95,56 +94,58 @@ export function ToolLayout({ toolId, children }: ToolLayoutProps) {
       </nav>
 
       {/* Tool Header Block */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-border/40">
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner shrink-0">
+      <div className="rounded-3xl border border-border/45 bg-card/60 backdrop-blur-xl p-5 md:p-6 lg:p-7 space-y-6 shadow-[0_24px_50px_-36px_rgba(15,23,42,0.55)]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-start gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-primary/10 ring-1 ring-primary/20 flex items-center justify-center text-primary shadow-inner shrink-0">
             <LucideIcon name={tool.icon} className="w-7 h-7" />
-          </div>
-          <div className="space-y-1">
-            <div className="flex items-center gap-2.5">
-              <h1 className="text-2xl md:text-3xl font-black tracking-tight">{tool.name}</h1>
-              {tool.isNew && (
-                <span className="px-2 py-0.5 text-[9px] font-black tracking-wider bg-primary/10 text-primary rounded-full uppercase">
-                  New
-                </span>
-              )}
             </div>
-            <p className="text-sm text-muted-foreground/90 leading-relaxed max-w-2xl">
-              {tool.description}
-            </p>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <h1 className="text-2xl md:text-3xl font-black tracking-tight">{tool.name}</h1>
+                {tool.isNew && (
+                  <span className="px-2 py-0.5 text-[9px] font-black tracking-wider bg-primary/10 text-primary rounded-full uppercase">
+                    New
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-muted-foreground/90 leading-relaxed max-w-2xl">
+                {tool.description}
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          <Button
-            variant="outline"
-            onClick={handleShare}
-            className="rounded-xl border-border/40 font-bold text-xs h-10 px-4 flex items-center gap-2 hover:bg-muted/40"
-          >
-            {shareCopied ? (
-              <>
-                <Check className="w-4 h-4 text-green-500" />
-                Copied Link
-              </>
-            ) : (
-              <>
-                <Share2 className="w-4 h-4" />
-                Share
-              </>
-            )}
-          </Button>
+          {/* Action Controls */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <Button
+              variant="outline"
+              onClick={handleShare}
+              className="rounded-xl border-border/45 bg-background/70 font-bold text-xs h-10 px-4 flex items-center gap-2 hover:bg-muted/45"
+            >
+              {shareCopied ? (
+                <>
+                  <Check className="w-4 h-4 text-green-500" />
+                  Copied Link
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-4 h-4" />
+                  Share
+                </>
+              )}
+            </Button>
 
-          <Button
-            variant="outline"
-            onClick={handleToggleFavorite}
-            className={`rounded-xl border-border/40 font-bold text-xs h-10 px-4 flex items-center gap-2 transition-all hover:bg-amber-500/5 hover:border-amber-500/20 ${
-              activeFavorite ? "bg-amber-500/5 border-amber-500/30 text-amber-600 dark:text-amber-400" : ""
-            }`}
-          >
-            <Star className={`w-4 h-4 ${activeFavorite ? "fill-amber-400 text-amber-400" : ""}`} />
-            {activeFavorite ? "Favorited" : "Favorite"}
-          </Button>
+            <Button
+              variant="outline"
+              onClick={handleToggleFavorite}
+              className={`rounded-xl border-border/45 bg-background/70 font-bold text-xs h-10 px-4 flex items-center gap-2 transition-all hover:bg-amber-500/5 hover:border-amber-500/20 ${
+                activeFavorite ? "bg-amber-500/5 border-amber-500/30 text-amber-600 dark:text-amber-400" : ""
+              }`}
+            >
+              <Star className={`w-4 h-4 ${activeFavorite ? "fill-amber-400 text-amber-400" : ""}`} />
+              {activeFavorite ? "Favorited" : "Favorite"}
+            </Button>
+          </div>
         </div>
       </div>
 
