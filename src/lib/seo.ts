@@ -22,12 +22,12 @@ export function generateToolMetadata(toolId: string): Metadata {
     description,
     keywords: tool.tags,
     alternates: {
-      canonical: tool.path,
+      canonical: `${BASE_URL}${tool.path}`,
     },
     openGraph: {
       title: `${tool.name} - AnyKit App`,
       description: tool.description,
-      url: tool.path,
+      url: `${BASE_URL}${tool.path}`,
       siteName: "AnyKit App",
       type: "website",
     },

@@ -160,11 +160,11 @@ export const tools: Tool[] = [
   {
     id: 'add-blank-page',
     name: 'Add Blank Page',
-    description: 'Insert empty pages anywhere in your PDF',
+    description: 'Insert blank pages at any position in a PDF — choose size, orientation, and exact location',
     category: 'pdf',
     icon: 'FilePlus',
     path: '/tools/add-blank-page',
-    tags: ['pdf', 'blank', 'page', 'insert'],
+    tags: ['pdf', 'blank', 'page', 'insert', 'add page', 'empty page', 'pdf editor'],
     isNew: true,
   },
   {
@@ -492,11 +492,11 @@ export const tools: Tool[] = [
   {
     id: 'iban-validator',
     name: 'IBAN Validator',
-    description: 'Validate and parse IBAN numbers',
+    description: 'Validate IBAN bank account numbers and extract BIC, country, and account details',
     category: 'converter',
     icon: 'Landmark',
     path: '/tools/iban-validator',
-    tags: ['iban', 'bank', 'validate', 'transfer'],
+    tags: ['iban', 'bank', 'validate', 'bic', 'swift', 'account number', 'international transfer', 'sepa'],
     isNew: true,
   },
   {
@@ -812,11 +812,11 @@ export const tools: Tool[] = [
   {
     id: 'cron-tester',
     name: 'Cron Expression Tester',
-    description: 'Test and predict cron execution dates',
+    description: 'Test cron expressions and preview the next scheduled execution dates with timezone support',
     category: 'developer',
     icon: 'Clock',
     path: '/tools/cron-tester',
-    tags: ['cron', 'tester', 'schedule', 'predict'],
+    tags: ['cron', 'tester', 'schedule', 'predict', 'crontab', 'job scheduler', 'linux', 'next run'],
     isNew: true,
   },
   {
@@ -1500,11 +1500,11 @@ export const tools: Tool[] = [
   {
     id: 'timestamp-converter',
     name: 'Timestamp Converter',
-    description: 'Convert Unix timestamps to readable dates',
+    description: 'Convert Unix timestamps to human-readable dates and times across any timezone',
     category: 'converter',
     icon: 'Clock',
     path: '/tools/timestamp-converter',
-    tags: ['timestamp', 'date', 'convert'],
+    tags: ['timestamp', 'unix', 'epoch', 'date', 'time', 'timezone', 'convert', 'iso 8601'],
   },
   {
     id: 'unit-converter',
@@ -1739,11 +1739,11 @@ export const tools: Tool[] = [
   {
     id: 'chapter-splitter',
     name: 'Chapter Splitter',
-    description: 'Auto-split long audio into chapters by detecting silence gaps',
+    description: 'Auto-split long audio files into chapters by detecting silence gaps — ideal for podcasts and audiobooks',
     category: 'audio',
     icon: 'BookOpen',
     path: '/tools/chapter-splitter',
-    tags: ['audio', 'split', 'chapter', 'silence', 'podcast', 'audiobook'],
+    tags: ['audio', 'split', 'chapter', 'silence', 'podcast', 'audiobook', 'mp3 splitter', 'silence detection'],
     isNew: true,
   },
   {
