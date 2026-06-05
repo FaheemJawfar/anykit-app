@@ -3,6 +3,20 @@ import { getToolById, categories } from "@/lib/tools";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://anykit.app";
 
+const CATEGORY_TITLE_SUFFIX: Record<string, string> = {
+  pdf: "PDF Tool",
+  developer: "Developer Tool",
+  text: "Text Tool",
+  converter: "Converter",
+  math: "Math Tool",
+  image: "Image Tool",
+  color: "Color Tool",
+  generator: "Generator",
+  security: "Security Tool",
+  audio: "Audio Tool",
+  video: "Video Tool",
+};
+
 export function generateToolMetadata(toolId: string): Metadata {
   const tool = getToolById(toolId);
   if (!tool) {
@@ -13,9 +27,10 @@ export function generateToolMetadata(toolId: string): Metadata {
   }
 
   const category = categories.find((c) => c.id === tool.category);
-  const categoryLabel = category?.name || "Tool";
-  const title = `${tool.name} - Free Online ${categoryLabel}`;
-  const description = `${tool.description}. Use this free online ${tool.name.toLowerCase()} tool instantly — no sign-up required. Part of AnyKit's 100+ utility tools.`;
+  const titleSuffix = CATEGORY_TITLE_SUFFIX[tool.category] ?? (category?.name || "Tool");
+  const title = `${tool.name} - Free Online ${titleSuffix}`;
+  const descBase = tool.description.replace(/\.$/, "");
+  const description = `${descBase}. Free online ${tool.name} — no sign-up, works instantly in your browser.`;
 
   return {
     title,

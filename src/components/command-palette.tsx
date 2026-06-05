@@ -172,11 +172,6 @@ export function CommandPalette() {
                     <p className="text-xs font-semibold text-foreground">{tool.name}</p>
                     <p className="text-[10px] text-muted-foreground truncate">{tool.description}</p>
                   </div>
-                  {tool.isNew && (
-                    <span className="px-1.5 py-0.5 text-[8px] font-bold bg-primary/10 text-primary rounded-md shrink-0">
-                      NEW
-                    </span>
-                  )}
                 </CommandItem>
               ))}
             </CommandGroup>

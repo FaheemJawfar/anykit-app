@@ -42,9 +42,7 @@ export function ToolCard({ tool }: ToolCardProps) {
                   <Badge variant="secondary" className="px-1.5 py-0.5 text-[8px] uppercase tracking-[0.16em] font-extrabold bg-muted/70 text-muted-foreground border-transparent rounded-md">
                     {tool.category}
                   </Badge>
-                  {tool.isNew && (
-                    <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                  )}
+
                 </div>
               </div>
             </div>

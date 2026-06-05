@@ -103,11 +103,6 @@ export function ToolLayout({ toolId, children }: ToolLayoutProps) {
             <div className="space-y-1">
               <div className="flex items-center gap-2.5 flex-wrap">
                 <h1 className="text-2xl md:text-3xl font-black tracking-tight">{tool.name}</h1>
-                {tool.isNew && (
-                  <span className="px-2 py-0.5 text-[9px] font-black tracking-wider bg-primary/10 text-primary rounded-full uppercase">
-                    New
-                  </span>
-                )}
               </div>
               <p className="text-sm text-muted-foreground/90 leading-relaxed max-w-2xl">
                 {tool.description}

@@ -1,3 +1,5 @@
+export const SITE_UPDATED_AT = new Date("2026-06-05");
+
 export interface Tool {
   id: string;
   name: string;
@@ -6,7 +8,7 @@ export interface Tool {
   icon: string;
   path: string;
   tags?: string[];
-  isNew?: boolean;
+  updatedAt?: Date;
 }
 
 export interface Category {
@@ -20,67 +22,67 @@ export const categories: Category[] = [
   {
     id: 'pdf',
     name: 'PDF Tools',
-    description: 'Create, edit, and manage PDF documents',
+    description: 'Free in-browser PDF tools — merge, split, compress, rotate, add watermarks, page numbers, headers, and more. No sign-up, no upload to servers.',
     icon: 'FileText',
   },
   {
     id: 'developer',
     name: 'Developer Tools',
-    description: 'Tools for developers and programmers',
+    description: 'Free developer tools for JSON formatting, JWT parsing, regex testing, cron expressions, curl conversion, Docker, and more. No sign-up required.',
     icon: 'Code2',
   },
   {
     id: 'text',
     name: 'Text Tools',
-    description: 'Text manipulation and formatting',
+    description: 'Free online text tools — word counter, case converter, text diff, lorem ipsum, markdown, slugify, and more utilities for writers and developers.',
     icon: 'FileText',
   },
   {
     id: 'converter',
     name: 'Converters',
-    description: 'Convert between different formats',
+    description: 'Free online converters — Unix timestamps, units, IBAN validator, Base64, color formats, IPv4, number bases, and more. Instant results, no sign-up.',
     icon: 'RefreshCw',
   },
   {
     id: 'math',
     name: 'Math',
-    description: 'Calculations and math utilities',
+    description: 'Free online math tools — calculator, percentage calculator, ETA calculator, math expression evaluator, datetime hub, and more.',
     icon: 'Calculator',
   },
   {
     id: 'image',
     name: 'Image Tools',
-    description: 'Image manipulation and processing',
+    description: 'Free online image tools — resize images, CSS grid and flexbox generators, SVG optimizer, color palette extractor, contrast checker, and more.',
     icon: 'Image',
   },
   {
     id: 'color',
     name: 'Color Tools',
-    description: 'Color manipulation and conversion',
+    description: 'Free online color tools — convert between HEX, RGB, HSL, OKLCH, LAB, and LCH. Includes color palette extractor, contrast checker, and gradient studio.',
     icon: 'Palette',
   },
   {
     id: 'generator',
     name: 'Generators',
-    description: 'Generate various content',
+    description: 'Free online generators — UUID, QR codes, passwords, Lorem Ipsum, barcodes, ULID, WiFi QR codes, and more. Instant generation, no sign-up.',
     icon: 'Sparkles',
   },
   {
     id: 'security',
     name: 'Security',
-    description: 'Security and encryption tools',
+    description: 'Free online security tools — hash text, AES encryption, JWT generator, bcrypt, RSA key generator, password strength checker, OTP, and more.',
     icon: 'ShieldCheck',
   },
   {
     id: 'audio',
     name: 'Audio Tools',
-    description: 'Process, edit, and convert audio files',
+    description: 'Free in-browser audio tools — convert, trim, merge, compress, equalize, normalize, reverse, and edit audio files. No file upload to servers.',
     icon: 'Music',
   },
   {
     id: 'video',
     name: 'Video Tools',
-    description: 'Process, edit, and convert video files',
+    description: 'Free in-browser video tools — convert, compress, trim, merge, rotate, mute, extract audio, and more. Works entirely in your browser, no upload needed.',
     icon: 'Video',
   },
 ];
@@ -95,7 +97,7 @@ export const tools: Tool[] = [
     icon: 'GitMerge',
     path: '/tools/merge-pdf',
     tags: ['pdf', 'merge', 'combine', 'document'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'split-pdf',
@@ -105,7 +107,7 @@ export const tools: Tool[] = [
     icon: 'Scissors',
     path: '/tools/split-pdf',
     tags: ['pdf', 'split', 'extract', 'pages'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'rotate-pdf',
@@ -115,7 +117,7 @@ export const tools: Tool[] = [
     icon: 'RotateCw',
     path: '/tools/rotate-pdf',
     tags: ['pdf', 'rotate', 'orientation', 'pages'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'delete-pages',
@@ -125,7 +127,7 @@ export const tools: Tool[] = [
     icon: 'Trash2',
     path: '/tools/delete-pages',
     tags: ['pdf', 'delete', 'remove', 'pages'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'extract-pages',
@@ -135,7 +137,7 @@ export const tools: Tool[] = [
     icon: 'Files',
     path: '/tools/extract-pages',
     tags: ['pdf', 'extract', 'pages', 'save'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'jpg-to-pdf',
@@ -145,7 +147,7 @@ export const tools: Tool[] = [
     icon: 'ImagePlus',
     path: '/tools/jpg-to-pdf',
     tags: ['pdf', 'image', 'jpg', 'png', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'organize-pdf',
@@ -155,17 +157,17 @@ export const tools: Tool[] = [
     icon: 'ArrowUpDown',
     path: '/tools/organize-pdf',
     tags: ['pdf', 'organize', 'reorder', 'duplicate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'add-blank-page',
-    name: 'Add Blank Page',
-    description: 'Insert blank pages at any position in a PDF — choose size, orientation, and exact location',
+    name: 'Add Blank Page to PDF',
+    description: 'Insert blank pages at any position in a PDF document — choose paper size, orientation, and exact location. Free in-browser PDF editor, no upload required.',
     category: 'pdf',
     icon: 'FilePlus',
     path: '/tools/add-blank-page',
-    tags: ['pdf', 'blank', 'page', 'insert', 'add page', 'empty page', 'pdf editor'],
-    isNew: true,
+    tags: ['add blank page to pdf', 'insert blank page pdf', 'pdf add page', 'pdf editor', 'blank page', 'pdf insert', 'empty page', 'free pdf tool', 'pdf', 'page'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'compress-pdf',
@@ -175,7 +177,7 @@ export const tools: Tool[] = [
     icon: 'Zap',
     path: '/tools/compress-pdf',
     tags: ['pdf', 'compress', 'optimize', 'size'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'pdf-to-text',
@@ -185,7 +187,7 @@ export const tools: Tool[] = [
     icon: 'FileText',
     path: '/tools/pdf-to-text',
     tags: ['pdf', 'text', 'extract', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'sign-pdf',
@@ -195,7 +197,7 @@ export const tools: Tool[] = [
     icon: 'PenTool',
     path: '/tools/sign-pdf',
     tags: ['pdf', 'sign', 'signature', 'stamp'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'crop-pdf',
@@ -205,7 +207,7 @@ export const tools: Tool[] = [
     icon: 'Crop',
     path: '/tools/crop-pdf',
     tags: ['pdf', 'crop', 'trim', 'margins'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'add-watermark',
@@ -215,7 +217,7 @@ export const tools: Tool[] = [
     icon: 'Stamp',
     path: '/tools/add-watermark',
     tags: ['pdf', 'watermark', 'stamp', 'overlay'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'page-numbers',
@@ -225,7 +227,7 @@ export const tools: Tool[] = [
     icon: 'ListOrdered',
     path: '/tools/page-numbers',
     tags: ['pdf', 'page', 'numbers', 'pagination'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'invert-colors',
@@ -235,7 +237,7 @@ export const tools: Tool[] = [
     icon: 'Contrast',
     path: '/tools/invert-colors',
     tags: ['pdf', 'invert', 'dark', 'mode', 'colors'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'header-footer',
@@ -245,7 +247,7 @@ export const tools: Tool[] = [
     icon: 'Heading',
     path: '/tools/header-footer',
     tags: ['pdf', 'header', 'footer', 'text'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'remove-blank-pages',
@@ -255,7 +257,7 @@ export const tools: Tool[] = [
     icon: 'FileMinus',
     path: '/tools/remove-blank-pages',
     tags: ['pdf', 'blank', 'remove', 'pages'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'scanner-effect',
@@ -265,7 +267,7 @@ export const tools: Tool[] = [
     icon: 'ScanLine',
     path: '/tools/scanner-effect',
     tags: ['pdf', 'scan', 'effect', 'noise'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'adjust-colors',
@@ -275,7 +277,7 @@ export const tools: Tool[] = [
     icon: 'SlidersHorizontal',
     path: '/tools/adjust-colors',
     tags: ['pdf', 'color', 'brightness', 'contrast'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'background-color',
@@ -285,7 +287,7 @@ export const tools: Tool[] = [
     icon: 'Palette',
     path: '/tools/background-color',
     tags: ['pdf', 'background', 'color', 'fill'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'remove-annotations',
@@ -295,7 +297,7 @@ export const tools: Tool[] = [
     icon: 'Eraser',
     path: '/tools/remove-annotations',
     tags: ['pdf', 'annotations', 'remove', 'clean'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'edit-bookmarks',
@@ -305,7 +307,7 @@ export const tools: Tool[] = [
     icon: 'Bookmark',
     path: '/tools/edit-bookmarks',
     tags: ['pdf', 'bookmarks', 'outline', 'navigation'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'table-of-contents',
@@ -315,7 +317,7 @@ export const tools: Tool[] = [
     icon: 'List',
     path: '/tools/table-of-contents',
     tags: ['pdf', 'toc', 'bookmarks', 'contents'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'add-page-labels',
@@ -325,7 +327,7 @@ export const tools: Tool[] = [
     icon: 'Type',
     path: '/tools/add-page-labels',
     tags: ['pdf', 'labels', 'page', 'roman'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
 
   // Developer Tools
@@ -337,7 +339,7 @@ export const tools: Tool[] = [
     icon: 'Pipette',
     path: '/tools/modern-color',
     tags: ['color', 'hex', 'rgb', 'hsl', 'oklch', 'lab', 'lch'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'media-query',
@@ -347,7 +349,7 @@ export const tools: Tool[] = [
     icon: 'Monitor',
     path: '/tools/media-query',
     tags: ['css', 'media', 'query', 'responsive', 'breakpoint'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'data-uri',
@@ -357,7 +359,7 @@ export const tools: Tool[] = [
     icon: 'FileCode',
     path: '/tools/data-uri',
     tags: ['data', 'uri', 'base64', 'css', 'embed'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'barcode-studio',
@@ -367,7 +369,7 @@ export const tools: Tool[] = [
     icon: 'Barcode',
     path: '/tools/barcode-studio',
     tags: ['barcode', 'ean', 'upc', 'code128', 'retail'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'web-vitals',
@@ -377,7 +379,7 @@ export const tools: Tool[] = [
     icon: 'Gauge',
     path: '/tools/web-vitals',
     tags: ['web', 'vitals', 'lcp', 'fid', 'cls', 'performance'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-sql-schema',
@@ -387,7 +389,7 @@ export const tools: Tool[] = [
     icon: 'Database',
     path: '/tools/json-sql-schema',
     tags: ['json', 'sql', 'schema', 'database'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'datetime-hub',
@@ -397,7 +399,7 @@ export const tools: Tool[] = [
     icon: 'Clock',
     path: '/tools/datetime-hub',
     tags: ['date', 'time', 'timezone', 'calculator'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'js-logger',
@@ -407,7 +409,7 @@ export const tools: Tool[] = [
     icon: 'Bug',
     path: '/tools/js-logger',
     tags: ['js', 'console', 'debug', 'log'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'og-debugger',
@@ -417,7 +419,7 @@ export const tools: Tool[] = [
     icon: 'Share2',
     path: '/tools/og-debugger',
     tags: ['og', 'seo', 'social', 'preview'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'html-markdown',
@@ -427,7 +429,7 @@ export const tools: Tool[] = [
     icon: 'FileText',
     path: '/tools/html-markdown',
     tags: ['html', 'markdown', 'convert', 'content'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'jwt-generator',
@@ -437,7 +439,7 @@ export const tools: Tool[] = [
     icon: 'Fingerprint',
     path: '/tools/jwt-generator',
     tags: ['jwt', 'token', 'auth', 'generate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'gql-json',
@@ -447,7 +449,7 @@ export const tools: Tool[] = [
     icon: 'Code2',
     path: '/tools/gql-json',
     tags: ['graphql', 'json', 'mock', 'api'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'mime-types',
@@ -457,7 +459,7 @@ export const tools: Tool[] = [
     icon: 'FileCode',
     path: '/tools/mime-types',
     tags: ['mime', 'file', 'type', 'extension'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'stopwatch',
@@ -467,7 +469,7 @@ export const tools: Tool[] = [
     icon: 'Timer',
     path: '/tools/stopwatch',
     tags: ['timer', 'stopwatch', 'chronometer', 'time'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'numeronym',
@@ -477,7 +479,7 @@ export const tools: Tool[] = [
     icon: 'Hash',
     path: '/tools/numeronym',
     tags: ['numeronym', 'abbreviation', 'a11y', 'i18n'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'nato-alphabet',
@@ -487,17 +489,17 @@ export const tools: Tool[] = [
     icon: 'Globe',
     path: '/tools/nato-alphabet',
     tags: ['nato', 'phonetic', 'alphabet', 'spell'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'iban-validator',
     name: 'IBAN Validator',
-    description: 'Validate IBAN bank account numbers and extract BIC, country, and account details',
+    description: 'Validate IBAN bank account numbers instantly — extract BIC/SWIFT code, country, bank code, and account details. Supports all SEPA countries.',
     category: 'converter',
     icon: 'Landmark',
     path: '/tools/iban-validator',
-    tags: ['iban', 'bank', 'validate', 'bic', 'swift', 'account number', 'international transfer', 'sepa'],
-    isNew: true,
+    tags: ['iban validator', 'iban checker', 'iban verification', 'bic swift', 'bank account validator', 'sepa', 'international bank transfer', 'iban', 'bank', 'validate', 'account number'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'camera-recorder',
@@ -507,7 +509,7 @@ export const tools: Tool[] = [
     icon: 'Camera',
     path: '/tools/camera-recorder',
     tags: ['video', 'record', 'camera', 'screen'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'emoji-picker',
@@ -517,7 +519,7 @@ export const tools: Tool[] = [
     icon: 'Smile',
     path: '/tools/emoji-picker',
     tags: ['emoji', 'smile', 'copy', 'social'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'ipv6-ula',
@@ -527,7 +529,7 @@ export const tools: Tool[] = [
     icon: 'Globe',
     path: '/tools/ipv6-ula',
     tags: ['ipv6', 'ula', 'network', 'rfc4193'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'wysiwyg-editor',
@@ -537,7 +539,7 @@ export const tools: Tool[] = [
     icon: 'FileCode',
     path: '/tools/wysiwyg-editor',
     tags: ['html', 'editor', 'wysiwyg', 'web'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'phone-parser',
@@ -547,7 +549,7 @@ export const tools: Tool[] = [
     icon: 'Phone',
     path: '/tools/phone-parser',
     tags: ['phone', 'format', 'validate', 'mobile'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'mac-address',
@@ -557,7 +559,7 @@ export const tools: Tool[] = [
     icon: 'Monitor',
     path: '/tools/mac-address',
     tags: ['mac', 'address', 'oui', 'vendor'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'port-generator',
@@ -567,7 +569,7 @@ export const tools: Tool[] = [
     icon: 'Server',
     path: '/tools/port-generator',
     tags: ['port', 'tcp', 'udp', 'network'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'ip-range-expander',
@@ -577,7 +579,7 @@ export const tools: Tool[] = [
     icon: 'Maximize2',
     path: '/tools/ip-range-expander',
     tags: ['ip', 'range', 'cidr', 'expand'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'svg-optimizer',
@@ -587,7 +589,7 @@ export const tools: Tool[] = [
     icon: 'Minimize2',
     path: '/tools/svg-optimizer',
     tags: ['svg', 'minify', 'optimize', 'vector'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'base64-image-to-file',
@@ -597,7 +599,7 @@ export const tools: Tool[] = [
     icon: 'FileImage',
     path: '/tools/base64-image-to-file',
     tags: ['base64', 'image', 'convert', 'decode'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'text-compressor',
@@ -607,7 +609,7 @@ export const tools: Tool[] = [
     icon: 'Gauge',
     path: '/tools/text-compressor',
     tags: ['compress', 'gzip', 'zlib', 'size'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'pdf-integrity',
@@ -617,7 +619,7 @@ export const tools: Tool[] = [
     icon: 'FileSignature',
     path: '/tools/pdf-integrity',
     tags: ['pdf', 'signature', 'security', 'metadata'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'sql-json',
@@ -627,7 +629,7 @@ export const tools: Tool[] = [
     icon: 'Database',
     path: '/tools/sql-json',
     tags: ['sql', 'json', 'convert', 'data'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'curl-converter',
@@ -637,7 +639,7 @@ export const tools: Tool[] = [
     icon: 'Terminal',
     path: '/tools/curl-converter',
     tags: ['curl', 'fetch', 'api', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-sql',
@@ -647,7 +649,7 @@ export const tools: Tool[] = [
     icon: 'FileJson',
     path: '/tools/json-sql',
     tags: ['json', 'sql', 'convert', 'insert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'ssl-decoder',
@@ -657,7 +659,7 @@ export const tools: Tool[] = [
     icon: 'Lock',
     path: '/tools/ssl-decoder',
     tags: ['ssl', 'cert', 'x509', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'readability-analyzer',
@@ -667,7 +669,7 @@ export const tools: Tool[] = [
     icon: 'BookOpen',
     path: '/tools/readability-analyzer',
     tags: ['text', 'readability', 'grading', 'flesch'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'css-grid',
@@ -677,7 +679,7 @@ export const tools: Tool[] = [
     icon: 'LayoutGrid',
     path: '/tools/css-grid',
     tags: ['css', 'grid', 'layout', 'design'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'css-flexbox',
@@ -687,7 +689,7 @@ export const tools: Tool[] = [
     icon: 'Layout',
     path: '/tools/css-flexbox',
     tags: ['css', 'flexbox', 'layout', 'design'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'contrast-checker',
@@ -697,7 +699,7 @@ export const tools: Tool[] = [
     icon: 'Palette',
     path: '/tools/contrast-checker',
     tags: ['accessibility', 'color', 'contrast', 'wcag'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json5-converter',
@@ -707,7 +709,7 @@ export const tools: Tool[] = [
     icon: 'Braces',
     path: '/tools/json5-converter',
     tags: ['json', 'json5', 'convert', 'strict'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'aspect-ratio',
@@ -717,7 +719,7 @@ export const tools: Tool[] = [
     icon: 'Maximize2',
     path: '/tools/aspect-ratio',
     tags: ['design', 'image', 'aspect', 'ratio'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'color-palette',
@@ -727,7 +729,7 @@ export const tools: Tool[] = [
     icon: 'Palette',
     path: '/tools/color-palette',
     tags: ['color', 'palette', 'image', 'extract'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'lottie-preview',
@@ -737,7 +739,7 @@ export const tools: Tool[] = [
     icon: 'Play',
     path: '/tools/lottie-preview',
     tags: ['lottie', 'animation', 'json', 'visual'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-go',
@@ -747,7 +749,7 @@ export const tools: Tool[] = [
     icon: 'Code2',
     path: '/tools/json-go',
     tags: ['json', 'go', 'golang', 'struct'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'performance-benchmark',
@@ -757,7 +759,7 @@ export const tools: Tool[] = [
     icon: 'Activity',
     path: '/tools/performance-benchmark',
     tags: ['benchmark', 'performance', 'js', 'speed'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'cron-validator',
@@ -767,7 +769,7 @@ export const tools: Tool[] = [
     icon: 'ShieldCheck',
     path: '/tools/cron-validator',
     tags: ['cron', 'validate', 'schedule', 'test'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'svg-path',
@@ -777,7 +779,7 @@ export const tools: Tool[] = [
     icon: 'PenTool',
     path: '/tools/svg-path',
     tags: ['svg', 'path', 'draw', 'vector'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'box-shadow',
@@ -787,7 +789,7 @@ export const tools: Tool[] = [
     icon: 'Layers',
     path: '/tools/box-shadow',
     tags: ['css', 'shadow', 'design', 'ui'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'gradient-studio',
@@ -797,7 +799,7 @@ export const tools: Tool[] = [
     icon: 'Palette',
     path: '/tools/gradient-studio',
     tags: ['css', 'gradient', 'design', 'ui'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'md-table-generator',
@@ -807,7 +809,7 @@ export const tools: Tool[] = [
     icon: 'Table',
     path: '/tools/md-table-generator',
     tags: ['markdown', 'table', 'documentation', 'generator'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'cron-tester',
@@ -817,7 +819,7 @@ export const tools: Tool[] = [
     icon: 'Clock',
     path: '/tools/cron-tester',
     tags: ['cron', 'tester', 'schedule', 'predict', 'crontab', 'job scheduler', 'linux', 'next run'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-schema',
@@ -827,7 +829,7 @@ export const tools: Tool[] = [
     icon: 'Database',
     path: '/tools/json-schema',
     tags: ['json', 'schema', 'api', 'generate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'temperature-converter',
@@ -837,7 +839,7 @@ export const tools: Tool[] = [
     icon: 'Thermometer',
     path: '/tools/temperature-converter',
     tags: ['temperature', 'celsius', 'fahrenheit', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-viewer',
@@ -847,7 +849,7 @@ export const tools: Tool[] = [
     icon: 'FileJson',
     path: '/tools/json-viewer',
     tags: ['json', 'tree', 'viewer', 'visualize'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'text-statistics',
@@ -857,7 +859,7 @@ export const tools: Tool[] = [
     icon: 'BarChart3',
     path: '/tools/text-statistics',
     tags: ['text', 'stats', 'analysis', 'insights'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-ts',
@@ -867,7 +869,7 @@ export const tools: Tool[] = [
     icon: 'Code2',
     path: '/tools/json-ts',
     tags: ['json', 'typescript', 'interface', 'generate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'glassmorphism',
@@ -877,7 +879,7 @@ export const tools: Tool[] = [
     icon: 'Layers',
     path: '/tools/glassmorphism',
     tags: ['css', 'glass', 'ui', 'design'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'svg-jsx',
@@ -887,7 +889,7 @@ export const tools: Tool[] = [
     icon: 'Code2',
     path: '/tools/svg-jsx',
     tags: ['svg', 'jsx', 'react', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'color-blindness',
@@ -897,17 +899,17 @@ export const tools: Tool[] = [
     icon: 'Eye',
     path: '/tools/color-blindness',
     tags: ['accessibility', 'color', 'vision', 'test'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'ipv4-address-converter',
     name: 'IPv4 Address Converter',
-    description: 'Convert IP to Integer, Binary, Hex',
+    description: 'Convert IPv4 addresses to integer, binary, hexadecimal, and CIDR notation — essential for network programming and subnet calculations',
     category: 'converter',
     icon: 'Network',
     path: '/tools/ipv4-address-converter',
-    tags: ['ip', 'ipv4', 'binary', 'hex', 'convert'],
-    isNew: true,
+    tags: ['ip converter', 'ipv4 converter', 'ip to binary', 'ip to decimal', 'ip to hex', 'network tools', 'subnet', 'cidr', 'ipv4', 'ip address', 'convert'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'toml-yaml',
@@ -917,7 +919,7 @@ export const tools: Tool[] = [
     icon: 'FileCode',
     path: '/tools/toml-yaml',
     tags: ['toml', 'yaml', 'convert', 'config'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'yaml-viewer',
@@ -927,7 +929,7 @@ export const tools: Tool[] = [
     icon: 'Eye',
     path: '/tools/yaml-viewer',
     tags: ['yaml', 'format', 'beautify', 'viewer'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'git-memo',
@@ -937,7 +939,7 @@ export const tools: Tool[] = [
     icon: 'GitBranch',
     path: '/tools/git-memo',
     tags: ['git', 'cheat', 'sheet', 'reference'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'regex-memo',
@@ -947,7 +949,7 @@ export const tools: Tool[] = [
     icon: 'Regex',
     path: '/tools/regex-memo',
     tags: ['regex', 'cheat', 'sheet', 'reference'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'email-normalizer',
@@ -957,7 +959,7 @@ export const tools: Tool[] = [
     icon: 'Mail',
     path: '/tools/email-normalizer',
     tags: ['email', 'clean', 'normalize', 'gmail'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'eta-calculator',
@@ -967,7 +969,7 @@ export const tools: Tool[] = [
     icon: 'Clock',
     path: '/tools/eta-calculator',
     tags: ['eta', 'time', 'progress', 'calculate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'math-evaluator',
@@ -977,7 +979,7 @@ export const tools: Tool[] = [
     icon: 'Sigma',
     path: '/tools/math-evaluator',
     tags: ['math', 'eval', 'expression', 'scientific'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'string-obfuscator',
@@ -987,7 +989,7 @@ export const tools: Tool[] = [
     icon: 'ShieldEllipsis',
     path: '/tools/string-obfuscator',
     tags: ['mask', 'obfuscate', 'security', 'privacy'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'text-unicode',
@@ -997,7 +999,7 @@ export const tools: Tool[] = [
     icon: 'Code',
     path: '/tools/text-unicode',
     tags: ['unicode', 'hex', 'escape', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'wifi-qr',
@@ -1007,7 +1009,7 @@ export const tools: Tool[] = [
     icon: 'Wifi',
     path: '/tools/wifi-qr',
     tags: ['wifi', 'qr', 'network', 'connect'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-minify',
@@ -1017,7 +1019,7 @@ export const tools: Tool[] = [
     icon: 'Minimize2',
     path: '/tools/json-minify',
     tags: ['json', 'minify', 'compress', 'optimize'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'text-binary',
@@ -1027,7 +1029,7 @@ export const tools: Tool[] = [
     icon: 'Binary',
     path: '/tools/text-binary',
     tags: ['text', 'binary', 'convert', 'encode'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'safelink-decoder',
@@ -1037,7 +1039,7 @@ export const tools: Tool[] = [
     icon: 'Unlock',
     path: '/tools/safelink-decoder',
     tags: ['safelink', 'outlook', 'decode', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'svg-placeholder',
@@ -1047,7 +1049,7 @@ export const tools: Tool[] = [
     icon: 'Image',
     path: '/tools/svg-placeholder',
     tags: ['svg', 'placeholder', 'image', 'design'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'hmac-generator',
@@ -1057,7 +1059,7 @@ export const tools: Tool[] = [
     icon: 'Fingerprint',
     path: '/tools/hmac-generator',
     tags: ['hmac', 'security', 'auth', 'hash'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'otp-generator',
@@ -1067,7 +1069,7 @@ export const tools: Tool[] = [
     icon: 'Clock',
     path: '/tools/otp-generator',
     tags: ['otp', 'totp', '2fa', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'bip39',
@@ -1077,7 +1079,7 @@ export const tools: Tool[] = [
     icon: 'Coins',
     path: '/tools/bip39',
     tags: ['mnemonic', 'seed', 'crypto', 'bitcoin'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'device-info',
@@ -1087,7 +1089,7 @@ export const tools: Tool[] = [
     icon: 'Monitor',
     path: '/tools/device-info',
     tags: ['device', 'browser', 'hardware', 'specs'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'keycode-info',
@@ -1097,7 +1099,7 @@ export const tools: Tool[] = [
     icon: 'Keyboard',
     path: '/tools/keycode-info',
     tags: ['keycode', 'keyboard', 'event', 'js'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'meta-tag-generator',
@@ -1107,7 +1109,7 @@ export const tools: Tool[] = [
     icon: 'Share2',
     path: '/tools/meta-tag-generator',
     tags: ['seo', 'meta', 'og', 'twitter', 'social'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-toml',
@@ -1117,7 +1119,7 @@ export const tools: Tool[] = [
     icon: 'FileTerminal',
     path: '/tools/json-toml',
     tags: ['json', 'toml', 'convert', 'config'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-xml',
@@ -1127,7 +1129,7 @@ export const tools: Tool[] = [
     icon: 'Code',
     path: '/tools/json-xml',
     tags: ['json', 'xml', 'convert', 'data'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'xml-formatter',
@@ -1137,7 +1139,7 @@ export const tools: Tool[] = [
     icon: 'Braces',
     path: '/tools/xml-formatter',
     tags: ['xml', 'format', 'beautify', 'pretty'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'ulid-generator',
@@ -1147,17 +1149,17 @@ export const tools: Tool[] = [
     icon: 'ArrowDown01',
     path: '/tools/ulid-generator',
     tags: ['ulid', 'id', 'unique', 'sortable'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'integer-base-converter',
     name: 'Integer Base Converter',
-    description: 'Convert between Decimal, Hex, Binary, Octal',
+    description: 'Convert numbers between decimal, hexadecimal, binary, and octal — instantly with a step-by-step breakdown',
     category: 'converter',
     icon: 'Binary',
     path: '/tools/integer-base-converter',
-    tags: ['binary', 'hex', 'decimal', 'convert'],
-    isNew: true,
+    tags: ['binary converter', 'hex converter', 'decimal to binary', 'decimal to hex', 'base conversion', 'number system converter', 'octal', 'programmer calculator', 'binary', 'hex', 'decimal', 'convert'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'roman-numeral-converter',
@@ -1167,7 +1169,7 @@ export const tools: Tool[] = [
     icon: 'History',
     path: '/tools/roman-numeral-converter',
     tags: ['roman', 'numeral', 'math', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-diff',
@@ -1177,7 +1179,7 @@ export const tools: Tool[] = [
     icon: 'Braces',
     path: '/tools/json-diff',
     tags: ['json', 'diff', 'compare', 'structural'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'token-generator',
@@ -1187,7 +1189,7 @@ export const tools: Tool[] = [
     icon: 'Fingerprint',
     path: '/tools/token-generator',
     tags: ['token', 'secret', 'key', 'generate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'rsa-generator',
@@ -1197,7 +1199,7 @@ export const tools: Tool[] = [
     icon: 'Key',
     path: '/tools/rsa-generator',
     tags: ['rsa', 'key', 'generator', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'password-strength',
@@ -1207,7 +1209,7 @@ export const tools: Tool[] = [
     icon: 'ShieldCheck',
     path: '/tools/password-strength',
     tags: ['password', 'strength', 'security', 'analyze'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'base64-file',
@@ -1217,7 +1219,7 @@ export const tools: Tool[] = [
     icon: 'FileUp',
     path: '/tools/base64-file',
     tags: ['base64', 'file', 'image', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'http-status-codes',
@@ -1227,7 +1229,7 @@ export const tools: Tool[] = [
     icon: 'BookOpen',
     path: '/tools/http-status-codes',
     tags: ['http', 'status', 'code', 'reference'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-csv',
@@ -1237,7 +1239,7 @@ export const tools: Tool[] = [
     icon: 'FileSpreadsheet',
     path: '/tools/json-csv',
     tags: ['json', 'csv', 'convert', 'spreadsheet'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'url-parser',
@@ -1247,7 +1249,7 @@ export const tools: Tool[] = [
     icon: 'Link',
     path: '/tools/url-parser',
     tags: ['url', 'parse', 'query', 'params'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'markdown-html',
@@ -1257,7 +1259,7 @@ export const tools: Tool[] = [
     icon: 'FileText',
     path: '/tools/markdown-html',
     tags: ['markdown', 'html', 'convert', 'preview'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'basic-auth',
@@ -1267,7 +1269,7 @@ export const tools: Tool[] = [
     icon: 'Lock',
     path: '/tools/basic-auth',
     tags: ['auth', 'basic', 'header', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'aes-encryption',
@@ -1277,7 +1279,7 @@ export const tools: Tool[] = [
     icon: 'Lock',
     path: '/tools/aes-encryption',
     tags: ['aes', 'encryption', 'decryption', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'bcrypt',
@@ -1287,7 +1289,7 @@ export const tools: Tool[] = [
     icon: 'ShieldCheck',
     path: '/tools/bcrypt',
     tags: ['bcrypt', 'password', 'hash', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'regex-tester',
@@ -1297,7 +1299,7 @@ export const tools: Tool[] = [
     icon: 'Regex',
     path: '/tools/regex-tester',
     tags: ['regex', 'test', 'debug', 'developer'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'ascii-text-drawer',
@@ -1307,7 +1309,7 @@ export const tools: Tool[] = [
     icon: 'Layout',
     path: '/tools/ascii-text-drawer',
     tags: ['ascii', 'art', 'banner', 'generate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'hash-text',
@@ -1317,7 +1319,7 @@ export const tools: Tool[] = [
     icon: 'Fingerprint',
     path: '/tools/hash-text',
     tags: ['hash', 'md5', 'sha256', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'crontab-generator',
@@ -1327,7 +1329,7 @@ export const tools: Tool[] = [
     icon: 'Clock',
     path: '/tools/crontab-generator',
     tags: ['cron', 'crontab', 'schedule', 'linux'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'docker-compose-converter',
@@ -1337,7 +1339,7 @@ export const tools: Tool[] = [
     icon: 'Box',
     path: '/tools/docker-compose-converter',
     tags: ['docker', 'compose', 'devops', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'list-converter',
@@ -1347,7 +1349,7 @@ export const tools: Tool[] = [
     icon: 'ListOrdered',
     path: '/tools/list-converter',
     tags: ['list', 'sort', 'unique', 'clean'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'slugify',
@@ -1357,7 +1359,7 @@ export const tools: Tool[] = [
     icon: 'Link2',
     path: '/tools/slugify',
     tags: ['slug', 'url', 'seo', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'subnet-calculator',
@@ -1367,7 +1369,7 @@ export const tools: Tool[] = [
     icon: 'Network',
     path: '/tools/subnet-calculator',
     tags: ['ip', 'subnet', 'network', 'cidr'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'user-agent-parser',
@@ -1377,7 +1379,7 @@ export const tools: Tool[] = [
     icon: 'Search',
     path: '/tools/user-agent-parser',
     tags: ['ua', 'useragent', 'browser', 'device'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'sql-prettify',
@@ -1387,7 +1389,7 @@ export const tools: Tool[] = [
     icon: 'Database',
     path: '/tools/sql-prettify',
     tags: ['sql', 'format', 'beautify', 'db'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'chmod-calculator',
@@ -1397,7 +1399,7 @@ export const tools: Tool[] = [
     icon: 'Shield',
     path: '/tools/chmod-calculator',
     tags: ['chmod', 'linux', 'permission', 'security'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-yaml',
@@ -1407,7 +1409,7 @@ export const tools: Tool[] = [
     icon: 'Braces',
     path: '/tools/json-yaml',
     tags: ['json', 'yaml', 'convert'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'jwt-parser',
@@ -1417,7 +1419,7 @@ export const tools: Tool[] = [
     icon: 'Fingerprint',
     path: '/tools/jwt-parser',
     tags: ['jwt', 'json', 'token', 'decode'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'html-entities',
@@ -1427,7 +1429,7 @@ export const tools: Tool[] = [
     icon: 'Code',
     path: '/tools/html-entities',
     tags: ['html', 'entities', 'encode', 'decode'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'lorem-ipsum',
@@ -1437,7 +1439,7 @@ export const tools: Tool[] = [
     icon: 'FileText',
     path: '/tools/lorem-ipsum',
     tags: ['lorem', 'ipsum', 'text', 'generate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'json-formatter',
@@ -1447,6 +1449,7 @@ export const tools: Tool[] = [
     icon: 'Braces',
     path: '/tools/json-formatter',
     tags: ['json', 'format', 'beautify'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'base64-encoder',
@@ -1456,6 +1459,7 @@ export const tools: Tool[] = [
     icon: 'Lock',
     path: '/tools/base64-encoder',
     tags: ['base64', 'encode', 'decode'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'url-encoder',
@@ -1465,6 +1469,7 @@ export const tools: Tool[] = [
     icon: 'Link',
     path: '/tools/url-encoder',
     tags: ['url', 'encode', 'decode'],
+    updatedAt: new Date("2026-06-05"),
   },
   
   // Text Tools
@@ -1476,6 +1481,7 @@ export const tools: Tool[] = [
     icon: 'Hash',
     path: '/tools/word-counter',
     tags: ['text', 'count', 'words'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'case-converter',
@@ -1485,6 +1491,7 @@ export const tools: Tool[] = [
     icon: 'Type',
     path: '/tools/case-converter',
     tags: ['text', 'case', 'convert'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'text-diff',
@@ -1494,17 +1501,19 @@ export const tools: Tool[] = [
     icon: 'Diff',
     path: '/tools/text-diff',
     tags: ['text', 'diff', 'compare'],
+    updatedAt: new Date("2026-06-05"),
   },
   
   // Converters
   {
     id: 'timestamp-converter',
-    name: 'Timestamp Converter',
-    description: 'Convert Unix timestamps to human-readable dates and times across any timezone',
+    name: 'Unix Timestamp Converter',
+    description: 'Convert Unix timestamps to human-readable dates and back — supports milliseconds, seconds, ISO 8601, and any timezone. Live current timestamp included.',
     category: 'converter',
     icon: 'Clock',
     path: '/tools/timestamp-converter',
-    tags: ['timestamp', 'unix', 'epoch', 'date', 'time', 'timezone', 'convert', 'iso 8601'],
+    tags: ['unix timestamp converter', 'epoch converter', 'timestamp to date', 'date to timestamp', 'unix time', 'epoch time', 'iso 8601', 'timezone converter', 'timestamp', 'unix', 'epoch', 'date', 'time'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'unit-converter',
@@ -1514,6 +1523,7 @@ export const tools: Tool[] = [
     icon: 'Ruler',
     path: '/tools/unit-converter',
     tags: ['unit', 'convert', 'measurement'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'color-converter',
@@ -1523,6 +1533,7 @@ export const tools: Tool[] = [
     icon: 'Palette',
     path: '/tools/color-converter',
     tags: ['color', 'convert', 'hex', 'rgb'],
+    updatedAt: new Date("2026-06-05"),
   },
   
   // Math
@@ -1534,6 +1545,7 @@ export const tools: Tool[] = [
     icon: 'Calculator',
     path: '/tools/calculator',
     tags: ['math', 'calculator', 'calculate'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'percentage-calculator',
@@ -1543,6 +1555,7 @@ export const tools: Tool[] = [
     icon: 'Percent',
     path: '/tools/percentage-calculator',
     tags: ['math', 'percentage', 'calculate'],
+    updatedAt: new Date("2026-06-05"),
   },
   
   // Generators
@@ -1554,6 +1567,7 @@ export const tools: Tool[] = [
     icon: 'Key',
     path: '/tools/password-generator',
     tags: ['password', 'generate', 'security'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'uuid-generator',
@@ -1563,6 +1577,7 @@ export const tools: Tool[] = [
     icon: 'Fingerprint',
     path: '/tools/uuid-generator',
     tags: ['uuid', 'generate', 'random'],
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'qr-generator',
@@ -1572,7 +1587,7 @@ export const tools: Tool[] = [
     icon: 'QrCode',
     path: '/tools/qr-generator',
     tags: ['qr', 'generate', 'code'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'image-resize',
@@ -1582,7 +1597,7 @@ export const tools: Tool[] = [
     icon: 'Maximize',
     path: '/tools/image-resize',
     tags: ['image', 'resize', 'edit'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
 
   // Audio Tools
@@ -1594,7 +1609,7 @@ export const tools: Tool[] = [
     icon: 'ArrowRightLeft',
     path: '/tools/audio-converter',
     tags: ['audio', 'convert', 'mp3', 'wav', 'flac', 'format'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-trimmer',
@@ -1604,7 +1619,7 @@ export const tools: Tool[] = [
     icon: 'Scissors',
     path: '/tools/audio-trimmer',
     tags: ['audio', 'trim', 'cut', 'edit', 'clip'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-merger',
@@ -1614,7 +1629,7 @@ export const tools: Tool[] = [
     icon: 'GitMerge',
     path: '/tools/audio-merger',
     tags: ['audio', 'merge', 'combine', 'join', 'tracks'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'volume-adjuster',
@@ -1624,7 +1639,7 @@ export const tools: Tool[] = [
     icon: 'Volume2',
     path: '/tools/volume-adjuster',
     tags: ['audio', 'volume', 'gain', 'loudness', 'normalize'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-reverser',
@@ -1634,7 +1649,7 @@ export const tools: Tool[] = [
     icon: 'Undo2',
     path: '/tools/audio-reverser',
     tags: ['audio', 'reverse', 'backward', 'effect'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-compressor',
@@ -1644,7 +1659,7 @@ export const tools: Tool[] = [
     icon: 'Minimize2',
     path: '/tools/audio-compressor',
     tags: ['audio', 'compress', 'reduce', 'size', 'optimize'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'speed-changer',
@@ -1654,7 +1669,7 @@ export const tools: Tool[] = [
     icon: 'Gauge',
     path: '/tools/speed-changer',
     tags: ['audio', 'speed', 'tempo', 'pitch', 'playback'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-splitter',
@@ -1664,7 +1679,7 @@ export const tools: Tool[] = [
     icon: 'Split',
     path: '/tools/audio-splitter',
     tags: ['audio', 'split', 'segment', 'chapters', 'parts'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'fade-in-out',
@@ -1674,7 +1689,7 @@ export const tools: Tool[] = [
     icon: 'Activity',
     path: '/tools/fade-in-out',
     tags: ['audio', 'fade', 'transition', 'smooth', 'effect'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-equalizer',
@@ -1684,7 +1699,7 @@ export const tools: Tool[] = [
     icon: 'SlidersHorizontal',
     path: '/tools/audio-equalizer',
     tags: ['audio', 'equalizer', 'eq', 'bass', 'treble', 'frequency'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'channel-mixer',
@@ -1694,7 +1709,7 @@ export const tools: Tool[] = [
     icon: 'AudioLines',
     path: '/tools/channel-mixer',
     tags: ['audio', 'channel', 'stereo', 'mono', 'mix'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'silence-remover',
@@ -1704,7 +1719,7 @@ export const tools: Tool[] = [
     icon: 'VolumeX',
     path: '/tools/silence-remover',
     tags: ['audio', 'silence', 'remove', 'podcast', 'trim', 'auto'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'loudness-normalizer',
@@ -1714,7 +1729,7 @@ export const tools: Tool[] = [
     icon: 'Activity',
     path: '/tools/loudness-normalizer',
     tags: ['audio', 'loudness', 'normalize', 'lufs', 'broadcast', 'podcast'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'voice-isolator',
@@ -1724,7 +1739,7 @@ export const tools: Tool[] = [
     icon: 'User',
     path: '/tools/voice-isolator',
     tags: ['audio', 'voice', 'karaoke', 'remove', 'vocal', 'backing'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-effects-studio',
@@ -1734,7 +1749,7 @@ export const tools: Tool[] = [
     icon: 'Sparkles',
     path: '/tools/audio-effects-studio',
     tags: ['audio', 'effects', 'reverb', 'echo', 'chorus', 'flanger'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'chapter-splitter',
@@ -1744,7 +1759,7 @@ export const tools: Tool[] = [
     icon: 'BookOpen',
     path: '/tools/chapter-splitter',
     tags: ['audio', 'split', 'chapter', 'silence', 'podcast', 'audiobook', 'mp3 splitter', 'silence detection'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-metadata-editor',
@@ -1754,7 +1769,7 @@ export const tools: Tool[] = [
     icon: 'FileText',
     path: '/tools/audio-metadata-editor',
     tags: ['audio', 'metadata', 'id3', 'tags', 'album', 'edit'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'audio-resampler',
@@ -1764,7 +1779,7 @@ export const tools: Tool[] = [
     icon: 'SlidersHorizontal',
     path: '/tools/audio-resampler',
     tags: ['audio', 'resample', 'sample-rate', 'bit-depth', 'quality'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'ringtone-maker',
@@ -1774,7 +1789,7 @@ export const tools: Tool[] = [
     icon: 'Bell',
     path: '/tools/ringtone-maker',
     tags: ['audio', 'ringtone', 'm4r', 'mp3', 'iphone', 'android'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
 
   // Video Tools
@@ -1786,7 +1801,7 @@ export const tools: Tool[] = [
     icon: 'ArrowRightLeft',
     path: '/tools/video-converter',
     tags: ['video', 'convert', 'format', 'mp4', 'avi', 'mov', 'webm'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'video-compressor',
@@ -1796,7 +1811,7 @@ export const tools: Tool[] = [
     icon: 'Minimize2',
     path: '/tools/video-compressor',
     tags: ['video', 'compress', 'shrink', 'size', 'crf'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'video-trimmer',
@@ -1806,7 +1821,7 @@ export const tools: Tool[] = [
     icon: 'Scissors',
     path: '/tools/video-trimmer',
     tags: ['video', 'trim', 'cut', 'clip', 'length'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'video-merger',
@@ -1816,7 +1831,7 @@ export const tools: Tool[] = [
     icon: 'Layers',
     path: '/tools/video-merger',
     tags: ['video', 'merge', 'combine', 'join', 'concatenate'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'extract-audio',
@@ -1826,7 +1841,7 @@ export const tools: Tool[] = [
     icon: 'Music',
     path: '/tools/extract-audio',
     tags: ['video', 'audio', 'extract', 'mp3', 'wav', 'aac', 'flac'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'video-to-gif',
@@ -1836,7 +1851,7 @@ export const tools: Tool[] = [
     icon: 'FileImage',
     path: '/tools/video-to-gif',
     tags: ['video', 'gif', 'convert', 'animation', 'image'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'video-speed-changer',
@@ -1846,7 +1861,7 @@ export const tools: Tool[] = [
     icon: 'Timer',
     path: '/tools/video-speed-changer',
     tags: ['video', 'speed', 'slow', 'fast', 'playback', 'timelapse'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'aspect-ratio-converter',
@@ -1856,7 +1871,7 @@ export const tools: Tool[] = [
     icon: 'ScanLine',
     path: '/tools/aspect-ratio-converter',
     tags: ['video', 'aspect', 'ratio', 'resize', 'social', 'crop', 'pad'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'video-rotator',
@@ -1866,7 +1881,7 @@ export const tools: Tool[] = [
     icon: 'RotateCw',
     path: '/tools/video-rotator',
     tags: ['video', 'rotate', 'flip', 'orientation', 'mirror'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'mute-video',
@@ -1876,7 +1891,7 @@ export const tools: Tool[] = [
     icon: 'VolumeX',
     path: '/tools/mute-video',
     tags: ['video', 'mute', 'silent', 'remove', 'audio'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'gif-to-video',
@@ -1886,7 +1901,7 @@ export const tools: Tool[] = [
     icon: 'Clapperboard',
     path: '/tools/gif-to-video',
     tags: ['gif', 'video', 'convert', 'mp4', 'webm', 'animation'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'video-screenshot',
@@ -1896,7 +1911,7 @@ export const tools: Tool[] = [
     icon: 'Camera',
     path: '/tools/video-screenshot',
     tags: ['video', 'screenshot', 'frame', 'image', 'extract', 'capture'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
   {
     id: 'video-cropper',
@@ -1906,7 +1921,7 @@ export const tools: Tool[] = [
     icon: 'Crop',
     path: '/tools/video-cropper',
     tags: ['video', 'crop', 'dimensions', 'trim', 'bars'],
-    isNew: true,
+    updatedAt: new Date("2026-06-05"),
   },
 ];
 
