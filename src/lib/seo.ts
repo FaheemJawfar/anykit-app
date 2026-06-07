@@ -17,6 +17,20 @@ const CATEGORY_TITLE_SUFFIX: Record<string, string> = {
   video: "Video Tool",
 };
 
+const CATEGORY_EXTRA_KEYWORDS: Record<string, string[]> = {
+  pdf: ["free pdf tools", "pdf editing tools online free", "best free pdf tools", "merge pdf online free", "compress pdf online free", "online pdf editor", "free pdf editor"],
+  developer: ["free developer tools online", "best free developer tools", "best free tools for developers", "web developer tools", "online dev tools", "coding tools"],
+  text: ["free text tools online", "text editor online free", "online text formatter", "text utility tools"],
+  converter: ["free online converter", "best free online converter", "unit converter online free", "file converter online"],
+  math: ["free math tools online", "online calculator free", "math calculator online", "percentage calculator online"],
+  image: ["free image tools online", "online image editor free", "image resizer online free", "svg optimizer online"],
+  color: ["free color tools online", "color converter online", "hex to rgb online", "online color picker"],
+  generator: ["free generator tools online", "online password generator free", "qr code generator online free", "uuid generator online"],
+  security: ["free security tools online", "online encryption tool free", "hash generator online", "password strength checker online"],
+  audio: ["free audio tools online", "audio converter online free", "online audio editor free", "mp3 converter online"],
+  video: ["free video tools online", "video converter online free", "online video compressor free", "mp4 converter online"],
+};
+
 export function generateToolMetadata(toolId: string): Metadata {
   const tool = getToolById(toolId);
   if (!tool) {
@@ -69,11 +83,13 @@ export function generateToolMetadata(toolId: string): Metadata {
       url: `${BASE_URL}${tool.path}`,
       siteName: "AnyKit App",
       type: "website",
+      images: ["/og-image.png"],
     },
     twitter: {
       card: "summary_large_image",
       title: `${tool.name} - AnyKit App`,
       description: tool.description,
+      images: ["/og-image.png"],
     },
   };
 }
@@ -147,6 +163,23 @@ export function generateCategoryJsonLd(categoryId: string) {
       name: "AnyKit App",
       url: BASE_URL,
     },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: category.name,
+          item: `${BASE_URL}/category/${category.id}`,
+        },
+      ],
+    },
   };
 }
 
@@ -166,6 +199,7 @@ export function generateCategoryMetadata(categoryId: string, toolCount: number):
       "no signup",
       "browser based",
       "privacy first",
+      ...(CATEGORY_EXTRA_KEYWORDS[categoryId] || []),
     ],
     alternates: { canonical: `/category/${categoryId}` },
     robots: {
@@ -185,11 +219,13 @@ export function generateCategoryMetadata(categoryId: string, toolCount: number):
       url: `/category/${categoryId}`,
       siteName: "AnyKit App",
       type: "website",
+      images: ["/og-image.png"],
     },
     twitter: {
       card: "summary_large_image",
       title: `${category.name} - AnyKit App`,
       description: `${category.description}. ${toolCount} free tools available.`,
+      images: ["/og-image.png"],
     },
   };
 }
