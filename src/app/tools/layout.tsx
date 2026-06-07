@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { RelatedTools } from "@/components/related-tools";
 
 export default function ToolsLayout({
   children,
@@ -18,6 +19,7 @@ export default function ToolsLayout({
         </Link>
       </div>
       {children}
+      <RelatedTools />
     </div>
   );
 }
