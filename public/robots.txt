@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /*?category=
+Disallow: /*?search=
+Disallow: /*?*
 
 Sitemap: https://anykit.app/sitemap.xml

@@ -22,7 +22,7 @@ const WEBSITE_JSON_LD = {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://anykit.app/?search={search_term_string}",
+      urlTemplate: "https://anykit.app/#search={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
