@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categories, getToolsByCategory } from "@/lib/tools";
-import { generateCategoryJsonLd } from "@/lib/seo";
+import { generateCategoryMetadata, generateCategoryJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { ToolCard } from "@/components/tool-card";
 import { ChevronRight } from "lucide-react";
@@ -17,28 +17,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const category = categories.find((c) => c.id === id);
-  if (!category) return { title: "Category Not Found" };
-
   const toolCount = getToolsByCategory(id).length;
-
-  return {
-    title: `${category.name} - ${toolCount} Free Online Tools`,
-    description: `${category.description}. Browse ${toolCount} free online ${category.name.toLowerCase()} on AnyKit. No sign-up required.`,
-    alternates: { canonical: `/category/${id}` },
-    openGraph: {
-      title: `${category.name} - AnyKit App`,
-      description: `${category.description}. ${toolCount} free tools available.`,
-      url: `/category/${id}`,
-      siteName: "AnyKit App",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${category.name} - AnyKit App`,
-      description: `${category.description}. ${toolCount} free tools available.`,
-    },
-  };
+  return generateCategoryMetadata(id, toolCount);
 }
 
 export default async function CategoryPage({ params }: PageProps) {

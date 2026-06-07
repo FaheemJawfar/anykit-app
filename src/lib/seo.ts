@@ -30,14 +30,38 @@ export function generateToolMetadata(toolId: string): Metadata {
   const titleSuffix = CATEGORY_TITLE_SUFFIX[tool.category] ?? (category?.name || "Tool");
   const title = `${tool.name} - Free Online ${titleSuffix}`;
   const descBase = tool.description.replace(/\.$/, "");
-  const description = `${descBase}. Free online ${tool.name} — no sign-up, works instantly in your browser.`;
+  const description = `${descBase}. Free online ${tool.name} — no sign-up, works instantly in your browser. Part of AnyKit's 160+ privacy-first utility tools.`;
+  const enhancedKeywords = [
+    ...(tool.tags || []),
+    "free online tool",
+    "browser based",
+    "no signup",
+    "privacy first",
+    titleSuffix.toLowerCase(),
+  ];
 
   return {
     title,
     description,
-    keywords: tool.tags,
+    keywords: enhancedKeywords,
     alternates: {
       canonical: `${BASE_URL}${tool.path}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "default",
+      title: tool.name,
     },
     openGraph: {
       title: `${tool.name} - AnyKit App`,
@@ -122,6 +146,50 @@ export function generateCategoryJsonLd(categoryId: string) {
       "@type": "WebSite",
       name: "AnyKit App",
       url: BASE_URL,
+    },
+  };
+}
+
+export function generateCategoryMetadata(categoryId: string, toolCount: number): Metadata {
+  const category = categories.find((c) => c.id === categoryId);
+  if (!category) return { title: "Category Not Found" };
+
+  return {
+    title: `${category.name} - ${toolCount} Free Online Tools`,
+    description: `${category.description}. Browse ${toolCount} free online ${category.name.toLowerCase()} on AnyKit. No sign-up required.`,
+    keywords: [
+      category.name.toLowerCase(),
+      "free online tools",
+      "developer tools",
+      "utility tools",
+      "web tools",
+      "no signup",
+      "browser based",
+      "privacy first",
+    ],
+    alternates: { canonical: `/category/${categoryId}` },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: `${category.name} - AnyKit App`,
+      description: `${category.description}. ${toolCount} free tools available.`,
+      url: `/category/${categoryId}`,
+      siteName: "AnyKit App",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${category.name} - AnyKit App`,
+      description: `${category.description}. ${toolCount} free tools available.`,
     },
   };
 }
