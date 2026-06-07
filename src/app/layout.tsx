@@ -154,6 +154,11 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "AnyKit",
   },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0f23" },
+  ],
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
