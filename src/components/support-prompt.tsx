@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Heart, Coffee, X } from "lucide-react";
 import {
-  KOFI_PRESET_URL,
   KOFI_URL,
   SUPPORT_CONFIG,
   SUPPORT_PROMPT_EVENT,
@@ -111,23 +110,14 @@ export function SupportPrompt() {
 
       <div className="flex items-center gap-2 mt-3">
         <a
-          href={KOFI_PRESET_URL}
+          href={KOFI_URL}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => setOpen(false)}
           className="flex-1 inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-xl font-semibold text-xs bg-[#FF5E5B] text-white hover:bg-[#ff4744] transition-colors active:scale-[0.98]"
         >
           <Coffee className="w-3.5 h-3.5" />
-          Buy me a coffee — ${SUPPORT_CONFIG.presetAmount}
-        </a>
-        <a
-          href={KOFI_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => setOpen(false)}
-          className="text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors px-2 whitespace-nowrap"
-        >
-          Other →
+          Buy me a coffee
         </a>
       </div>
     </div>

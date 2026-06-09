@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { LucideIcon } from "@/components/lucide-icon";
 import { useTheme } from "next-themes";
 import { CMD_PALETTE_EVENT } from "@/components/command-palette";
-import { KOFI_PRESET_URL } from "@/lib/support";
+import { KOFI_URL } from "@/lib/support";
 
 export function Header() {
   const router = useRouter();
@@ -111,7 +111,7 @@ export function Header() {
               <LayoutGrid className="w-4 h-4" />
             </Button>
             <a
-              href={KOFI_PRESET_URL}
+              href={KOFI_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:inline-flex items-center gap-1.5 rounded-xl h-10 px-3.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 ring-1 ring-amber-500/25 transition-colors font-semibold text-sm"

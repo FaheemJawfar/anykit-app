@@ -2,16 +2,11 @@
 
 export const SUPPORT_CONFIG = {
   kofiUsername: "faheemj",
-  presetAmount: 5,
   // Personal first-name used in copy
   authorName: "Faheem",
 } as const;
 
 export const KOFI_URL = `https://ko-fi.com/${SUPPORT_CONFIG.kofiUsername}`;
-
-// Ko-fi supports `?amount=` on the donate route for some accounts; we link to
-// the profile (which always works) — the chip label still primes the user.
-export const KOFI_PRESET_URL = `${KOFI_URL}/?amount=${SUPPORT_CONFIG.presetAmount}`;
 
 export const SUPPORT_PROMPT_EVENT = "anykit:support-prompt";
 

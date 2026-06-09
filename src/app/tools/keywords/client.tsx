@@ -1,0 +1,97 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { ToolLayout } from "@/components/tool-layout";
+import { Button } from "@/components/ui/button";
+import { Search, Copy, CheckCircle2, Target, BarChart3, TrendingUp, Zap, FileText } from "lucide-react";
+
+interface KeywordStats { keyword: string; count: number; density: number; }
+
+export default function KeywordAnalyzer() {
+  const [content, setContent] = useState("");
+  const [targetKeywords, setTargetKeywords] = useState("");
+  const [analysis, setAnalysis] = useState<{ wordCount: number; charCount: number; keywordStats: KeywordStats[]; targetKeywordStats: KeywordStats[]; }>({ wordCount: 0, charCount: 0, keywordStats: [], targetKeywordStats: [] });
+  const [copied, setCopied] = useState(false);
+
+  const analyzeContent = () => {
+    if (!content.trim()) { setAnalysis({ wordCount: 0, charCount: 0, keywordStats: [], targetKeywordStats: [] }); return; }
+    const text = content.toLowerCase().replace(/[^\w\s]/g, " ");
+    const words = text.split(/\s+/).filter(word => word.length > 2);
+    const wordCount = words.length;
+    const charCount = content.length;
+    const wordFreq: { [key: string]: number } = {};
+    words.forEach(word => { wordFreq[word] = (wordFreq[word] || 0) + 1; });
+    const keywordStats: KeywordStats[] = Object.entries(wordFreq).map(([keyword, count]) => ({ keyword, count, density: (count / wordCount) * 100 })).sort((a, b) => b.count - a.count).slice(0, 20);
+    const targetKeywordStats: KeywordStats[] = [];
+    if (targetKeywords.trim()) {
+      const targets = targetKeywords.toLowerCase().split(",").map(k => k.trim());
+      targets.forEach(target => { const count = (content.toLowerCase().match(new RegExp(target, "g")) || []).length; targetKeywordStats.push({ keyword: target, count, density: wordCount > 0 ? (count / wordCount) * 100 : 0 }); });
+    }
+    setAnalysis({ wordCount, charCount, keywordStats, targetKeywordStats });
+  };
+
+  useEffect(() => { analyzeContent(); }, [content, targetKeywords]);
+
+  const copyToClipboard = async () => {
+    const report = `Keyword Analysis Report\n=====================================\n\nContent Statistics:\n- Word Count: ${analysis.wordCount}\n- Character Count: ${analysis.charCount}\n\nTarget Keywords Analysis:\n${analysis.targetKeywordStats.map(stat => `- "${stat.keyword}": ${stat.count} occurrences (${stat.density.toFixed(2)}% density)`).join("\n")}\n\nTop Keywords:\n${analysis.keywordStats.slice(0, 10).map((stat, index) => `${index + 1}. "${stat.keyword}": ${stat.count} occurrences (${stat.density.toFixed(2)}% density)`).join("\n")}\n\nRecommendations:\n- Ideal keyword density: 1-3%\n- Avoid keyword stuffing (over 5% density)\n`;
+    try { await navigator.clipboard.writeText(report); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch (err) { console.error(err); }
+  };
+
+  const getDensityColor = (density: number) => { if (density < 1) return "text-red-500"; if (density <= 3) return "text-primary"; if (density <= 5) return "text-orange-500"; return "text-red-500"; };
+
+  return (
+    <ToolLayout toolId="keywords">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-4 lg:order-last space-y-6">
+          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
+            <Button onClick={copyToClipboard} disabled={analysis.wordCount === 0} className="w-full h-12 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-xl">{copied ? <CheckCircle2 className="w-5 h-5 mr-2" /> : <Copy className="w-5 h-5 mr-2" />}{copied ? "Copied!" : "Copy Full Report"}</Button>
+          </div>
+          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
+            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Target Analysis</h3>
+            <div><label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Track Keywords</label><input type="text" value={targetKeywords} onChange={(e) => setTargetKeywords(e.target.value)} placeholder="e.g. SEO, keywords, tools" className="w-full px-4 py-2.5 bg-muted border border-border rounded-xl focus:border-primary focus:outline-none text-sm font-bold text-foreground placeholder:font-normal" /><p className="text-[10px] text-muted-foreground mt-2 ml-1 font-medium italic">Separate keywords with commas</p></div>
+          </div>
+          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
+            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Content Statistics</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-muted rounded-xl border border-border p-4 shadow-sm"><p className="text-xs font-black text-muted-foreground mb-1">Words</p><p className="text-xl font-black text-foreground">{analysis.wordCount}</p></div>
+              <div className="bg-muted rounded-xl border border-border p-4 shadow-sm"><p className="text-xs font-black text-muted-foreground mb-1">Chars</p><p className="text-xl font-black text-foreground">{analysis.charCount}</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:col-span-8 space-y-6">
+          <div className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
+            <h3 className="text-lg font-black text-foreground mb-6 flex items-center gap-3"><div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center"><FileText className="w-5 h-5 text-primary" /></div>Your Text</h3>
+            <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Paste your content here for deep keyword analysis..." rows={12} className="w-full px-6 py-6 bg-muted border border-border rounded-[2rem] focus:bg-card focus:border-primary focus:outline-none transition-all text-sm font-medium text-foreground leading-relaxed resize-none placeholder:font-normal" />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-card rounded-[2rem] shadow-sm border border-border overflow-hidden">
+              <div className="p-6 border-b border-border bg-muted/50"><h3 className="text-sm font-black text-foreground flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center"><Target className="w-4 h-4 text-primary" /></div>Target Keywords</h3></div>
+              <div className="p-6">
+                {analysis.targetKeywordStats.length > 0 ? (<div className="space-y-4">{analysis.targetKeywordStats.map((stat, index) => (<div key={index} className="flex items-center justify-between p-4 bg-muted/50 rounded-2xl border border-border group"><div className="flex flex-col"><span className="text-sm font-black text-foreground capitalize italic group-hover:text-primary transition-colors">&quot;{stat.keyword}&quot;</span><span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">{stat.count} occurrences</span></div><div className="text-right"><span className={`text-sm font-black ${getDensityColor(stat.density)}`}>{stat.density.toFixed(2)}%</span><p className="text-xs text-muted-foreground font-black mt-0.5">Density</p></div></div>))}</div>) : (<div className="text-center py-12"><div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mx-auto mb-4 border border-border"><Target className="w-8 h-8 text-muted-foreground" /></div><p className="text-xs text-muted-foreground font-black uppercase tracking-widest">No keywords tracked</p></div>)}
+              </div>
+            </div>
+            <div className="bg-card rounded-[2rem] shadow-sm border border-border overflow-hidden">
+              <div className="p-6 border-b border-border bg-muted/50 flex justify-between items-center"><h3 className="text-sm font-black text-foreground flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center"><BarChart3 className="w-4 h-4 text-primary" /></div>Top Keywords</h3><TrendingUp className="w-4 h-4 text-muted-foreground" /></div>
+              <div className="p-6">
+                {analysis.keywordStats.length > 0 ? (<div className="space-y-6 max-h-[400px] overflow-y-auto pr-4">{analysis.keywordStats.map((stat, index) => (<div key={index} className="group"><div className="flex justify-between items-center mb-2"><span className="font-bold text-muted-foreground text-sm flex items-center gap-2"><span className="w-6 h-6 rounded bg-muted flex items-center justify-center text-[10px] font-black group-hover:bg-primary group-hover:text-primary-foreground transition-all">{index + 1}</span>{stat.keyword}</span><span className={`font-black ${getDensityColor(stat.density)} text-xs`}>{stat.density.toFixed(2)}%</span></div><div className="w-full h-2 bg-muted rounded-full overflow-hidden"><div className="h-full bg-primary rounded-full transition-all duration-700 ease-out" style={{ width: `${Math.min(stat.density * 20, 100)}%` }} /></div></div>))}</div>) : (<div className="text-center py-12"><div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mx-auto mb-4 border border-border"><BarChart3 className="w-8 h-8 text-muted-foreground" /></div><p className="text-xs text-muted-foreground font-black uppercase tracking-widest">No content analyzed</p></div>)}
+              </div>
+            </div>
+          </div>
+
+          {analysis.keywordStats.length > 0 && (
+            <div className="bg-muted/50 border border-border rounded-[2rem] p-8">
+              <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-6 flex items-center gap-2.5"><Zap className="w-3.5 h-3.5 text-primary" />Density Legend</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-card/50 p-5 rounded-2xl border border-border flex items-start gap-4 shadow-sm"><div className="w-3 h-3 rounded-full bg-red-500 mt-1" /><div><p className="text-xs font-black text-foreground uppercase tracking-widest mb-1">Critical Range</p><p className="text-[10px] text-muted-foreground font-medium leading-relaxed">&lt;1% (Low focus) or &gt;5% (Spam risk)</p></div></div>
+                <div className="bg-card/50 p-5 rounded-2xl border border-border flex items-start gap-4 shadow-sm"><div className="w-3 h-3 rounded-full bg-primary mt-1" /><div><p className="text-xs font-black text-foreground uppercase tracking-widest mb-1">Optimal Range</p><p className="text-[10px] text-muted-foreground font-medium leading-relaxed">1-3% (Natural presence &amp; strong focus)</p></div></div>
+                <div className="bg-card/50 p-5 rounded-2xl border border-border flex items-start gap-4 shadow-sm"><div className="w-3 h-3 rounded-full bg-orange-500 mt-1" /><div><p className="text-xs font-black text-foreground uppercase tracking-widest mb-1">High Range</p><p className="text-[10px] text-muted-foreground font-medium leading-relaxed">3-5% (High focus, use with caution)</p></div></div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </ToolLayout>
+  );
+}

@@ -67,6 +67,8 @@
     "jsbarcode": "^3.12.3",
     "json-diff": "^1.0.6",
     "json5": "^2.2.3",
+    "jspdf": "^4.2.1",
+    "jszip": "^3.10.1",
     "libphonenumber-js": "^1.13.2",
     "lottie-react": "^2.4.1",
     "lucide-react": "^1.16.0",

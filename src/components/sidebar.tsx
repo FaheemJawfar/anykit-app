@@ -17,7 +17,7 @@ import {
 import { categories } from "@/lib/tools";
 import { LucideIcon } from "@/components/lucide-icon";
 import { usePersistentTools } from "@/hooks/use-persistent-tools";
-import { KOFI_PRESET_URL, KOFI_URL, SUPPORT_CONFIG } from "@/lib/support";
+import { KOFI_URL, SUPPORT_CONFIG } from "@/lib/support";
 
 export function Sidebar() {
   const router = useRouter();
@@ -239,21 +239,13 @@ export function Sidebar() {
             No ads, no tracking, all in your browser. A coffee keeps it free.
           </p>
           <a
-            href={KOFI_PRESET_URL}
+            href={KOFI_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center w-full gap-2 h-10 px-4 rounded-xl font-semibold text-sm bg-[#FF5E5B] text-white hover:bg-[#ff4744] transition-colors active:scale-[0.98] shadow-[0_16px_30px_-18px_rgba(239,68,68,0.9)]"
           >
             <Coffee className="w-4 h-4" />
-            <span>Buy me a coffee — ${SUPPORT_CONFIG.presetAmount}</span>
-          </a>
-          <a
-            href={KOFI_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-center text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Choose another amount →
+            <span>Buy me a coffee</span>
           </a>
         </div>
       </div>
