@@ -3,9 +3,8 @@
 import React, { useState, useRef } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
-import { FileArchive, Download, Trash2, AlertTriangle, File } from "lucide-react";
-
-const formatFileSize = (bytes: number): string => { if (bytes < 1024) return `${bytes} B`; if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`; return `${(bytes / (1024 * 1024)).toFixed(1)} MB`; };
+import { Card, CardContent } from "@/components/ui/card";
+import { FileArchive, Download, Trash2, AlertCircle, File, Upload, Zap, FolderOpen } from "lucide-react";
 
 export default function ZipExtractor() {
   const [files, setFiles] = useState<File[]>([]);
@@ -51,38 +50,62 @@ export default function ZipExtractor() {
 
   return (
     <ToolLayout toolId="extractor">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-4 lg:order-last space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <Button onClick={extractFiles} disabled={files.length === 0 || isExtracting} className="w-full h-12 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-xl"><FileArchive className="w-5 h-5 mr-2" />{isExtracting ? "Extracting..." : "Extract ZIP"}</Button>
-            <Button onClick={handleClearAll} variant="outline" className="w-full h-12 border-border hover:bg-accent text-muted-foreground hover:text-foreground font-bold uppercase tracking-widest text-xs"><Trash2 className="w-4 h-4 mr-2" /> Clear All</Button>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
-            <h3 className="text-lg font-black text-foreground mb-6 flex items-center gap-3"><div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center"><FileArchive className="w-5 h-5 text-primary" /></div>ZIP Archives</h3>
-            <div onClick={() => fileInputRef.current?.click()} className="border-2 border-dashed border-border rounded-2xl p-8 text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all">
+          {files.length === 0 ? (
+            <Card className="border-2 border-dashed border-border/60 bg-card/30 backdrop-blur-sm rounded-[2.5rem] h-[500px] flex flex-col items-center justify-center space-y-6 transition-all hover:border-primary/20 hover:bg-primary/[0.02] cursor-pointer group" onClick={() => fileInputRef.current?.click()}>
+              <div className="w-20 h-20 rounded-3xl bg-primary/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform"><Upload className="w-10 h-10" /></div>
+              <div className="text-center space-y-2"><p className="text-xl font-bold">Upload ZIP archives</p><p className="text-sm text-muted-foreground">Click or drag and drop to extract files</p></div>
+              <Button className="rounded-2xl px-8 h-12 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">Browse Files</Button>
               <input type="file" accept=".zip" multiple ref={fileInputRef} onChange={(e) => { if (e.target.files) handleFilesSelected(Array.from(e.target.files)); }} className="hidden" />
-              <p className="text-muted-foreground font-medium">Click or drag ZIP files here to upload</p>
-            </div>
-            {files.length > 0 && (
-              <div className="mt-6 space-y-2">
+            </Card>
+          ) : (
+            <Card className="border-border/40 shadow-2xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+              <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center justify-between">
+                <div className="flex items-center gap-3"><FileArchive className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">ZIP Archives ({files.length})</span></div>
+                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:text-red-500" onClick={handleClearAll}><Trash2 className="w-4 h-4" /></Button>
+              </div>
+              <CardContent className="p-8 space-y-3">
                 {files.map((file, i) => (
-                  <div key={i} className="flex items-center justify-between p-3 bg-muted rounded-xl border border-border">
-                    <div className="flex items-center gap-3"><File className="w-4 h-4 text-primary" /><span className="text-sm font-bold text-foreground">{file.name}</span></div>
-                    <button onClick={() => handleRemoveFile(i)} className="text-red-400 hover:text-red-600"><Trash2 className="w-4 h-4" /></button>
+                  <div key={i} className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border hover:border-primary/20 transition-all">
+                    <div className="flex items-center gap-3"><File className="w-5 h-5 text-primary" /><span className="text-sm font-bold text-foreground">{file.name}</span></div>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:text-red-500" onClick={() => handleRemoveFile(i)}><Trash2 className="w-4 h-4" /></Button>
                   </div>
                 ))}
-              </div>
-            )}
-            {error && <div className="mt-4 bg-red-50 border border-red-200 text-red-600 rounded-2xl p-4 text-sm font-bold flex items-center gap-2"><AlertTriangle className="w-5 h-5" />{error}</div>}
-          </div>
-          {extractedFiles.length > 0 && (
-            <div className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
-              <h3 className="text-lg font-black text-foreground mb-6">Extracted Files ({extractedFiles.length})</h3>
-              <div className="space-y-2">{extractedFiles.map((file, i) => (<div key={i} className="flex items-center justify-between p-3 bg-muted rounded-xl border border-border"><span className="text-sm font-bold text-foreground">{file.name}</span><Button onClick={() => downloadFile(file)} variant="outline" size="sm"><Download className="w-3.5 h-3.5 mr-2" /> Download</Button></div>))}</div>
-            </div>
+                <div onClick={() => fileInputRef.current?.click()} className="border-2 border-dashed border-border/40 rounded-2xl p-6 text-center cursor-pointer hover:border-primary/30 hover:bg-primary/[0.02] transition-all mt-4">
+                  <input type="file" accept=".zip" multiple ref={fileInputRef} onChange={(e) => { if (e.target.files) handleFilesSelected(Array.from(e.target.files)); }} className="hidden" />
+                  <p className="text-sm text-muted-foreground font-medium">+ Add more ZIP files</p>
+                </div>
+              </CardContent>
+            </Card>
           )}
+          {extractedFiles.length > 0 && (
+            <Card className="border-border/40 shadow-2xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+              <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center gap-3"><FolderOpen className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Extracted Files ({extractedFiles.length})</span></div>
+              <CardContent className="p-8 space-y-3">
+                {extractedFiles.map((file, i) => (
+                  <div key={i} className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border hover:border-primary/20 transition-all">
+                    <div className="flex items-center gap-3"><File className="w-5 h-5 text-primary" /><span className="text-sm font-bold text-foreground">{file.name}</span></div>
+                    <Button onClick={() => downloadFile(file)} variant="outline" size="sm" className="rounded-xl font-bold"><Download className="w-4 h-4 mr-2" /> Download</Button>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+          {error && (<div className="flex items-center gap-3 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-600 text-sm font-bold"><AlertCircle className="w-5 h-5 flex-shrink-0" />{error}</div>)}
+        </div>
+
+        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Actions</span></div>
+            <CardContent className="p-8 space-y-4">
+              <Button onClick={extractFiles} disabled={files.length === 0 || isExtracting} className="w-full h-14 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
+                {isExtracting ? <FileArchive className="w-5 h-5 animate-spin" /> : <FileArchive className="w-5 h-5 mr-2" />}
+                {isExtracting ? 'Extracting...' : 'Extract ZIP'}
+              </Button>
+              <Button onClick={handleClearAll} variant="outline" className="w-full h-12 rounded-xl border-border/50 font-bold text-muted-foreground"><Trash2 className="w-4 h-4 mr-2" /> Clear All</Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </ToolLayout>

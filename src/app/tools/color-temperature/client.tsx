@@ -3,7 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
-import { Thermometer, Copy, CheckCircle2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Thermometer, Copy, CheckCircle2, Zap, Info } from "lucide-react";
 
 export default function ColorTemperature() {
   const [kelvin, setKelvin] = useState(5500);
@@ -28,25 +31,36 @@ export default function ColorTemperature() {
 
   return (
     <ToolLayout toolId="color-temperature">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-4 lg:order-last space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <Button onClick={copyToClipboard} className="w-full h-12 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-xl">{copied ? <CheckCircle2 className="w-5 h-5 mr-2" /> : <Copy className="w-5 h-5 mr-2" />}{copied ? "Copied!" : "Copy Hex"}</Button>
-          </div>
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Info</h3>
-            <p className="text-xs text-muted-foreground leading-relaxed font-medium">Color temperature is measured in Kelvin (K). Lower values are warmer (orange), higher values are cooler (blue).</p>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="lg:col-span-8 space-y-6">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+            <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center gap-3"><Thermometer className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Temperature</span></div>
+            <CardContent className="p-8 space-y-6">
+              <div className="space-y-3">
+                <div className="flex justify-between"><Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Kelvin</Label><span className="text-xs font-mono font-bold">{kelvin}K</span></div>
+                <input type="range" min="1000" max="12000" step="100" value={kelvin} onChange={(e) => setKelvin(Number(e.target.value))} className="w-full accent-primary h-2 bg-muted rounded-lg appearance-none cursor-pointer" />
+                <div className="flex justify-between text-xs font-bold text-muted-foreground"><span>1000K (Warm)</span><span>12000K (Cool)</span></div>
+              </div>
+              <div className="text-center pt-2"><span className="text-5xl font-black text-foreground tracking-tight">{kelvin}K</span></div>
+              <Input type="text" value={hex} readOnly className="h-14 px-4 rounded-xl bg-muted/30 border-transparent text-sm font-mono font-bold text-center uppercase" />
+            </CardContent>
+          </Card>
+          <div className="h-48 rounded-[2.5rem] border border-border shadow-sm flex items-center justify-center" style={{ backgroundColor: hex }}>
+            <span className="text-sm font-black uppercase bg-white/90 text-black px-4 py-2 rounded-lg">{hex}</span>
           </div>
         </div>
-        <div className="lg:col-span-8 space-y-6">
-          <div className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
-            <h3 className="text-lg font-black text-foreground mb-6 flex items-center gap-3"><div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center"><Thermometer className="w-5 h-5 text-primary" /></div>Temperature</h3>
-            <input type="range" min="1000" max="12000" step="100" value={kelvin} onChange={(e) => setKelvin(Number(e.target.value))} className="w-full accent-primary" />
-            <div className="flex justify-between text-xs font-bold text-muted-foreground mt-2"><span>1000K (Warm)</span><span>12000K (Cool)</span></div>
-            <div className="mt-6 text-center"><span className="text-3xl font-black text-foreground">{kelvin}K</span></div>
-            <input type="text" value={hex} readOnly className="w-full mt-4 px-4 py-3 bg-muted border border-border rounded-2xl text-sm font-mono font-bold text-foreground text-center uppercase" />
-          </div>
-          <div className="h-40 rounded-[2rem] border border-border shadow-sm flex items-center justify-center" style={{ backgroundColor: hex }}><span className="text-sm font-black uppercase bg-white/90 text-black px-4 py-2 rounded-lg">{hex}</span></div>
+
+        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Actions</span></div>
+            <CardContent className="p-8">
+              <Button onClick={copyToClipboard} className="w-full h-14 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">{copied ? <CheckCircle2 className="w-5 h-5 mr-2" /> : <Copy className="w-5 h-5 mr-2" />}{copied ? "Copied!" : "Copy Hex"}</Button>
+            </CardContent>
+          </Card>
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Info className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Info</span></div>
+            <CardContent className="p-6"><p className="text-xs text-muted-foreground leading-relaxed font-medium">Color temperature is measured in Kelvin (K). Lower values are warmer (orange), higher values are cooler (blue).</p></CardContent>
+          </Card>
         </div>
       </div>
     </ToolLayout>

@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
-import { HelpCircle, Plus, Copy, Trash2, CheckCircle2, Info, Globe, Code as CodeIcon } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { HelpCircle, Plus, Copy, Trash2, CheckCircle2, Info, Globe, Code as CodeIcon, Zap, Settings2 } from "lucide-react";
 
 interface FAQItem { id: string; question: string; answer: string; }
 
@@ -30,28 +31,16 @@ export default function FAQSchemaGenerator() {
 
   return (
     <ToolLayout toolId="faq-schema">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-4 lg:order-last space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <Button onClick={handleCopy} disabled={!generatedSchema || !isAllValid} className="w-full h-12 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-xl">{copied ? <CheckCircle2 className="w-5 h-5 mr-2" /> : <Copy className="w-5 h-5 mr-2" />}{copied ? "Copied!" : "Copy Schema Code"}</Button>
-            {!isAllValid && faqs.some(f => f.question || f.answer) && <p className="text-xs text-red-500 text-center font-black">Please fill all fields</p>}
-          </div>
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <Button onClick={handleReset} variant="outline" className="w-full h-12 border-border hover:bg-accent text-muted-foreground hover:text-foreground font-bold uppercase tracking-widest text-xs"><Trash2 className="w-4 h-4 mr-2" /> Reset Generator</Button>
-          </div>
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Schema Info</h3>
-            <div className="flex items-start gap-3 p-3 bg-primary/5 rounded-xl border border-primary/10"><Info className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" /><p className="text-xs text-muted-foreground leading-relaxed font-medium">FAQ Schema helps search engines understand your content better and can lead to expanded snippets in search results.</p></div>
-            <div className="flex items-center gap-2 p-3 bg-muted rounded-xl border border-border italic text-xs text-muted-foreground font-medium"><Globe className="w-3 h-3" /><span>Supports multiple languages</span></div>
-          </div>
-        </div>
-
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-card rounded-[2rem] shadow-sm border border-border overflow-hidden">
-            <div className="p-6 border-b border-border flex items-center justify-between bg-muted/50"><h3 className="text-lg font-black text-foreground">Questions &amp; Answers</h3><Button onClick={addFaq} variant="outline" size="sm"><Plus className="w-4 h-4 mr-2" /> Add Question</Button></div>
-            <div className="p-6 space-y-6">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+            <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center justify-between">
+              <div className="flex items-center gap-3"><HelpCircle className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Questions &amp; Answers ({faqs.length})</span></div>
+              <Button onClick={addFaq} variant="outline" size="sm" className="rounded-xl font-bold"><Plus className="w-4 h-4 mr-2" /> Add Question</Button>
+            </div>
+            <CardContent className="p-8 space-y-6">
               {faqs.map((faq, index) => (
-                <div key={faq.id} className="relative p-6 bg-muted/50 border border-border rounded-3xl group hover:border-primary/20 transition-colors">
+                <div key={faq.id} className="relative p-6 bg-muted/30 border border-border rounded-3xl group hover:border-primary/20 transition-colors">
                   <div className="absolute -left-3 top-6 w-8 h-8 bg-primary text-primary-foreground rounded-xl flex items-center justify-center text-sm font-black shadow-lg shadow-primary/20 z-10">{index + 1}</div>
                   {faqs.length > 1 && <button onClick={() => removeFaq(faq.id)} className="absolute -right-2 -top-2 w-8 h-8 bg-card text-red-500 rounded-full border border-border shadow-sm flex items-center justify-center hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 z-10"><Trash2 className="w-4 h-4" /></button>}
                   <div className="space-y-4 pl-4">
@@ -61,18 +50,39 @@ export default function FAQSchemaGenerator() {
                 </div>
               ))}
               <button onClick={addFaq} className="w-full py-4 rounded-2xl border-2 border-dashed border-border text-muted-foreground font-bold text-sm hover:border-primary hover:text-primary hover:bg-primary/5 transition-all flex items-center justify-center gap-2 group"><div className="w-8 h-8 rounded-lg bg-muted group-hover:bg-primary/10 flex items-center justify-center transition-colors"><Plus className="w-4 h-4 group-hover:scale-110 transition-transform" /></div>Add Another Question</button>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          <div className="bg-card rounded-[2rem] shadow-sm border border-border overflow-hidden">
-            <div className="p-6 border-b border-border flex items-center justify-between bg-muted/50">
-              <div className="flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center"><CodeIcon className="w-4 h-4 text-primary" /></div><h3 className="text-lg font-black text-foreground">Generated Schema</h3></div>
-              {generatedSchema && <Button onClick={handleCopy} variant="outline" size="sm" className="h-8 text-[10px] font-black">{copied ? <CheckCircle2 className="w-3.5 h-3.5 mr-2" /> : <Copy className="w-3.5 h-3.5 mr-2" />}{copied ? "Copied!" : "Copy Code"}</Button>}
-            </div>
-            <div className="p-0 bg-muted relative group">
-              <pre className="p-8 overflow-x-auto text-xs font-mono text-foreground min-h-[250px] leading-relaxed">{generatedSchema ? (<><span className="text-primary font-bold">{`<script type="application/ld+json">`}</span>{"\n"}{generatedSchema}{"\n"}<span className="text-primary font-bold">{`</script>`}</span></>) : (<div className="flex flex-col items-center justify-center h-full py-16 opacity-50"><CodeIcon className="w-12 h-12 text-muted-foreground mb-4" /><span className="text-muted-foreground italic">Add at least one question and answer to see the code...</span></div>)}</pre>
-            </div>
-          </div>
+          {generatedSchema && (
+            <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+              <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center justify-between">
+                <div className="flex items-center gap-3"><CodeIcon className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Generated Schema</span></div>
+                {generatedSchema && <Button onClick={handleCopy} variant="outline" size="sm" className="rounded-xl font-bold h-8 text-[10px]">{copied ? <CheckCircle2 className="w-3.5 h-3.5 mr-2" /> : <Copy className="w-3.5 h-3.5 mr-2" />}{copied ? "Copied!" : "Copy Code"}</Button>}
+              </div>
+              <CardContent className="p-0 bg-muted">
+                <pre className="p-8 overflow-x-auto text-xs font-mono text-foreground min-h-[250px] leading-relaxed"><span className="text-primary font-bold">{`<script type="application/ld+json">`}</span>{"\n"}{generatedSchema}{"\n"}<span className="text-primary font-bold">{`</script>`}</span></pre>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+
+        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Settings2 className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Actions</span></div>
+            <CardContent className="p-8 space-y-3">
+              <Button onClick={handleCopy} disabled={!generatedSchema || !isAllValid} className="w-full h-14 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">{copied ? <CheckCircle2 className="w-5 h-5 mr-2" /> : <Copy className="w-5 h-5 mr-2" />}{copied ? "Copied!" : "Copy Schema Code"}</Button>
+              {!isAllValid && faqs.some(f => f.question || f.answer) && <p className="text-xs text-red-500 text-center font-black">Please fill all fields</p>}
+              <Button onClick={handleReset} variant="outline" className="w-full h-12 rounded-xl border-border/50 font-bold text-muted-foreground"><Trash2 className="w-4 h-4 mr-2" /> Reset Generator</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Schema Info</span></div>
+            <CardContent className="p-6 space-y-3">
+              <div className="flex items-start gap-3 p-3 bg-primary/5 rounded-xl border border-primary/10"><Info className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" /><p className="text-xs text-muted-foreground leading-relaxed font-medium">FAQ Schema helps search engines understand your content better and can lead to expanded snippets in search results.</p></div>
+              <div className="flex items-center gap-2 p-3 bg-muted/30 rounded-xl border border-border italic text-xs text-muted-foreground font-medium"><Globe className="w-3 h-3" /><span>Supports multiple languages</span></div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </ToolLayout>

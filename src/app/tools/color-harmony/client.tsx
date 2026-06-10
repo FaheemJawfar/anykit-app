@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
-import { SwatchBook, Copy, CheckCircle2, Shuffle } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { SwatchBook, Copy, CheckCircle2, Shuffle, Palette, Zap } from "lucide-react";
 
 interface HarmonyScheme { id: string; name: string; description: string; colors: string[]; }
 
@@ -33,20 +35,41 @@ export default function ColorHarmony() {
 
   return (
     <ToolLayout toolId="color-harmony">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-4 lg:order-last space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <div><label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Base Color</label><input type="color" value={baseColor} onChange={(e) => setBaseColor(e.target.value)} className="w-full h-16 rounded-xl cursor-pointer" /><input type="text" value={baseColor} onChange={(e) => setBaseColor(e.target.value)} className="w-full mt-2 px-4 py-2.5 bg-muted border border-border rounded-xl focus:border-primary focus:outline-none text-sm font-mono font-bold text-foreground text-center uppercase" /></div>
-            <Button onClick={() => setBaseColor("#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0"))} variant="outline" className="w-full h-12 border-border hover:bg-accent text-muted-foreground hover:text-foreground font-bold uppercase tracking-widest text-xs"><Shuffle className="w-4 h-4 mr-2" /> Randomize</Button>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 space-y-6">
           {harmonies.map((scheme) => (
-            <div key={scheme.id} className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
-              <div className="flex items-center justify-between mb-4"><h3 className="text-lg font-black text-foreground">{scheme.name}</h3><p className="text-xs text-muted-foreground font-medium">{scheme.description}</p></div>
-              <div className="flex gap-3">{scheme.colors.map((color, i) => (<button key={i} onClick={() => copyColor(color, `${scheme.id}-${i}`)} className="flex-1 h-20 rounded-xl border border-border shadow-sm transition-transform hover:scale-105 relative group" style={{ backgroundColor: color }}><span className="absolute bottom-2 left-2 text-[10px] font-black uppercase bg-white/90 text-black px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity">{copied[`${scheme.id}-${i}`] ? "Copied!" : color}</span></button>))}</div>
-            </div>
+            <Card key={scheme.id} className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+              <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center justify-between">
+                <div className="flex items-center gap-3"><SwatchBook className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{scheme.name}</span></div>
+                <p className="text-xs text-muted-foreground font-medium">{scheme.description}</p>
+              </div>
+              <CardContent className="p-8">
+                <div className="flex gap-3">{scheme.colors.map((color, i) => (
+                  <button key={i} onClick={() => copyColor(color, `${scheme.id}-${i}`)} className="flex-1 h-24 rounded-2xl border border-border shadow-sm transition-all hover:scale-105 relative group overflow-hidden" style={{ backgroundColor: color }}>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 transition-opacity">
+                      <span className="text-[10px] font-black uppercase bg-white/90 text-black px-2 py-1 rounded-md">{copied[`${scheme.id}-${i}`] ? <CheckCircle2 className="w-3 h-3 inline" /> : color}</span>
+                    </div>
+                  </button>
+                ))}</div>
+              </CardContent>
+            </Card>
           ))}
+        </div>
+
+        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Palette className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Base Color</span></div>
+            <CardContent className="p-8 space-y-4">
+              <input type="color" value={baseColor} onChange={(e) => setBaseColor(e.target.value)} className="w-full h-20 rounded-2xl cursor-pointer" />
+              <Input type="text" value={baseColor} onChange={(e) => setBaseColor(e.target.value)} className="h-12 px-4 rounded-xl bg-muted/30 border-transparent focus:border-primary/20 text-sm font-mono font-bold text-center uppercase" />
+              <Button onClick={() => setBaseColor("#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0"))} variant="outline" className="w-full h-12 rounded-xl border-border/50 font-bold text-muted-foreground"><Shuffle className="w-4 h-4 mr-2" /> Randomize</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Info</span></div>
+            <CardContent className="p-6"><p className="text-xs text-muted-foreground leading-relaxed font-medium">Click any color swatch to copy its hex value. Each scheme is generated from the base color using color wheel relationships.</p></CardContent>
+          </Card>
         </div>
       </div>
     </ToolLayout>

@@ -3,7 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
-import { Bot, Copy, CheckCircle2, Download, Info, Settings, Shield, Globe, Clock, Terminal, FileText } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Bot, Copy, CheckCircle2, Download, Info, Settings, Shield, Globe, Clock, Terminal, FileText, Zap } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function RobotsGenerator() {
   const [settings, setSettings] = useState({ allowAll: true, disallowPaths: "", sitemapUrl: "", crawlDelay: "", customRules: "" });
@@ -29,54 +33,63 @@ export default function RobotsGenerator() {
 
   return (
     <ToolLayout toolId="robots">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-4 lg:order-last space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Default Policy</h3>
-            <div className="bg-muted p-1.5 rounded-xl flex items-center gap-1.5 border border-border/50">
-              <button onClick={() => setSettings(prev => ({ ...prev, allowAll: true }))} className={`flex-1 py-2 px-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${settings.allowAll ? "bg-primary text-primary-foreground shadow-md shadow-primary/20" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}><div className={`w-1.5 h-1.5 rounded-full ${settings.allowAll ? "bg-card" : "bg-muted-foreground"}`} />Allow All</button>
-              <button onClick={() => setSettings(prev => ({ ...prev, allowAll: false }))} className={`flex-1 py-2 px-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${!settings.allowAll ? "bg-rose-600 text-primary-foreground shadow-md shadow-rose-500/20" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}><div className={`w-1.5 h-1.5 rounded-full ${!settings.allowAll ? "bg-card" : "bg-muted-foreground"}`} />Block All</button>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="lg:col-span-8 space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-6">
+              <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+                <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Globe className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Sitemap Integration</span></div>
+                <CardContent className="p-6">
+                  <div><Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">XML Sitemap URL</Label><Input type="url" value={settings.sitemapUrl} onChange={(e) => setSettings(prev => ({ ...prev, sitemapUrl: e.target.value }))} placeholder={!settings.allowAll ? "Global Block All is active." : "https://yourdomain.com/sitemap.xml"} disabled={!settings.allowAll} className={cn("mt-1.5 h-12 px-4 rounded-xl text-xs font-bold", !settings.allowAll ? "bg-muted/30 border-border text-muted-foreground cursor-not-allowed" : "bg-muted/30 border-transparent focus:border-primary/20 text-foreground")} /><p className="text-[10px] text-muted-foreground mt-2 ml-1 font-medium italic">Helps crawlers find your content structure faster</p></div>
+                </CardContent>
+              </Card>
+              <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+                <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><FileText className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Blocked Paths</span></div>
+                <CardContent className="p-6"><textarea value={settings.disallowPaths} onChange={(e) => setSettings(prev => ({ ...prev, disallowPaths: e.target.value }))} placeholder={!settings.allowAll ? "Global Block All is active." : "/admin/\n/private/\n/wp-admin/\n/cgi-bin/"} rows={4} disabled={!settings.allowAll} className={cn("w-full px-4 py-3 border rounded-xl outline-none transition-all text-xs font-mono font-bold tracking-tight resize-none placeholder:font-normal placeholder:opacity-50", !settings.allowAll ? "bg-muted/30 border-border text-muted-foreground cursor-not-allowed" : "bg-muted/30 border-transparent focus:border-primary/20 text-foreground")} /></CardContent>
+              </Card>
+              <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+                <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Terminal className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Custom Rules</span></div>
+                <CardContent className="p-6"><textarea value={settings.customRules} onChange={(e) => setSettings(prev => ({ ...prev, customRules: e.target.value }))} placeholder="User-agent: Googlebot&#10;Disallow: /no-google/" rows={4} className="w-full px-4 py-3 bg-muted/30 border-transparent rounded-xl focus:border-primary/20 text-xs font-mono font-bold text-foreground tracking-tight resize-none placeholder:font-normal placeholder:opacity-50" /></CardContent>
+              </Card>
             </div>
-          </div>
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <Button onClick={downloadRobots} className="w-full h-12 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-xl"><Download className="w-5 h-5 mr-2" /> Download File</Button>
-            <Button onClick={copyToClipboard} variant="outline" className="w-full h-12 border-border hover:bg-accent text-muted-foreground hover:text-foreground font-bold uppercase tracking-widest text-xs">{copied ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}{copied ? "Copied!" : "Copy to Clipboard"}</Button>
-          </div>
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Common Templates</h3>
-            <Button onClick={() => loadPreset("allow-all")} variant="outline" className="w-full justify-start text-[10px] font-black h-10 px-4"><Globe className="w-3.5 h-3.5 mr-2" /> Allow All Robots</Button>
-            <Button onClick={() => loadPreset("block-all")} variant="outline" className="w-full justify-start text-[10px] font-black h-10 px-4"><Shield className="w-3.5 h-3.5 mr-2" /> Block All Access</Button>
-            <Button onClick={() => loadPreset("common")} variant="outline" className="w-full justify-start text-[10px] font-black h-10 px-4"><Settings className="w-3.5 h-3.5 mr-2" /> Standard WordPress</Button>
-          </div>
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Crawler Settings</h3>
-            <div><label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Crawl Delay</label><div className="relative"><input type="number" value={settings.crawlDelay} onChange={(e) => setSettings(prev => ({ ...prev, crawlDelay: e.target.value }))} placeholder="None" min="0" className="w-full px-4 py-2.5 bg-muted border border-border rounded-xl focus:border-primary focus:outline-none text-sm font-bold text-foreground placeholder:font-normal" /><span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-muted-foreground">SEC</span></div></div>
+            <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden lg:sticky lg:top-24">
+              <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center justify-between"><div className="flex items-center gap-2"><FileText className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">robots.txt Preview</span></div><Button onClick={copyToClipboard} variant="outline" size="sm" className="h-8 rounded-xl font-bold text-[10px]">{copied ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}{copied ? "Copied" : "Copy Source"}</Button></div>
+              <CardContent className="p-0 bg-muted"><pre className="p-8 overflow-x-auto text-[11px] md:text-[13px] font-mono text-foreground leading-relaxed min-h-[400px]">{generatedRobots || "# Configure settings to generate robots.txt"}</pre></CardContent>
+            </Card>
           </div>
         </div>
 
-        <div className="lg:col-span-8 space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-            <div className="space-y-6">
-              <div className="bg-card rounded-[2rem] shadow-sm border border-border p-5">
-                <h3 className="text-base font-black text-foreground mb-4 flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center border border-border/50"><Globe className="w-4 h-4 text-primary" /></div>Sitemap Integration</h3>
-                <div><label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1.5 block">XML Sitemap URL</label><input type="url" value={settings.sitemapUrl} onChange={(e) => setSettings(prev => ({ ...prev, sitemapUrl: e.target.value }))} placeholder={!settings.allowAll ? "Global Block All is active." : "https://yourdomain.com/sitemap.xml"} disabled={!settings.allowAll} className={`w-full px-4 py-2.5 border rounded-xl outline-none transition-all text-xs font-bold placeholder:font-normal ${!settings.allowAll ? "bg-muted/50 border-border text-muted-foreground cursor-not-allowed" : "bg-muted/50 border-border focus:bg-card focus:border-primary focus:outline-none text-foreground"}`} /><p className="text-[10px] text-muted-foreground mt-2 ml-1 font-medium italic">Helps crawlers find your content structure faster</p></div>
+        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Default Policy</span></div>
+            <CardContent className="p-8 space-y-4">
+              <div className="bg-muted/30 p-1.5 rounded-xl flex items-center gap-1.5 border border-border/50">
+                <button onClick={() => setSettings(prev => ({ ...prev, allowAll: true }))} className={cn("flex-1 py-2.5 px-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2", settings.allowAll ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground hover:bg-muted")}><div className={cn("w-1.5 h-1.5 rounded-full", settings.allowAll ? "bg-card" : "bg-muted-foreground")} />Allow All</button>
+                <button onClick={() => setSettings(prev => ({ ...prev, allowAll: false }))} className={cn("flex-1 py-2.5 px-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2", !settings.allowAll ? "bg-rose-600 text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground hover:bg-muted")}><div className={cn("w-1.5 h-1.5 rounded-full", !settings.allowAll ? "bg-card" : "bg-muted-foreground")} />Block All</button>
               </div>
-              <div className="bg-card rounded-[2rem] shadow-sm border border-border p-5">
-                <div className="flex items-center justify-between mb-4"><h3 className="text-base font-black text-foreground flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center border border-border/50"><FileText className="w-4 h-4 text-primary" /></div>Blocked Paths</h3></div>
-                <textarea value={settings.disallowPaths} onChange={(e) => setSettings(prev => ({ ...prev, disallowPaths: e.target.value }))} placeholder={!settings.allowAll ? "Global Block All is active." : "/admin/\n/private/\n/wp-admin/\n/cgi-bin/"} rows={4} disabled={!settings.allowAll} className={`w-full px-4 py-3 border rounded-xl outline-none transition-all text-xs font-mono font-bold tracking-tight resize-none placeholder:font-normal placeholder:opacity-50 ${!settings.allowAll ? "bg-muted/50 border-border text-muted-foreground cursor-not-allowed" : "bg-muted/50 border-border focus:bg-card focus:border-primary focus:outline-none text-foreground"}`} />
-              </div>
-              <div className="bg-card rounded-[2rem] shadow-sm border border-border p-5">
-                <div className="flex items-center justify-between mb-4"><h3 className="text-base font-black text-foreground flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center border border-border/50"><Terminal className="w-4 h-4 text-primary" /></div>Custom Rules</h3></div>
-                <textarea value={settings.customRules} onChange={(e) => setSettings(prev => ({ ...prev, customRules: e.target.value }))} placeholder="User-agent: Googlebot&#10;Disallow: /no-google/" rows={4} className="w-full px-4 py-3 bg-muted/50 border border-border rounded-xl focus:bg-card focus:border-primary focus:outline-none transition-all text-xs font-mono font-bold text-foreground tracking-tight resize-none placeholder:font-normal placeholder:opacity-50" />
-              </div>
-            </div>
-            <div className="lg:sticky lg:top-6">
-              <div className="bg-card rounded-[2rem] shadow-sm border border-border overflow-hidden h-full">
-                <div className="p-6 border-b border-border bg-muted/50 flex items-center justify-between"><h3 className="text-sm font-black text-foreground flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center"><FileText className="w-4 h-4 text-primary" /></div>robots.txt Preview</h3><Button onClick={copyToClipboard} variant="outline" size="sm" className="h-8 bg-card text-[10px] font-black">{copied ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}{copied ? "Copied" : "Copy Source"}</Button></div>
-                <div className="p-0 bg-muted group relative min-h-[400px]"><pre className="p-8 overflow-x-auto text-[11px] md:text-[13px] font-mono text-foreground leading-relaxed h-full">{generatedRobots || "# Configure settings to generate robots.txt"}</pre></div>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Actions</span></div>
+            <CardContent className="p-8 space-y-3">
+              <Button onClick={downloadRobots} className="w-full h-14 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all active:scale-[0.98]"><Download className="w-5 h-5 mr-2" /> Download File</Button>
+              <Button onClick={copyToClipboard} variant="outline" className="w-full h-12 rounded-xl border-border/50 font-bold text-muted-foreground">{copied ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}{copied ? "Copied!" : "Copy to Clipboard"}</Button>
+            </CardContent>
+          </Card>
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Settings className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Common Templates</span></div>
+            <CardContent className="p-6 space-y-2">
+              <Button onClick={() => loadPreset("allow-all")} variant="outline" className="w-full justify-start text-xs font-bold h-12 rounded-xl border-border/50 px-4"><Globe className="w-4 h-4 mr-2" /> Allow All Robots</Button>
+              <Button onClick={() => loadPreset("block-all")} variant="outline" className="w-full justify-start text-xs font-bold h-12 rounded-xl border-border/50 px-4"><Shield className="w-4 h-4 mr-2" /> Block All Access</Button>
+              <Button onClick={() => loadPreset("common")} variant="outline" className="w-full justify-start text-xs font-bold h-12 rounded-xl border-border/50 px-4"><Settings className="w-4 h-4 mr-2" /> Standard WordPress</Button>
+            </CardContent>
+          </Card>
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Clock className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Crawler Settings</span></div>
+            <CardContent className="p-8">
+              <div className="relative"><Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Crawl Delay</Label><Input type="number" value={settings.crawlDelay} onChange={(e) => setSettings(prev => ({ ...prev, crawlDelay: e.target.value }))} placeholder="None" min="0" className="mt-1.5 h-12 px-4 bg-muted/30 border-transparent rounded-xl focus:border-primary/20 text-sm font-bold" /><span className="absolute right-4 top-[calc(50%+8px)] -translate-y-1/2 text-[10px] font-black text-muted-foreground">SEC</span></div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </ToolLayout>

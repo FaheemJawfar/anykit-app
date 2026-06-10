@@ -59,6 +59,24 @@ export const categories: Category[] = [
     icon: 'Palette',
   },
   {
+    id: 'file',
+    name: 'File Tools',
+    description: 'Free online file tools — ZIP compressor, archive extractor, batch file renamer, and more. All processing happens directly in your browser, no file upload to servers.',
+    icon: 'FolderOpen',
+  },
+  {
+    id: 'seo',
+    name: 'SEO Tools',
+    description: 'Free online SEO tools — meta tag generator, Open Graph builder, robots.txt generator, XML sitemap creator, FAQ schema generator, keyword analyzer, URL slug generator, and more.',
+    icon: 'Search',
+  },
+  {
+    id: 'markdown',
+    name: 'Markdown Tools',
+    description: 'Free online Markdown tools — live editor, table generator, cheatsheet, markdown-to-HTML converter, and file combiner. No sign-up required, all browser-based.',
+    icon: 'BookOpen',
+  },
+  {
     id: 'generator',
     name: 'Generators',
     description: 'Free online generator tools — UUID generator, QR code generator, password generator, Lorem Ipsum generator, barcode generator, ULID, WiFi QR, and more. Instant generation, no sign-up.',

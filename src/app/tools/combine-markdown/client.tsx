@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
-import { FilePlus, Copy, CheckCircle2, Download, Trash2, ArrowUp, ArrowDown, FileText } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { FilePlus, Copy, CheckCircle2, Download, Trash2, ArrowUp, ArrowDown, FileText, Zap, Settings2 } from "lucide-react";
 
 interface MarkdownFile { id: string; name: string; content: string; }
 
@@ -46,47 +48,55 @@ export default function CombineMarkdown() {
 
   return (
     <ToolLayout toolId="combine-markdown">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-4 lg:order-last space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <Button onClick={combine} disabled={files.length === 0} className="w-full h-12 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-xl"><FilePlus className="w-5 h-5 mr-2" /> Combine Files</Button>
-            <Button onClick={copyToClipboard} disabled={!combined} variant="outline" className="w-full h-12 border-border hover:bg-accent text-muted-foreground hover:text-foreground font-bold uppercase tracking-widest text-xs">{copied ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}{copied ? "Copied!" : "Copy Result"}</Button>
-            <Button onClick={downloadCombined} disabled={!combined} variant="outline" className="w-full h-12 border-border hover:bg-accent text-muted-foreground hover:text-foreground font-bold uppercase tracking-widest text-xs"><Download className="w-4 h-4 mr-2" /> Download .md</Button>
-          </div>
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Options</h3>
-            <div><label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Separator</label><select value={separator} onChange={(e) => setSeparator(e.target.value)} className="w-full px-4 py-2.5 bg-muted border border-border rounded-xl focus:border-primary focus:outline-none text-sm font-bold text-foreground"><option value="\n\n---\n\n">Horizontal Rule (---)</option><option value="\n\n***\n\n">Horizontal Rule (***)</option><option value="\n\n">Double Line Break</option><option value="\n">Single Line Break</option><option value="">No Separator</option></select></div>
-            <label className="flex items-center cursor-pointer gap-3"><input type="checkbox" checked={includeFilenames} onChange={(e) => setIncludeFilenames(e.target.checked)} className="w-5 h-5 text-primary border-border rounded focus:ring-primary" /><span className="text-sm text-muted-foreground font-medium">Include filenames as headers</span></label>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
-            <h3 className="text-lg font-black text-foreground mb-6 flex items-center gap-3"><div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center"><FileText className="w-5 h-5 text-primary" /></div>Upload Markdown Files</h3>
-            <div onClick={() => fileInputRef.current?.click()} className="border-2 border-dashed border-border rounded-2xl p-8 text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all">
-              <input type="file" accept=".md,.markdown,.txt" multiple ref={fileInputRef} onChange={handleFileUpload} className="hidden" />
-              <p className="text-muted-foreground font-medium">Click or drag Markdown files here</p>
-            </div>
-            {files.length > 0 && (
-              <div className="mt-6 space-y-2">
-                {files.map((file, i) => (
-                  <div key={file.id} className="flex items-center justify-between p-3 bg-muted rounded-xl border border-border">
-                    <span className="text-sm font-bold text-foreground">{file.name}</span>
-                    <div className="flex items-center gap-2">
-                      <button onClick={() => moveFile(i, 'up')} disabled={i === 0} className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30"><ArrowUp className="w-4 h-4" /></button>
-                      <button onClick={() => moveFile(i, 'down')} disabled={i === files.length - 1} className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30"><ArrowDown className="w-4 h-4" /></button>
-                      <button onClick={() => removeFile(file.id)} className="p-1 text-red-400 hover:text-red-600"><Trash2 className="w-4 h-4" /></button>
-                    </div>
-                  </div>
-                ))}
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+            <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center gap-3"><FileText className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Upload Markdown Files</span></div>
+            <CardContent className="p-8">
+              <div onClick={() => fileInputRef.current?.click()} className="border-2 border-dashed border-border rounded-2xl p-8 text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all">
+                <input type="file" accept=".md,.markdown,.txt" multiple ref={fileInputRef} onChange={handleFileUpload} className="hidden" />
+                <p className="text-muted-foreground font-medium">Click or drag Markdown files here</p>
               </div>
-            )}
-          </div>
+              {files.length > 0 && (
+                <div className="mt-6 space-y-2">
+                  {files.map((file, i) => (
+                    <div key={file.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-xl border border-border hover:border-primary/20 transition-all">
+                      <span className="text-sm font-bold text-foreground">{file.name}</span>
+                      <div className="flex items-center gap-2">
+                        <button onClick={() => moveFile(i, 'up')} disabled={i === 0} className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30"><ArrowUp className="w-4 h-4" /></button>
+                        <button onClick={() => moveFile(i, 'down')} disabled={i === files.length - 1} className="p-1 text-muted-foreground hover:text-foreground disabled:opacity-30"><ArrowDown className="w-4 h-4" /></button>
+                        <button onClick={() => removeFile(file.id)} className="p-1 text-red-400 hover:text-red-600"><Trash2 className="w-4 h-4" /></button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
           {combined && (
-            <div className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
-              <h3 className="text-lg font-black text-foreground mb-4">Combined Markdown</h3>
-              <textarea value={combined} readOnly rows={12} className="w-full px-4 py-4 bg-muted border border-border rounded-2xl focus:outline-none text-sm font-mono text-foreground leading-relaxed resize-none" />
-            </div>
+            <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+              <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center gap-3"><FileText className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Combined Markdown</span></div>
+              <CardContent className="p-8"><textarea value={combined} readOnly rows={12} className="w-full px-4 py-4 bg-muted/30 border-transparent rounded-2xl text-sm font-mono text-foreground leading-relaxed resize-none" /></CardContent>
+            </Card>
           )}
+        </div>
+
+        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Actions</span></div>
+            <CardContent className="p-8 space-y-3">
+              <Button onClick={combine} disabled={files.length === 0} className="w-full h-14 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all active:scale-[0.98]"><FilePlus className="w-5 h-5 mr-2" /> Combine Files</Button>
+              <Button onClick={copyToClipboard} disabled={!combined} variant="outline" className="w-full h-12 rounded-xl border-border/50 font-bold text-muted-foreground">{copied ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}{copied ? "Copied!" : "Copy Result"}</Button>
+              <Button onClick={downloadCombined} disabled={!combined} variant="outline" className="w-full h-12 rounded-xl border-border/50 font-bold text-muted-foreground"><Download className="w-4 h-4 mr-2" /> Download .md</Button>
+            </CardContent>
+          </Card>
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Settings2 className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Options</span></div>
+            <CardContent className="p-8 space-y-4">
+              <div><Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Separator</Label><select value={separator} onChange={(e) => setSeparator(e.target.value)} className="w-full mt-1.5 px-4 py-2.5 bg-muted/30 border border-border rounded-xl focus:border-primary focus:outline-none text-sm font-bold text-foreground"><option value="\n\n---\n\n">Horizontal Rule (---)</option><option value="\n\n***\n\n">Horizontal Rule (***)</option><option value="\n\n">Double Line Break</option><option value="\n">Single Line Break</option><option value="">No Separator</option></select></div>
+              <label className="flex items-center cursor-pointer gap-3"><input type="checkbox" checked={includeFilenames} onChange={(e) => setIncludeFilenames(e.target.checked)} className="w-5 h-5 text-primary border-border rounded focus:ring-primary" /><span className="text-sm text-muted-foreground font-medium">Include filenames as headers</span></label>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </ToolLayout>

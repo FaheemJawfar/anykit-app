@@ -3,7 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
-import { Clock, Copy, CheckCircle2, Info, Calendar } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Clock, Copy, CheckCircle2, Info, Calendar, Zap, List } from "lucide-react";
 
 const PRESETS = [
   { label: "Every Minute", value: "* * * * *" },
@@ -65,35 +68,41 @@ export default function CronGenerator() {
 
   return (
     <ToolLayout toolId="cron">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-4 lg:order-last space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <Button onClick={copyToClipboard} className="w-full h-12 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-xl">{copied ? <CheckCircle2 className="w-5 h-5 mr-2" /> : <Copy className="w-5 h-5 mr-2" />}{copied ? "Copied!" : "Copy Expression"}</Button>
-          </div>
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Presets</h3>
-            <div className="space-y-2">{PRESETS.map((preset) => (<button key={preset.value} onClick={() => { const [m, h, d, mo, w] = preset.value.split(" "); setCron({ minute: m, hour: h, dom: d, month: mo, dow: w }); setErrors({ minute: false, hour: false, dom: false, month: false, dow: false }); }} className="w-full text-left px-4 py-3 bg-muted border border-border rounded-xl text-sm font-bold text-foreground hover:bg-primary/5 hover:border-primary/30 transition-all">{preset.label}</button>))}</div>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
-            <h3 className="text-lg font-black text-foreground mb-6 flex items-center gap-3"><div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center"><Clock className="w-5 h-5 text-primary" /></div>Cron Expression</h3>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              {(["minute", "hour", "dom", "month", "dow"] as const).map((part) => (
-                <div key={part}>
-                  <label className={`text-[10px] font-black uppercase tracking-widest mb-2 block ${errors[part] ? "text-red-500" : "text-muted-foreground"}`}>{part}</label>
-                  <input type="text" value={cron[part]} onChange={(e) => updatePart(part, e.target.value)} className={`w-full px-4 py-3 bg-muted border rounded-xl focus:bg-card focus:outline-none text-sm font-bold text-foreground text-center uppercase ${errors[part] ? "border-red-200 focus:border-red-500" : "border-border focus:border-primary"}`} />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="bg-primary rounded-[2.5rem] p-8 shadow-xl shadow-primary/20 text-primary-foreground relative overflow-hidden">
-            <div className="relative z-10 space-y-4">
-              <div className="flex items-center gap-3"><div className="w-10 h-10 bg-primary-foreground/10 rounded-xl flex items-center justify-center"><Calendar className="w-5 h-5 text-primary-foreground" /></div><h3 className="text-lg font-black">Result</h3></div>
-              <div className="p-6 bg-primary-foreground/5 rounded-2xl border border-primary-foreground/10 font-mono text-xl md:text-2xl font-black break-all">{cronString}</div>
-              <p className="text-primary-100 font-medium">{description}</p>
-            </div>
-          </div>
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+            <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center gap-3"><Clock className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Cron Expression</span></div>
+            <CardContent className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {(["minute", "hour", "dom", "month", "dow"] as const).map((part) => (
+                  <div key={part}>
+                    <Label className={`text-[10px] font-black uppercase tracking-wider ml-1 ${errors[part] ? "text-red-500" : "text-muted-foreground"}`}>{part}</Label>
+                    <Input type="text" value={cron[part]} onChange={(e) => updatePart(part, e.target.value)} className={`mt-1.5 h-12 px-4 bg-muted/30 border-transparent rounded-xl text-sm font-bold text-center uppercase ${errors[part] ? "border-red-200 focus:border-red-500" : "focus:border-primary/20"}`} />
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="border-primary/40 shadow-xl shadow-primary/20 bg-primary/5 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+            <CardContent className="p-8 space-y-4">
+              <div className="flex items-center gap-3"><div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center"><Calendar className="w-5 h-5 text-primary" /></div><h3 className="text-lg font-black text-foreground">Result</h3></div>
+              <div className="p-6 bg-muted/30 rounded-2xl border border-border font-mono text-xl md:text-2xl font-black break-all text-foreground">{cronString}</div>
+              <p className="text-muted-foreground font-medium">{description}</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Actions</span></div>
+            <CardContent className="p-8">
+              <Button onClick={copyToClipboard} className="w-full h-14 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">{copied ? <CheckCircle2 className="w-5 h-5 mr-2" /> : <Copy className="w-5 h-5 mr-2" />}{copied ? "Copied!" : "Copy Expression"}</Button>
+            </CardContent>
+          </Card>
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><List className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Presets</span></div>
+            <CardContent className="p-6 space-y-2">{PRESETS.map((preset) => (<button key={preset.value} onClick={() => { const [m, h, d, mo, w] = preset.value.split(" "); setCron({ minute: m, hour: h, dom: d, month: mo, dow: w }); setErrors({ minute: false, hour: false, dom: false, month: false, dow: false }); }} className="w-full text-left px-4 py-3 bg-muted/30 border border-border rounded-xl text-sm font-bold text-foreground hover:bg-primary/5 hover:border-primary/30 transition-all">{preset.label}</button>))}</CardContent>
+          </Card>
         </div>
       </div>
     </ToolLayout>

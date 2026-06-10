@@ -3,13 +3,15 @@
 import React, { useState } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
-import { Key, Copy, CheckCircle2, AlertTriangle, Code, Shield } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Key, Copy, CheckCircle2, AlertCircle, Code, Shield, Zap, Settings2 } from "lucide-react";
 
 export default function JWTDebugger() {
   const [token, setToken] = useState("");
   const [decoded, setDecoded] = useState<{ header: string; payload: string; signature: string } | null>(null);
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
 
   const decodeJWT = () => {
     setError("");
@@ -23,43 +25,50 @@ export default function JWTDebugger() {
     } catch (err) { setError("Invalid JWT token"); setDecoded(null); }
   };
 
-  const copyToClipboard = async (content: string) => { try { await navigator.clipboard.writeText(content); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch (err) { console.error(err); } };
+  const copyToClipboard = async (content: string, label: string) => { try { await navigator.clipboard.writeText(content); setCopied(label); setTimeout(() => setCopied(null), 2000); } catch (err) { console.error(err); } };
 
   return (
     <ToolLayout toolId="jwt-debugger">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-4 lg:order-last space-y-6">
-          <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-            <Button onClick={decodeJWT} className="w-full h-12 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-xl"><Key className="w-5 h-5 mr-2" /> Decode JWT</Button>
-          </div>
-          {error && <div className="bg-red-50 border border-red-200 text-red-600 rounded-2xl p-4 text-sm font-bold flex items-center gap-2"><AlertTriangle className="w-5 h-5" />{error}</div>}
-          {decoded && (
-            <div className="bg-card rounded-2xl border border-border p-6 space-y-4 shadow-sm">
-              <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Parts</h3>
-              <div className="space-y-2">
-                <Button onClick={() => copyToClipboard(decoded.header)} variant="outline" className="w-full justify-start text-xs font-bold h-10"><Code className="w-3.5 h-3.5 mr-2" /> Copy Header</Button>
-                <Button onClick={() => copyToClipboard(decoded.payload)} variant="outline" className="w-full justify-start text-xs font-bold h-10"><Shield className="w-3.5 h-3.5 mr-2" /> Copy Payload</Button>
-                <Button onClick={() => copyToClipboard(decoded.signature)} variant="outline" className="w-full justify-start text-xs font-bold h-10"><Key className="w-3.5 h-3.5 mr-2" /> Copy Signature</Button>
-              </div>
-            </div>
-          )}
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-card rounded-[2rem] shadow-sm border border-border p-8">
-            <h3 className="text-lg font-black text-foreground mb-6 flex items-center gap-3"><div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center"><Key className="w-5 h-5 text-primary" /></div>JWT Token</h3>
-            <textarea value={token} onChange={(e) => setToken(e.target.value)} placeholder="Paste JWT token here..." rows={6} className="w-full px-6 py-4 bg-muted border border-border rounded-2xl focus:bg-card focus:border-primary focus:outline-none transition-all text-sm font-mono text-foreground leading-relaxed resize-none placeholder:font-normal" />
-          </div>
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+            <div className="px-8 py-6 border-b border-border/40 bg-muted/30 flex items-center gap-3"><Key className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">JWT Token</span></div>
+            <CardContent className="p-8">
+              <Textarea value={token} onChange={(e) => setToken(e.target.value)} placeholder="Paste JWT token here... eyJhbGciOiJIUzI1NiIs..." rows={6} className="w-full px-4 py-4 bg-muted/30 border-transparent rounded-2xl focus:border-primary/20 text-sm font-mono text-foreground leading-relaxed resize-none placeholder:font-normal" />
+            </CardContent>
+          </Card>
           {decoded && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-card rounded-[2rem] shadow-sm border border-border p-6">
-                <h3 className="text-sm font-black text-foreground mb-4 flex items-center gap-2"><Code className="w-4 h-4 text-primary" /> Header</h3>
-                <pre className="p-4 bg-muted rounded-xl text-xs font-mono text-foreground overflow-auto">{decoded.header}</pre>
-              </div>
-              <div className="bg-card rounded-[2rem] shadow-sm border border-border p-6">
-                <h3 className="text-sm font-black text-foreground mb-4 flex items-center gap-2"><Shield className="w-4 h-4 text-primary" /> Payload</h3>
-                <pre className="p-4 bg-muted rounded-xl text-xs font-mono text-foreground overflow-auto">{decoded.payload}</pre>
-              </div>
+              <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+                <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Code className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Header</span></div>
+                <CardContent className="p-6"><pre className="p-4 bg-muted/30 rounded-xl text-xs font-mono text-foreground overflow-auto">{decoded.header}</pre></CardContent>
+              </Card>
+              <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+                <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Shield className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Payload</span></div>
+                <CardContent className="p-6"><pre className="p-4 bg-muted/30 rounded-xl text-xs font-mono text-foreground overflow-auto">{decoded.payload}</pre></CardContent>
+              </Card>
             </div>
+          )}
+          {error && (<div className="flex items-center gap-3 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-600 text-sm font-bold"><AlertCircle className="w-5 h-5 flex-shrink-0" />{error}</div>)}
+        </div>
+
+        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Settings2 className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Actions</span></div>
+            <CardContent className="p-8 space-y-4">
+              <Button onClick={decodeJWT} className="w-full h-14 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all active:scale-[0.98]"><Key className="w-5 h-5 mr-2" /> Decode JWT</Button>
+            </CardContent>
+          </Card>
+
+          {decoded && (
+            <Card className="border-border/40 shadow-xl shadow-primary/5 bg-card/30 backdrop-blur-sm rounded-3xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-border/40 bg-muted/30 flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Copy Parts</span></div>
+              <CardContent className="p-6 space-y-2">
+                <Button onClick={() => copyToClipboard(decoded.header, 'header')} variant="outline" className="w-full justify-start text-xs font-bold h-12 rounded-xl border-border/50">{copied === 'header' ? <CheckCircle2 className="w-4 h-4 mr-2 text-primary" /> : <Copy className="w-4 h-4 mr-2" />} Header</Button>
+                <Button onClick={() => copyToClipboard(decoded.payload, 'payload')} variant="outline" className="w-full justify-start text-xs font-bold h-12 rounded-xl border-border/50">{copied === 'payload' ? <CheckCircle2 className="w-4 h-4 mr-2 text-primary" /> : <Copy className="w-4 h-4 mr-2" />} Payload</Button>
+                <Button onClick={() => copyToClipboard(decoded.signature, 'sig')} variant="outline" className="w-full justify-start text-xs font-bold h-12 rounded-xl border-border/50">{copied === 'sig' ? <CheckCircle2 className="w-4 h-4 mr-2 text-primary" /> : <Copy className="w-4 h-4 mr-2" />} Signature</Button>
+              </CardContent>
+            </Card>
           )}
         </div>
       </div>
