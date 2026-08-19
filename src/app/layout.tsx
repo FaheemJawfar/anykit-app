@@ -185,7 +185,7 @@ export default function RootLayout({
         />
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
@@ -198,73 +198,68 @@ export default function RootLayout({
             <SupportPrompt />
 
             <div className="flex-1 flex flex-col min-h-screen relative">
-              <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-                <div className="absolute top-[-220px] left-[15%] h-[460px] w-[460px] rounded-full bg-primary/[0.08] blur-[120px]" />
-                <div className="absolute top-[20%] right-[-120px] h-[380px] w-[380px] rounded-full bg-accent/[0.2] blur-[120px]" />
-              </div>
-
               <Header />
               <main className="flex-1">{children}</main>
-              
-              <footer className="mt-auto border-t border-border/50 bg-gradient-to-b from-background/95 via-background to-background/90 backdrop-blur-xl">
-                <div className="container mx-auto px-4 md:px-6 py-12 md:py-20 space-y-14">
-                  <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr] gap-12">
-                    <div className="space-y-6 max-w-lg">
+
+              <footer className="mt-auto border-t border-border/60 bg-background">
+                <div className="container mx-auto px-4 md:px-6 py-10 md:py-14 space-y-10">
+                  <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr] gap-10">
+                    <div className="space-y-4 max-w-md">
                       <Link href="/" className="flex items-center gap-2 group">
-                        <div className="relative flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden shadow-[0_14px_26px_-18px_color-mix(in_oklch,var(--primary)_70%,transparent)] ring-1 ring-primary/20">
-                          <img src="/logo.svg" alt="AnyKit" className="w-full h-full relative z-10" />
+                        <div className="flex items-center justify-center w-9 h-9 rounded-lg overflow-hidden ring-1 ring-border">
+                          <img src="/logo.svg" alt="AnyKit" className="w-full h-full" />
                         </div>
-                        <span className="font-bold text-2xl tracking-tight">AnyKit App</span>
+                        <span className="font-bold text-lg tracking-tight">AnyKit App</span>
                       </Link>
-                      <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         A fast, privacy-first toolkit with 100+ browser-powered utilities built for developers, creators, and everyday workflows.
                       </p>
 
-                      <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 px-3 py-1.5 bg-card/50">
+                      <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
+                        <span className="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1">
                           <Sparkles className="w-3 h-3 text-primary" />
                           No signup
                         </span>
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 px-3 py-1.5 bg-card/50">
+                        <span className="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1">
                           In-browser processing
                         </span>
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 px-3 py-1.5 bg-card/50">
+                        <span className="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1">
                           Free forever
                         </span>
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="font-bold text-lg mb-5">Popular Categories</h3>
-                      <ul className="space-y-3 text-sm text-muted-foreground">
-                        <li><Link href="/?category=developer" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">Developer Tools <ArrowRight className="w-3 h-3" /></Link></li>
-                        <li><Link href="/?category=text" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">Text Utilities <ArrowRight className="w-3 h-3" /></Link></li>
-                        <li><Link href="/?category=converter" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">Converters <ArrowRight className="w-3 h-3" /></Link></li>
-                        <li><Link href="/?category=security" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">Security Tools <ArrowRight className="w-3 h-3" /></Link></li>
+                      <h3 className="font-semibold text-sm mb-3.5">Popular Categories</h3>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li><Link href="/category/developer" className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors">Developer Tools <ArrowRight className="w-3 h-3" /></Link></li>
+                        <li><Link href="/category/text" className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors">Text Utilities <ArrowRight className="w-3 h-3" /></Link></li>
+                        <li><Link href="/category/converter" className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors">Converters <ArrowRight className="w-3 h-3" /></Link></li>
+                        <li><Link href="/category/security" className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors">Security Tools <ArrowRight className="w-3 h-3" /></Link></li>
                       </ul>
                     </div>
 
                     <div>
-                      <h3 className="font-bold text-lg mb-5">Resources</h3>
-                      <ul className="space-y-3 text-sm text-muted-foreground">
-                        <li><Link href="/" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">All Tools <ArrowRight className="w-3 h-3" /></Link></li>
-                        <li><Link href="/privacy" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">Privacy Policy <ArrowRight className="w-3 h-3" /></Link></li>
-                        <li><Link href="/terms" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">Terms of Service <ArrowRight className="w-3 h-3" /></Link></li>
-                        <li><Link href="https://github.com/FaheemJawfar/anykit-app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">Open Source GitHub <ArrowRight className="w-3 h-3" /></Link></li>
+                      <h3 className="font-semibold text-sm mb-3.5">Resources</h3>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li><Link href="/" className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors">All Tools <ArrowRight className="w-3 h-3" /></Link></li>
+                        <li><Link href="/privacy" className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors">Privacy Policy <ArrowRight className="w-3 h-3" /></Link></li>
+                        <li><Link href="/terms" className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors">Terms of Service <ArrowRight className="w-3 h-3" /></Link></li>
+                        <li><Link href="https://github.com/FaheemJawfar/anykit-app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors">Open Source GitHub <ArrowRight className="w-3 h-3" /></Link></li>
                       </ul>
                     </div>
                   </div>
 
-                  <div className="pt-8 border-t border-border/60 flex flex-col md:flex-row items-center justify-between gap-5">
-                    <p className="text-sm text-muted-foreground text-center md:text-left">
-                      © 2026 AnyKit App. All rights reserved. Built with precision.
+                  <div className="pt-6 border-t border-border/60 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p className="text-xs text-muted-foreground text-center md:text-left">
+                      © 2026 AnyKit App. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-6 text-xs md:text-sm text-muted-foreground font-medium">
-                      <span className="flex items-center gap-2 rounded-full bg-card/60 border border-border/50 px-3 py-1.5">
-                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground font-medium">
+                      <span className="flex items-center gap-1.5 rounded-md border border-border px-2 py-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                         All Systems Operational
                       </span>
-                      <span className="rounded-full bg-card/60 border border-border/50 px-3 py-1.5">v1.0.0</span>
+                      <span className="rounded-md border border-border px-2 py-1">v1.0.0</span>
                     </div>
                   </div>
                 </div>

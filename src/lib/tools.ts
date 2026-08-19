@@ -2284,6 +2284,146 @@ export function getToolsByCategory(categoryId: string): Tool[] {
   return tools.filter(tool => tool.category === categoryId);
 }
 
+export interface Subgroup {
+  id: string;
+  name: string;
+  tools: Tool[];
+}
+
+// Ordered keyword rules used to cluster a category's tools into meaningful
+// sub-sections so large categories don't render as one endless grid.
+// A tool is placed into the first subgroup whose keywords match its id/name;
+// anything unmatched falls into a trailing "Other" subgroup.
+const SUBGROUP_RULES: Record<string, { name: string; keywords: string[] }[]> = {
+  developer: [
+    { name: "JSON", keywords: ["json"] },
+    { name: "JWT", keywords: ["jwt"] },
+    { name: "Regex", keywords: ["regex"] },
+    { name: "Cron", keywords: ["cron"] },
+    { name: "Docker", keywords: ["docker"] },
+    { name: "SQL", keywords: ["sql"] },
+    { name: "YAML, XML & TOML", keywords: ["yaml", "xml", "toml"] },
+    { name: "GraphQL", keywords: ["gql", "graphql"] },
+    { name: "HTML", keywords: ["html", "wysiwyg"] },
+    { name: "Hashing", keywords: ["hash"] },
+    { name: "Encoding", keywords: ["base64", "url-encoder", "data-uri", "html-entities"] },
+    { name: "Network & IP", keywords: ["ip", "subnet", "mac-address", "port", "ssl", "http-status", "og-debugger"] },
+    { name: "Cryptography", keywords: ["encryption"] },
+    { name: "Device & Client", keywords: ["device", "user-agent", "keycode"] },
+    { name: "Reference", keywords: ["memo", "cheat", "mime", "performance", "web-vitals", "media-query", "meta-tag", "js-logger", "text-compressor", "email-normalizer", "chmod"] },
+    { name: "Converters", keywords: ["curl", "svg-jsx"] },
+  ],
+  pdf: [
+    { name: "Merge & Split", keywords: ["merge", "split", "extract-pages", "organize", "delete-pages", "add-blank-page"] },
+    { name: "Pages & Headers", keywords: ["page-numbers", "header-footer", "add-page-labels", "edit-bookmarks", "table-of-contents"] },
+    { name: "Watermark & Background", keywords: ["add-watermark", "background-color"] },
+    { name: "Transform", keywords: ["crop", "rotate", "adjust-colors", "invert-colors", "scanner-effect"] },
+    { name: "Convert", keywords: ["jpg-to-pdf", "pdf-to-text"] },
+    { name: "Optimize", keywords: ["compress-pdf", "remove-blank-pages", "remove-annotations"] },
+    { name: "Sign", keywords: ["sign-pdf"] },
+  ],
+  audio: [
+    { name: "Convert & Compress", keywords: ["audio-converter", "audio-compressor", "audio-resampler"] },
+    { name: "Cut & Merge", keywords: ["audio-trimmer", "audio-splitter", "audio-merger", "chapter-splitter", "ringtone-maker", "silence-remover"] },
+    { name: "Effects", keywords: ["audio-effects-studio", "fade-in-out", "audio-reverser", "speed-changer"] },
+    { name: "Quality & Mixing", keywords: ["audio-equalizer", "channel-mixer", "loudness-normalizer", "volume-adjuster", "voice-isolator"] },
+    { name: "Metadata", keywords: ["audio-metadata-editor"] },
+  ],
+  image: [
+    { name: "Convert & Compress", keywords: ["image-converter", "image-compressor"] },
+    { name: "Resize & Crop", keywords: ["image-resize", "image-cropper", "aspect-ratio", "svg-placeholder"] },
+    { name: "CSS Generators", keywords: ["css-grid", "css-flexbox", "box-shadow", "glassmorphism", "gradient-studio"] },
+    { name: "SVG", keywords: ["svg-optimizer", "svg-path"] },
+    { name: "Color & Accessibility", keywords: ["color-palette", "contrast-checker", "color-blindness"] },
+    { name: "Other", keywords: ["camera-recorder", "lottie-preview"] },
+  ],
+  text: [
+    { name: "Case & Format", keywords: ["case-converter", "text-sorter", "line-numbers", "list-converter"] },
+    { name: "Analyze", keywords: ["word-counter", "text-statistics", "readability-analyzer", "text-diff"] },
+    { name: "Clean & Convert", keywords: ["text-cleaner", "slugify", "html-markdown", "markdown-html", "md-table-generator"] },
+    { name: "Transform", keywords: ["text-repeater", "text-reverser", "numeronym", "nato-alphabet"] },
+    { name: "Parse", keywords: ["phone-parser"] },
+  ],
+  video: [
+    { name: "Convert & Compress", keywords: ["video-converter", "video-compressor", "gif-to-video", "video-to-gif"] },
+    { name: "Cut & Merge", keywords: ["video-trimmer", "video-merger", "video-cropper", "video-screenshot", "extract-audio"] },
+    { name: "Effects", keywords: ["video-rotator", "mute-video", "video-speed-changer", "aspect-ratio-converter"] },
+  ],
+  math: [
+    { name: "Calculators", keywords: ["calculator", "math-evaluator", "fraction-calculator", "percentage-calculator"] },
+    { name: "Health", keywords: ["bmi-calculator", "ideal-weight-calculator", "calorie-calculator"] },
+    { name: "Finance", keywords: ["salary-calculator", "tip-calculator", "zakat-calculator", "gpa-calculator"] },
+    { name: "Date & Time", keywords: ["age-calculator", "date-calculator", "datetime-hub", "eta-calculator"] },
+    { name: "Tools", keywords: ["stopwatch"] },
+  ],
+  converter: [
+    { name: "Encoding", keywords: ["base64-file", "base64-image-to-file", "text-binary", "text-unicode", "morse-code-converter"] },
+    { name: "Date & Time", keywords: ["timestamp-converter", "time-zone-converter", "iso-formatter", "time-duration-converter"] },
+    { name: "Numbers", keywords: ["integer-base-converter", "roman-numeral-converter"] },
+    { name: "Validation", keywords: ["iban-validator"] },
+    { name: "Network", keywords: ["ipv4-address-converter"] },
+    { name: "Units", keywords: ["unit-converter", "temperature-converter"] },
+  ],
+  security: [
+    { name: "Hashing", keywords: ["hash-text", "bcrypt", "hmac-generator"] },
+    { name: "Encryption", keywords: ["aes-encryption", "rsa-generator", "string-obfuscator"] },
+    { name: "Auth", keywords: ["jwt-generator", "basic-auth", "otp-generator"] },
+    { name: "Passwords", keywords: ["password-generator", "password-strength"] },
+    { name: "Keys & Certificates", keywords: ["bip39", "ssl-decoder"] },
+    { name: "Other", keywords: ["pdf-integrity", "safelink-decoder"] },
+  ],
+  generator: [
+    { name: "QR & Barcode", keywords: ["qr-generator", "wifi-qr", "barcode-generator", "barcode-studio"] },
+    { name: "IDs & Tokens", keywords: ["uuid-generator", "ulid-generator", "token-generator", "random-number-generator"] },
+    { name: "Text", keywords: ["lorem-ipsum", "ascii-text-drawer", "formal-email-generator", "emoji-picker"] },
+    { name: "Documents", keywords: ["invoice-generator"] },
+  ],
+};
+
+function slugifySubgroup(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+// Returns the subgroups for a category. Categories without explicit rules
+// (or with very few tools) collapse into a single "All" subgroup so the
+// UI can render them uniformly.
+export function getSubgroups(categoryId: string): Subgroup[] {
+  const categoryTools = getToolsByCategory(categoryId);
+  const rules = SUBGROUP_RULES[categoryId];
+
+  if (!rules || categoryTools.length <= 8) {
+    return [{ id: "all", name: "All Tools", tools: categoryTools }];
+  }
+
+  const subgroups: Subgroup[] = [];
+  const matched = new Set<string>();
+  const other: Tool[] = [];
+
+  for (const rule of rules) {
+    const bucket: Tool[] = [];
+    for (const tool of categoryTools) {
+      if (matched.has(tool.id)) continue;
+      const hay = `${tool.id} ${tool.name}`.toLowerCase();
+      if (rule.keywords.some((kw) => hay.includes(kw))) {
+        bucket.push(tool);
+        matched.add(tool.id);
+      }
+    }
+    if (bucket.length > 0) {
+      subgroups.push({ id: slugifySubgroup(rule.name), name: rule.name, tools: bucket });
+    }
+  }
+
+  for (const tool of categoryTools) {
+    if (!matched.has(tool.id)) other.push(tool);
+  }
+  if (other.length > 0) {
+    subgroups.push({ id: "other", name: "Other", tools: other });
+  }
+
+  return subgroups;
+}
+
 export function getToolById(id: string): Tool | undefined {
   return tools.find(tool => tool.id === id);
 }

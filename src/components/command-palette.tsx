@@ -68,15 +68,14 @@ export function CommandPalette() {
       onOpenChange={setOpen}
       title="Search AnyKit Tools"
       description="Type a tool name, tag, or category to quickly open any tool instantly."
-      className="max-w-2xl border border-border/40 shadow-2xl rounded-2xl overflow-hidden bg-background/95 backdrop-blur-xl"
+      className="max-w-2xl border border-border shadow-xl rounded-xl overflow-hidden bg-popover"
     >
-      <CommandInput 
-        placeholder="Type to search all 100+ professional tools..." 
-        className="h-14 font-medium text-sm pl-4 focus:ring-0 focus:outline-none border-b border-border/40"
+      <CommandInput
+        placeholder="Search tools, categories, tags..."
+        className="h-12 font-medium text-sm pl-4 focus:ring-0 focus:outline-none border-b border-border"
       />
       <CommandList className="max-h-[450px] p-2 overflow-y-auto custom-scrollbar">
         <CommandEmpty className="py-12 text-center text-sm text-muted-foreground">
-          <div className="text-2xl mb-2">🔍</div>
           No matching tools found.
         </CommandEmpty>
 
@@ -94,13 +93,13 @@ export function CommandPalette() {
                       router.push(tool.path);
                     })
                   }
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors hover:bg-accent hover:text-accent-foreground"
+                  className="flex items-center gap-3 px-2.5 py-2 rounded-md cursor-pointer transition-colors hover:bg-accent"
                 >
-                  <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-amber-500/10 text-amber-500 shrink-0">
+                  <div className="flex items-center justify-center w-7 h-7 rounded-md bg-amber-500/10 text-amber-500 shrink-0">
                     <LucideIcon name={tool.icon} className="w-4 h-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-foreground">{tool.name}</p>
+                    <p className="text-xs font-medium text-foreground">{tool.name}</p>
                     <p className="text-[10px] text-muted-foreground truncate">{tool.description}</p>
                   </div>
                   <CommandShortcut>
@@ -127,13 +126,13 @@ export function CommandPalette() {
                       router.push(tool.path);
                     })
                   }
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors hover:bg-accent hover:text-accent-foreground"
+                  className="flex items-center gap-3 px-2.5 py-2 rounded-md cursor-pointer transition-colors hover:bg-accent"
                 >
-                  <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10 text-primary shrink-0">
+                  <div className="flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 text-primary shrink-0">
                     <LucideIcon name={tool.icon} className="w-4 h-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-foreground">{tool.name}</p>
+                    <p className="text-xs font-medium text-foreground">{tool.name}</p>
                     <p className="text-[10px] text-muted-foreground truncate">{tool.description}</p>
                   </div>
                   <CommandShortcut>
@@ -163,13 +162,13 @@ export function CommandPalette() {
                       router.push(tool.path);
                     })
                   }
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors hover:bg-accent hover:text-accent-foreground"
+                  className="flex items-center gap-3 px-2.5 py-2 rounded-md cursor-pointer transition-colors hover:bg-accent"
                 >
-                  <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-muted border border-border/40 shrink-0 text-muted-foreground">
+                  <div className="flex items-center justify-center w-7 h-7 rounded-md bg-muted text-muted-foreground shrink-0">
                     <LucideIcon name={tool.icon} className="w-4 h-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-foreground">{tool.name}</p>
+                    <p className="text-xs font-medium text-foreground">{tool.name}</p>
                     <p className="text-[10px] text-muted-foreground truncate">{tool.description}</p>
                   </div>
                 </CommandItem>
