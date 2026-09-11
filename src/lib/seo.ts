@@ -39,6 +39,25 @@ const CATEGORY_EXTRA_KEYWORDS: Record<string, string[]> = {
   video: ["free video tools online", "video converter online free", "online video compressor free", "mp4 converter online"],
 };
 
+// Near-duplicate tools that split ranking signals. The secondary (key) points
+// its canonical at the primary (value) and is left out of the sitemap so Google
+// consolidates the two URLs instead of choosing between them.
+export const CANONICAL_TOOL: Record<string, string> = {
+  "md-table-generator": "markdown-table-generator",
+  "regex-tester": "regex",
+  "base64-encoder": "base64",
+  "url-slug": "slugify",
+  json: "json-formatter",
+  "jwt-parser": "jwt-debugger",
+  "html-tag-stripper": "strip-html",
+  "meta-tags": "meta-tag-generator",
+  "hash-text": "hash-generator",
+};
+
+export function getCanonicalToolId(toolId: string): string {
+  return CANONICAL_TOOL[toolId] ?? toolId;
+}
+
 export function generateToolMetadata(toolId: string): Metadata {
   const tool = getToolById(toolId);
   if (!tool) {
@@ -50,6 +69,7 @@ export function generateToolMetadata(toolId: string): Metadata {
 
   const category = categories.find((c) => c.id === tool.category);
   const content = getToolContent(toolId);
+  const canonicalTool = getToolById(getCanonicalToolId(toolId)) ?? tool;
   const titleSuffix = CATEGORY_TITLE_SUFFIX[tool.category] ?? (category?.name || "Tool");
   const title = content?.seoTitle ?? `${tool.name} - Free Online ${titleSuffix}`;
   const descBase = tool.description.replace(/\.$/, "");
@@ -69,7 +89,7 @@ export function generateToolMetadata(toolId: string): Metadata {
     description,
     keywords: enhancedKeywords,
     alternates: {
-      canonical: `${BASE_URL}${tool.path}`,
+      canonical: `${BASE_URL}${canonicalTool.path}`,
     },
     robots: {
       index: true,
@@ -110,7 +130,7 @@ export function generateToolJsonLd(toolId: string) {
 
   const category = categories.find((c) => c.id === tool.category);
   const content = getToolContent(toolId);
-  const url = `${BASE_URL}${tool.path}`;
+  const url = `${BASE_URL}${(getToolById(getCanonicalToolId(toolId)) ?? tool).path}`;
 
   const graph: Record<string, unknown>[] = [
     {

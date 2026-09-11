@@ -26,6 +26,31 @@ import markdownToHtml from "./markdown-to-html";
 import extractor from "./extractor";
 import cropPdf from "./crop-pdf";
 import base64File from "./base64-file";
+import addBlankPage from "./add-blank-page";
+import base64 from "./base64";
+import basicAuth from "./basic-auth";
+import channelMixer from "./channel-mixer";
+import colorDistance from "./color-distance";
+import combineMarkdown from "./combine-markdown";
+import cssFlexbox from "./css-flexbox";
+import etaCalculator from "./eta-calculator";
+import fadeInOut from "./fade-in-out";
+import gifToVideo from "./gif-to-video";
+import isoFormatter from "./iso-formatter";
+import jsonSchema from "./json-schema";
+import listConverter from "./list-converter";
+import lottiePreview from "./lottie-preview";
+import markdownTableGenerator from "./markdown-table-generator";
+import otpGenerator from "./otp-generator";
+import phoneParser from "./phone-parser";
+import regex from "./regex";
+import renamer from "./renamer";
+import scannerEffect from "./scanner-effect";
+import slugify from "./slugify";
+import svgPath from "./svg-path";
+import tokenGenerator from "./token-generator";
+import unitConverter from "./unit-converter";
+import yamlViewer from "./yaml-viewer";
 
 export type { ToolContent, ToolFaq, ToolHowToStep, ToolSection } from "./types";
 
@@ -57,6 +82,31 @@ const registry: Record<string, ToolContent> = {
   extractor,
   "crop-pdf": cropPdf,
   "base64-file": base64File,
+  "add-blank-page": addBlankPage,
+  base64: base64,
+  "basic-auth": basicAuth,
+  "channel-mixer": channelMixer,
+  "color-distance": colorDistance,
+  "combine-markdown": combineMarkdown,
+  "css-flexbox": cssFlexbox,
+  "eta-calculator": etaCalculator,
+  "fade-in-out": fadeInOut,
+  "gif-to-video": gifToVideo,
+  "iso-formatter": isoFormatter,
+  "json-schema": jsonSchema,
+  "list-converter": listConverter,
+  "lottie-preview": lottiePreview,
+  "markdown-table-generator": markdownTableGenerator,
+  "otp-generator": otpGenerator,
+  "phone-parser": phoneParser,
+  regex: regex,
+  renamer: renamer,
+  "scanner-effect": scannerEffect,
+  slugify: slugify,
+  "svg-path": svgPath,
+  "token-generator": tokenGenerator,
+  "unit-converter": unitConverter,
+  "yaml-viewer": yamlViewer,
 };
 
 export function getToolContent(toolId: string): ToolContent | undefined {

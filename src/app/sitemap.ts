@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { tools, categories } from "@/lib/tools";
+import { CANONICAL_TOOL } from "@/lib/seo";
 import { execFileSync } from "child_process";
 import path from "path";
 
@@ -65,6 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   for (const tool of tools) {
+    if (tool.id in CANONICAL_TOOL) continue;
     routes.push({
       url: `${BASE_URL}${tool.path}`,
       lastModified: dateFor(
