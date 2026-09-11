@@ -1,6 +1,7 @@
 import { generateToolMetadata } from "@/lib/seo";
 import { generateToolJsonLd } from "@/lib/seo";
 import VideoRotatorClient from "./client";
+import { ToolSeoContent } from "@/components/tool-seo-content";
 
 export const metadata = generateToolMetadata("video-rotator");
 
@@ -13,6 +14,7 @@ export default function VideoRotator() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <VideoRotatorClient />
+      <ToolSeoContent toolId="video-rotator" />
     </>
   );
 }

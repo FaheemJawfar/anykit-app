@@ -1,6 +1,7 @@
 import { generateToolMetadata } from "@/lib/seo";
 import { generateToolJsonLd } from "@/lib/seo";
 import VideoSpeedChangerClient from "./client";
+import { ToolSeoContent } from "@/components/tool-seo-content";
 
 export const metadata = generateToolMetadata("video-speed-changer");
 
@@ -13,6 +14,7 @@ export default function VideoSpeedChanger() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <VideoSpeedChangerClient />
+      <ToolSeoContent toolId="video-speed-changer" />
     </>
   );
 }

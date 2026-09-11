@@ -1,6 +1,7 @@
 import { generateToolMetadata } from "@/lib/seo";
 import { generateToolJsonLd } from "@/lib/seo";
 import VideoCropperClient from "./client";
+import { ToolSeoContent } from "@/components/tool-seo-content";
 
 export const metadata = generateToolMetadata("video-cropper");
 
@@ -13,6 +14,7 @@ export default function VideoCropper() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <VideoCropperClient />
+      <ToolSeoContent toolId="video-cropper" />
     </>
   );
 }

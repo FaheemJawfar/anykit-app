@@ -1,41 +1,33 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { ToolLayout } from "@/components/tool-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Type, Copy, CheckCircle2, Zap, Search } from "lucide-react";
+import { colorsNamed } from "culori";
 
-const namedColors: { name: string; hex: string }[] = [
-  { name: "Red", hex: "#ff0000" }, { name: "Green", hex: "#008000" }, { name: "Blue", hex: "#0000ff" },
-  { name: "Yellow", hex: "#ffff00" }, { name: "Cyan", hex: "#00ffff" }, { name: "Magenta", hex: "#ff00ff" },
-  { name: "Black", hex: "#000000" }, { name: "White", hex: "#ffffff" }, { name: "Orange", hex: "#ffa500" },
-  { name: "Purple", hex: "#800080" }, { name: "Pink", hex: "#ffc0cb" }, { name: "Brown", hex: "#a52a2a" },
-  { name: "Gray", hex: "#808080" }, { name: "Lime", hex: "#00ff00" }, { name: "Teal", hex: "#008080" },
-  { name: "Navy", hex: "#000080" }, { name: "Maroon", hex: "#800000" }, { name: "Olive", hex: "#808000" },
-  { name: "Coral", hex: "#ff7f50" }, { name: "Gold", hex: "#ffd700" }, { name: "Indigo", hex: "#4b0082" },
-  { name: "Violet", hex: "#ee82ee" }, { name: "Turquoise", hex: "#40e0d0" }, { name: "Salmon", hex: "#fa8072" },
-];
+const namedColors: { name: string; hex: string }[] = Object.entries(colorsNamed).map(([name, value]) => ({
+  name,
+  hex: `#${(value as number).toString(16).padStart(6, "0")}`,
+}));
+
+const hexToRgb = (hex: string) => { const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null; };
 
 export default function ColorNameFinder() {
   const [color, setColor] = useState("#3f51b5");
-  const [closestName, setClosestName] = useState("");
-  const [closestHex, setClosestHex] = useState("");
   const [copied, setCopied] = useState(false);
 
-  const hexToRgb = (hex: string) => { const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null; };
-
-  useEffect(() => {
-    const rgb = hexToRgb(color); if (!rgb) return;
-    let bestDist = Infinity; let bestName = "Custom"; let bestHex = color;
-    namedColors.forEach(c => {
-      const crgb = hexToRgb(c.hex); if (!crgb) return;
-      const dist = Math.pow(rgb.r - crgb.r, 2) + Math.pow(rgb.g - crgb.g, 2) + Math.pow(rgb.b - crgb.b, 2);
-      if (dist < bestDist) { bestDist = dist; bestName = c.name; bestHex = c.hex; }
-    });
-    setClosestName(bestName); setClosestHex(bestHex);
+  const matches = useMemo(() => {
+    const rgb = hexToRgb(color); if (!rgb) return [] as { name: string; hex: string; dist: number }[];
+    return namedColors
+      .map(c => { const crgb = hexToRgb(c.hex)!; return { ...c, dist: Math.sqrt(Math.pow(rgb.r - crgb.r, 2) + Math.pow(rgb.g - crgb.g, 2) + Math.pow(rgb.b - crgb.b, 2)) }; })
+      .sort((a, b) => a.dist - b.dist)
+      .slice(0, 6);
   }, [color]);
+  const closestName = matches[0]?.name ?? "Custom";
+  const closestHex = matches[0]?.hex ?? color;
 
   const copyToClipboard = async () => { try { await navigator.clipboard.writeText(color); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch (err) { console.error(err); } };
 
@@ -70,6 +62,19 @@ export default function ColorNameFinder() {
                   <p className="text-xs text-muted-foreground font-mono font-bold">{closestHex}</p>
                 </div>
               </div>
+              {matches.length > 1 && (
+                <ul className="mt-4 space-y-1.5">
+                  {matches.slice(1).map(m => (
+                    <li key={m.name}>
+                      <button type="button" onClick={() => setColor(m.hex)} className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-muted/40 transition-colors text-left" title={`Use ${m.name}`}>
+                        <span className="w-7 h-7 rounded-md border border-border shrink-0" style={{ backgroundColor: m.hex }} />
+                        <span className="flex-1 min-w-0"><span className="block text-sm font-semibold truncate">{m.name}</span><span className="block text-[11px] font-mono text-muted-foreground">{m.hex}</span></span>
+                        <span className="text-[10px] text-muted-foreground font-bold">Δ{m.dist.toFixed(0)}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </CardContent>
           </Card>
         </div>

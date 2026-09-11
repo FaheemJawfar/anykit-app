@@ -77,14 +77,14 @@ export function ToolLayout({ toolId, children }: ToolLayoutProps) {
   return (
     <div className="max-w-7xl mx-auto px-4 pt-2 pb-6 md:pt-3 md:pb-10 space-y-8 text-foreground">
       {/* Dynamic Breadcrumbs */}
-      <nav className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/80 overflow-x-auto whitespace-nowrap bg-card/45 border border-border/45 rounded-xl px-3 py-2 w-fit max-w-full">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/80 overflow-x-auto whitespace-nowrap bg-card/45 border border-border/45 rounded-xl px-3 py-2 w-fit max-w-full">
         <Link href="/" className="hover:text-primary transition-colors">
           Home
         </Link>
         <ChevronRight className="w-3.5 h-3.5 opacity-60 shrink-0" />
         {category && (
           <>
-            <Link href={`/?category=${category.id}`} className="hover:text-primary transition-colors">
+            <Link href={`/category/${category.id}`} className="hover:text-primary transition-colors">
               {category.name}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 opacity-60 shrink-0" />

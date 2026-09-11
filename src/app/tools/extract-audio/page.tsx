@@ -1,6 +1,7 @@
 import { generateToolMetadata } from "@/lib/seo";
 import { generateToolJsonLd } from "@/lib/seo";
 import ExtractAudioClient from "./client";
+import { ToolSeoContent } from "@/components/tool-seo-content";
 
 export const metadata = generateToolMetadata("extract-audio");
 
@@ -13,6 +14,7 @@ export default function ExtractAudio() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <ExtractAudioClient />
+      <ToolSeoContent toolId="extract-audio" />
     </>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { getToolById, categories } from "@/lib/tools";
+import { getToolById, categories, tools } from "@/lib/tools";
+import { getToolContent } from "@/content/tools";
+import { getCategoryContent } from "@/content/categories";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://anykit.app";
 
@@ -47,10 +49,12 @@ export function generateToolMetadata(toolId: string): Metadata {
   }
 
   const category = categories.find((c) => c.id === tool.category);
+  const content = getToolContent(toolId);
   const titleSuffix = CATEGORY_TITLE_SUFFIX[tool.category] ?? (category?.name || "Tool");
-  const title = `${tool.name} - Free Online ${titleSuffix}`;
+  const title = content?.seoTitle ?? `${tool.name} - Free Online ${titleSuffix}`;
   const descBase = tool.description.replace(/\.$/, "");
-  const description = `${descBase}. Free online ${tool.name} — no sign-up, works instantly in your browser. Part of AnyKit's 160+ privacy-first utility tools.`;
+  const description =
+    content?.seoDescription ?? `${descBase}. Free ${titleSuffix.toLowerCase()} that runs in your browser — no upload, no sign-up, instant results.`;
   const enhancedKeywords = [
     ...(tool.tags || []),
     "free online tool",
@@ -84,8 +88,8 @@ export function generateToolMetadata(toolId: string): Metadata {
       title: tool.name,
     },
     openGraph: {
-      title: `${tool.name} - AnyKit App`,
-      description: tool.description,
+      title,
+      description,
       url: `${BASE_URL}${tool.path}`,
       siteName: "AnyKit App",
       type: "website",
@@ -93,8 +97,8 @@ export function generateToolMetadata(toolId: string): Metadata {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${tool.name} - AnyKit App`,
-      description: tool.description,
+      title,
+      description,
       images: ["/og-image.png"],
     },
   };
@@ -105,27 +109,27 @@ export function generateToolJsonLd(toolId: string) {
   if (!tool) return null;
 
   const category = categories.find((c) => c.id === tool.category);
+  const content = getToolContent(toolId);
+  const url = `${BASE_URL}${tool.path}`;
 
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: tool.name,
-    description: tool.description,
-    url: `${BASE_URL}${tool.path}`,
-    applicationCategory: category?.name || "Utility",
-    operatingSystem: "Any",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "WebApplication",
+      "@id": `${url}#app`,
+      name: tool.name,
+      description: content?.seoDescription ?? tool.description,
+      url,
+      applicationCategory: category?.name || "Utility",
+      operatingSystem: "Any",
+      browserRequirements: "Requires JavaScript",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      isPartOf: { "@type": "WebSite", name: "AnyKit App", url: BASE_URL },
+      publisher: { "@type": "Organization", name: "AnyKit App", url: BASE_URL },
     },
-    isPartOf: {
-      "@type": "WebSite",
-      name: "AnyKit App",
-      url: BASE_URL,
-    },
-    breadcrumb: {
+    {
       "@type": "BreadcrumbList",
+      "@id": `${url}#breadcrumb`,
       itemListElement: [
         {
           "@type": "ListItem",
@@ -147,55 +151,110 @@ export function generateToolJsonLd(toolId: string) {
           "@type": "ListItem",
           position: category ? 3 : 2,
           name: tool.name,
-          item: `${BASE_URL}${tool.path}`,
+          item: url,
         },
       ],
     },
-  };
+  ];
+
+  if (content?.faqs.length) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      mainEntity: content.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
+      })),
+    });
+  }
+
+  if (content?.howTo.length) {
+    graph.push({
+      "@type": "HowTo",
+      "@id": `${url}#howto`,
+      name: `How to use the ${tool.name}`,
+      description: content.intro,
+      totalTime: "PT1M",
+      tool: { "@type": "HowToTool", name: tool.name },
+      step: content.howTo.map((s, i) => ({
+        "@type": "HowToStep",
+        position: i + 1,
+        name: s.name,
+        text: s.text,
+        url: `${url}#step-${i + 1}`,
+      })),
+    });
+  }
+
+  return { "@context": "https://schema.org", "@graph": graph };
 }
+
+export const TOOL_COUNT = tools.length;
 
 export function generateCategoryJsonLd(categoryId: string) {
   const category = categories.find((c) => c.id === categoryId);
   if (!category) return null;
+  const content = getCategoryContent(categoryId);
+  const url = `${BASE_URL}/category/${category.id}`;
+  const categoryTools = tools.filter((t) => t.category === categoryId);
 
-  return {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: `${category.name} - Free Online Tools`,
-    description: category.description,
-    url: `${BASE_URL}/category/${category.id}`,
-    isPartOf: {
-      "@type": "WebSite",
-      name: "AnyKit App",
-      url: BASE_URL,
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "CollectionPage",
+      "@id": `${url}#page`,
+      name: `${category.name} - Free Online Tools`,
+      description: content?.tagline ?? category.description,
+      url,
+      isPartOf: { "@type": "WebSite", name: "AnyKit App", url: BASE_URL },
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: categoryTools.length,
+        itemListElement: categoryTools.map((t, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: t.name,
+          url: `${BASE_URL}${t.path}`,
+        })),
+      },
     },
-    breadcrumb: {
+    {
       "@type": "BreadcrumbList",
+      "@id": `${url}#breadcrumb`,
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: BASE_URL,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: category.name,
-          item: `${BASE_URL}/category/${category.id}`,
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+        { "@type": "ListItem", position: 2, name: category.name, item: url },
       ],
     },
-  };
+  ];
+
+  if (content?.faqs.length) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      mainEntity: content.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
+      })),
+    });
+  }
+
+  return { "@context": "https://schema.org", "@graph": graph };
 }
 
 export function generateCategoryMetadata(categoryId: string, toolCount: number): Metadata {
   const category = categories.find((c) => c.id === categoryId);
   if (!category) return { title: "Category Not Found" };
 
+  const content = getCategoryContent(categoryId);
+  const description = content
+    ? `${content.tagline} Browse ${toolCount} free online ${category.name.toLowerCase()} on AnyKit — private, browser-based, no sign-up.`
+    : `${category.description}. Browse ${toolCount} free online ${category.name.toLowerCase()} on AnyKit. No sign-up required.`;
+
   return {
     title: `${category.name} - ${toolCount} Free Online Tools`,
-    description: `${category.description}. Browse ${toolCount} free online ${category.name.toLowerCase()} on AnyKit. No sign-up required.`,
+    description,
     keywords: [
       category.name.toLowerCase(),
       "free online tools",
@@ -220,8 +279,8 @@ export function generateCategoryMetadata(categoryId: string, toolCount: number):
       },
     },
     openGraph: {
-      title: `${category.name} - AnyKit App`,
-      description: `${category.description}. ${toolCount} free tools available.`,
+      title: `${category.name} - ${toolCount} Free Online Tools | AnyKit`,
+      description,
       url: `/category/${categoryId}`,
       siteName: "AnyKit App",
       type: "website",
@@ -229,8 +288,8 @@ export function generateCategoryMetadata(categoryId: string, toolCount: number):
     },
     twitter: {
       card: "summary_large_image",
-      title: `${category.name} - AnyKit App`,
-      description: `${category.description}. ${toolCount} free tools available.`,
+      title: `${category.name} - ${toolCount} Free Online Tools | AnyKit`,
+      description,
       images: ["/og-image.png"],
     },
   };

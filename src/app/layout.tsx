@@ -45,11 +45,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://anykit.app";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "AnyKit App - 160+ Best Free Online Developer & Utility Tools",
+    default: "AnyKit App - 250+ Best Free Online Developer & Utility Tools",
     template: "%s | AnyKit App",
   },
   description:
-    "Best free collection of 160+ all-in-one online tools for developers, designers, students, and everyday tasks. JSON formatter, PDF tools, Base64 encoder, color converter, regex tester, QR code generator, and more. All browser-based — no sign-up required.",
+    "Best free collection of 250+ all-in-one online tools for developers, designers, students, and everyday tasks. JSON formatter, PDF tools, Base64 encoder, color converter, regex tester, QR code generator, and more. All browser-based — no sign-up required.",
   keywords: [
     "online tools",
     "best free online tools",
@@ -126,16 +126,16 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     siteName: "AnyKit App",
-    title: "AnyKit App - 160+ Best Free Online Developer & Utility Tools",
+    title: "AnyKit App - 250+ Best Free Online Developer & Utility Tools",
     description:
-      "Best free collection of 160+ all-in-one online tools for developers, designers, students, and everyday tasks. All browser-based — no sign-up required.",
+      "Best free collection of 250+ all-in-one online tools for developers, designers, students, and everyday tasks. All browser-based — no sign-up required.",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AnyKit App - 160+ Best Free Online Developer & Utility Tools",
+    title: "AnyKit App - 250+ Best Free Online Developer & Utility Tools",
     description:
-      "Best free collection of 160+ all-in-one online tools for developers, designers, students, and everyday tasks. All browser-based — no sign-up required.",
+      "Best free collection of 250+ all-in-one online tools for developers, designers, students, and everyday tasks. All browser-based — no sign-up required.",
     images: ["/og-image.png"],
   },
   robots: {

@@ -1,6 +1,7 @@
 import { generateToolMetadata } from "@/lib/seo";
 import { generateToolJsonLd } from "@/lib/seo";
 import VideoScreenshotClient from "./client";
+import { ToolSeoContent } from "@/components/tool-seo-content";
 
 export const metadata = generateToolMetadata("video-screenshot");
 
@@ -13,6 +14,7 @@ export default function VideoScreenshot() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <VideoScreenshotClient />
+      <ToolSeoContent toolId="video-screenshot" />
     </>
   );
 }

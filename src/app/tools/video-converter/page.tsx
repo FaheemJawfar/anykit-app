@@ -1,6 +1,7 @@
 import { generateToolMetadata } from "@/lib/seo";
 import { generateToolJsonLd } from "@/lib/seo";
 import VideoConverterClient from "./client";
+import { ToolSeoContent } from "@/components/tool-seo-content";
 
 export const metadata = generateToolMetadata("video-converter");
 
@@ -13,6 +14,7 @@ export default function VideoConverter() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <VideoConverterClient />
+      <ToolSeoContent toolId="video-converter" />
     </>
   );
 }

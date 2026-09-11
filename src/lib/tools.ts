@@ -469,7 +469,7 @@ export const tools: Tool[] = [
   {
     id: 'iban-validator',
     name: 'IBAN Validator',
-    description: 'Validate IBAN bank account numbers instantly — extract BIC/SWIFT code, country, bank code, and account details. Supports all SEPA countries.',
+    description: 'Validate IBAN bank account numbers instantly — checks the mod-97 checksum and country format, then shows the country, bank code and account number. Supports all SEPA and IBAN-registry countries.',
     category: 'converter',
     icon: 'Landmark',
     path: '/tools/iban-validator',
@@ -1962,7 +1962,7 @@ export const tools: Tool[] = [
   {
     id: 'color-name-finder',
     name: 'Color Name Finder',
-    description: 'Find the closest named color to any hex value using RGB distance',
+    description: 'Identify the name of any color — finds the closest of the 148 CSS named colors to any hex value, with the nearest alternatives',
     category: 'color',
     icon: 'Type',
     path: '/tools/color-name-finder',
