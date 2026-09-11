@@ -29,10 +29,18 @@ jobs:
             cd ~/anykit-app
             git pull origin main
             NODE_OPTIONS='--max-old-space-size=4096' npm install
-            # Kill any stale next build process and clear the build lock
+            # Kill any stale next build process left over from a cancelled deploy
             pkill -f "next build" 2>/dev/null || true
             pkill -f "next/dist/bin/build" 2>/dev/null || true
-            rm -f .next/build-state.json .next/cache/.*.lock 2>/dev/null || true
+            # next.config.ts makes `next build` write to .next-new, so the live server
+            # keeps serving from .next untouched. Reuse the previous build cache.
+            rm -rf .next-new
+            if [ -d .next/cache ]; then mkdir -p .next-new && cp -r .next/cache .next-new/cache; fi
             NODE_OPTIONS='--max-old-space-size=4096' npm run build
+            # Atomic swap: the server only ever sees a complete build directory
+            rm -rf .next-old
+            [ -d .next ] && mv .next .next-old
+            mv .next-new .next
             pm2 restart anykit-app
+            rm -rf .next-old
           EOF
