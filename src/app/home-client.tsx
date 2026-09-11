@@ -1,26 +1,22 @@
 "use client";
 
-import { useMemo, Suspense } from "react";
+import { useMemo, Suspense, type ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ToolCard } from "@/components/tool-card";
 import { CategoryBrowser } from "@/components/category-browser";
 import { Button } from "@/components/ui/button";
-import {
-  tools,
-  getToolsByCategory,
-  searchTools,
-  categories,
-  getSubgroups,
-} from "@/lib/tools";
+import { getToolsByCategory, searchTools, categories } from "@/lib/tools";
 import { LucideIcon } from "@/components/lucide-icon";
 import { usePersistentTools } from "@/hooks/use-persistent-tools";
-import { cn } from "@/lib/utils";
-import { ArrowRight, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
-const PREVIEW_COUNT = 5;
+interface HomeProps {
+  /** Server-rendered default landing (intro, categories, FAQ). */
+  landing: ReactNode;
+}
 
-function HomeContent() {
+function HomeContent({ landing }: HomeProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category");
@@ -42,30 +38,9 @@ function HomeContent() {
   const isSearching = Boolean(searchQuery);
   const isBrowsingCategory = Boolean(selectedCategory);
 
-  // Group tools by category for the default landing view.
-  const categorySections = useMemo(() => {
-    return categories.map((cat) => ({
-      category: cat,
-      tools: getToolsByCategory(cat.id),
-      subgroups: getSubgroups(cat.id),
-    }));
-  }, []);
 
   return (
     <main className="container mx-auto px-4 md:px-6 py-8 md:py-10 space-y-10">
-      {/* Compact intro (only on default landing) */}
-      {!isBrowsingCategory && !isSearching && (
-        <section className="space-y-2">
-          <h1 className="text-2xl md:text-[28px] font-semibold tracking-tight text-foreground">
-            Every utility in one place.
-          </h1>
-          <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
-            {tools.length} privacy-first tools across {categories.length} categories. Everything runs
-            in your browser — no sign-up, no uploads.
-          </p>
-        </section>
-      )}
-
       {/* Favorites */}
       {showFavorites && (
         <section className="space-y-4">
@@ -150,76 +125,20 @@ function HomeContent() {
         </section>
       )}
 
-      {/* Default grouped-by-category landing */}
-      {!isBrowsingCategory && !isSearching && (
-        <div className="space-y-10">
-          {categorySections.map(({ category, tools: catTools, subgroups }) => {
-            const preview = catTools.slice(0, PREVIEW_COUNT);
-            const remaining = catTools.length - preview.length;
-            const hasSubgroups = subgroups.length > 1;
-            return (
-              <section key={category.id} className="space-y-4">
-                <div className="flex items-center justify-between gap-4 border-b border-border/60 pb-2">
-                  <Link
-                    href={`/category/${category.id}`}
-                    className="group flex items-center gap-2.5 min-w-0"
-                  >
-                    <span className="flex items-center justify-center w-7 h-7 rounded-md bg-muted text-muted-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
-                      <LucideIcon name={category.icon} className="w-3.5 h-3.5" />
-                    </span>
-                    <h2 className="text-sm font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors truncate">
-                      {category.name}
-                    </h2>
-                    <span className="text-xs text-muted-foreground tabular-nums shrink-0">
-                      {catTools.length}
-                    </span>
-                  </Link>
-                  <Link
-                    href={`/category/${category.id}`}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors shrink-0"
-                  >
-                    View all
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3">
-                  {preview.map((tool) => (
-                    <ToolCard key={tool.id} tool={tool} />
-                  ))}
-                </div>
-
-                {remaining > 0 && (
-                  <Link
-                    href={`/category/${category.id}`}
-                    className={cn(
-                      "inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
-                    )}
-                  >
-                    Show {remaining} more in {category.name}
-                    {hasSubgroups && " · grouped by topic"}
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
-                )}
-              </section>
-            );
-          })}
-        </div>
-      )}
+      {/* Default landing — server-rendered so crawlers see it without JS */}
+      {!isBrowsingCategory && !isSearching && landing}
     </main>
   );
 }
 
-export default function Home() {
+export default function Home({ landing }: HomeProps) {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-        </div>
+        <main className="container mx-auto px-4 md:px-6 py-8 md:py-10 space-y-10">{landing}</main>
       }
     >
-      <HomeContent />
+      <HomeContent landing={landing} />
     </Suspense>
   );
 }

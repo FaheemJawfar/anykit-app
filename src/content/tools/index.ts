@@ -51,6 +51,32 @@ import svgPath from "./svg-path";
 import tokenGenerator from "./token-generator";
 import unitConverter from "./unit-converter";
 import yamlViewer from "./yaml-viewer";
+import audioMetadataEditor from "./audio-metadata-editor";
+import audioTrimmer from "./audio-trimmer";
+import base64ImageToFile from "./base64-image-to-file";
+import cameraRecorder from "./camera-recorder";
+import chapterSplitter from "./chapter-splitter";
+import colorBlindness from "./color-blindness";
+import colorConverter from "./color-converter";
+import colorExtractor from "./color-extractor";
+import colorMixer from "./color-mixer";
+import colorTemperature from "./color-temperature";
+import compressor from "./compressor";
+import jsonGo from "./json-go";
+import muteVideo from "./mute-video";
+import ogDebugger from "./og-debugger";
+import pageNumbers from "./page-numbers";
+import pdfIntegrity from "./pdf-integrity";
+import portGenerator from "./port-generator";
+import removeBlankPages from "./remove-blank-pages";
+import ringtoneMaker from "./ringtone-maker";
+import rsaGenerator from "./rsa-generator";
+import salaryCalculator from "./salary-calculator";
+import sslDecoder from "./ssl-decoder";
+import tipCalculator from "./tip-calculator";
+import urlParser from "./url-parser";
+import uuidGenerator from "./uuid-generator";
+import voiceIsolator from "./voice-isolator";
 
 export type { ToolContent, ToolFaq, ToolHowToStep, ToolSection } from "./types";
 
@@ -107,6 +133,32 @@ const registry: Record<string, ToolContent> = {
   "token-generator": tokenGenerator,
   "unit-converter": unitConverter,
   "yaml-viewer": yamlViewer,
+  "audio-metadata-editor": audioMetadataEditor,
+  "audio-trimmer": audioTrimmer,
+  "base64-image-to-file": base64ImageToFile,
+  "camera-recorder": cameraRecorder,
+  "chapter-splitter": chapterSplitter,
+  "color-blindness": colorBlindness,
+  "color-converter": colorConverter,
+  "color-extractor": colorExtractor,
+  "color-mixer": colorMixer,
+  "color-temperature": colorTemperature,
+  compressor: compressor,
+  "json-go": jsonGo,
+  "mute-video": muteVideo,
+  "og-debugger": ogDebugger,
+  "page-numbers": pageNumbers,
+  "pdf-integrity": pdfIntegrity,
+  "port-generator": portGenerator,
+  "remove-blank-pages": removeBlankPages,
+  "ringtone-maker": ringtoneMaker,
+  "rsa-generator": rsaGenerator,
+  "salary-calculator": salaryCalculator,
+  "ssl-decoder": sslDecoder,
+  "tip-calculator": tipCalculator,
+  "url-parser": urlParser,
+  "uuid-generator": uuidGenerator,
+  "voice-isolator": voiceIsolator,
 };
 
 export function getToolContent(toolId: string): ToolContent | undefined {
